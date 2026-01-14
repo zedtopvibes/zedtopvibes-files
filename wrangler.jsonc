@@ -1,5 +1,7 @@
- "name": "static-site",
-compatibility_date = "2026-01-14"
-
-[assets]
-directory = "./public"
+{
+  "name": "static-site",
+  "compatibility_date": "2026-01-14",
+  "assets": {
+    "directory": "./public"
+  }
+}
