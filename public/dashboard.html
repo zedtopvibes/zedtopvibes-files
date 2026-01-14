@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+  margin: 0;
+}
+
+header {
+  background: #020617;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+button {
+  padding: 8px 12px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <strong>File Hosting Dashboard</strong>
+  <button onclick="logout()">Logout</button>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h3>Storage Stats</h3>
+    <p>Total Storage: 0 GB</p>
+    <p>Total Files: 0</p>
+  </div>
+
+  <div class="card">
+    <h3>Folders</h3>
+    <input type="text" placeholder="New folder name">
+    <button>Add Folder</button>
+  </div>
+
+  <div class="card">
+    <h3>Upload File</h3>
+    <input type="file">
+    <button>Upload</button>
+  </div>
+
+  <div class="card">
+    <h3>Files</h3>
+    <p>No files yet</p>
+  </div>
+
+</div>
+
+<script>
+// Protect dashboard
+if (localStorage.getItem("loggedIn") !== "true") {
+  window.location.href = "login.html";
+}
+
+function logout() {
+  localStorage.removeItem("loggedIn");
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
