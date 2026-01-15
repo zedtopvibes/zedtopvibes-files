@@ -832,6 +832,65 @@
             color: var(--primary-blue);
         }
 
+        /* Context Menu Mobile Responsive */
+        @media (max-width: 768px) {
+            .context-menu {
+                position: fixed !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                width: 280px !important;
+                max-width: 90vw !important;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important;
+                border-radius: 12px !important;
+                padding: 8px 0 !important;
+            }
+            
+            .context-menu-item {
+                padding: 14px 20px !important;
+                font-size: 16px !important;
+                min-height: 48px !important;
+                display: flex !important;
+                align-items: center !important;
+            }
+            
+            .context-menu-item i {
+                font-size: 18px !important;
+                width: 24px !important;
+            }
+            
+            .context-menu-item span {
+                flex: 1 !important;
+            }
+            
+            /* Touch-friendly backdrop */
+            .context-menu-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 99;
+                opacity: 0;
+                animation: fadeIn 0.2s ease forwards;
+            }
+            
+            .context-menu-backdrop.fade-out {
+                animation: fadeOut 0.2s ease forwards;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
         /* Responsive */
         @media (max-width: 1024px) {
             .sidebar {
@@ -1327,6 +1386,7 @@
         const storageTotal = 20; // GB
         let currentView = 'list';
         let currentFolderId = null; // null means root
+        let contextMenuBackdrop = null; // For mobile backdrop
 
         // Initialize the dashboard
         function initDashboard() {
@@ -1649,6 +1709,76 @@
             return selected ? parseInt(selected.dataset.id) : null;
         }
 
+        // Show context menu with mobile responsiveness
+        function showContextMenu(x, y) {
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // Mobile: center the context menu with backdrop
+                contextMenu.style.position = 'fixed';
+                contextMenu.style.top = '50%';
+                contextMenu.style.left = '50%';
+                contextMenu.style.transform = 'translate(-50%, -50%)';
+                contextMenu.style.width = '280px';
+                contextMenu.style.maxWidth = '90vw';
+                
+                // Create backdrop for mobile
+                if (!contextMenuBackdrop) {
+                    contextMenuBackdrop = document.createElement('div');
+                    contextMenuBackdrop.className = 'context-menu-backdrop';
+                    contextMenuBackdrop.addEventListener('click', () => {
+                        hideContextMenu();
+                    });
+                }
+                
+                // Add backdrop to DOM
+                document.body.appendChild(contextMenuBackdrop);
+                
+            } else {
+                // Desktop: position at mouse coordinates
+                contextMenu.style.position = 'absolute';
+                contextMenu.style.left = `${x}px`;
+                contextMenu.style.top = `${y}px`;
+                contextMenu.style.transform = 'none';
+                contextMenu.style.width = '180px';
+                
+                // Remove backdrop if exists
+                if (contextMenuBackdrop && contextMenuBackdrop.parentNode) {
+                    contextMenuBackdrop.parentNode.removeChild(contextMenuBackdrop);
+                    contextMenuBackdrop = null;
+                }
+                
+                // Prevent context menu from going off-screen on desktop
+                setTimeout(() => {
+                    const rect = contextMenu.getBoundingClientRect();
+                    if (rect.right > window.innerWidth) {
+                        contextMenu.style.left = `${x - (rect.right - window.innerWidth)}px`;
+                    }
+                    if (rect.bottom > window.innerHeight) {
+                        contextMenu.style.top = `${y - (rect.bottom - window.innerHeight)}px`;
+                    }
+                }, 0);
+            }
+            
+            contextMenu.classList.add('show');
+        }
+
+        // Hide context menu
+        function hideContextMenu() {
+            contextMenu.classList.remove('show');
+            
+            // Remove backdrop on mobile
+            if (contextMenuBackdrop && contextMenuBackdrop.parentNode) {
+                contextMenuBackdrop.classList.add('fade-out');
+                setTimeout(() => {
+                    if (contextMenuBackdrop && contextMenuBackdrop.parentNode) {
+                        contextMenuBackdrop.parentNode.removeChild(contextMenuBackdrop);
+                        contextMenuBackdrop = null;
+                    }
+                }, 200);
+            }
+        }
+
         // Event Listeners
         // Toggle sidebar
         menuToggle.addEventListener('click', () => {
@@ -1685,6 +1815,11 @@
                 sidebar.classList.remove('open');
                 // Reset icon to bars
                 menuToggle.querySelector('i').className = 'fas fa-bars';
+            }
+            
+            // Hide context menu on resize
+            if (contextMenu.classList.contains('show')) {
+                hideContextMenu();
             }
         });
 
@@ -2006,26 +2141,28 @@
         });
 
         // Close dropdowns when clicking outside
-        document.addEventListener('click', () => {
-            notificationDropdown.classList.remove('show');
-            userDropdown.classList.remove('show');
-            contextMenu.classList.remove('show');
+        document.addEventListener('click', (e) => {
+            // Don't close if clicking on context menu, more button, or backdrop
+            if (!contextMenu.contains(e.target) && 
+                !e.target.closest('.more-btn') &&
+                !e.target.closest('.context-menu-backdrop')) {
+                notificationDropdown.classList.remove('show');
+                userDropdown.classList.remove('show');
+                hideContextMenu();
+            }
         });
 
         // Context menu handling
-        function showContextMenu(x, y) {
-            contextMenu.style.left = `${x}px`;
-            contextMenu.style.top = `${y}px`;
-            contextMenu.classList.add('show');
-        }
-
         contextMenu.addEventListener('click', (e) => {
-            const action = e.target.closest('.context-menu-item').dataset.action;
+            const menuItem = e.target.closest('.context-menu-item');
+            if (!menuItem) return;
+            
+            const action = menuItem.dataset.action;
             const file = fileData.find(f => f.id === parseInt(selectedFileId));
             
             if (!file) return;
             
-            contextMenu.classList.remove('show');
+            hideContextMenu();
             
             switch(action) {
                 case 'open':
@@ -2102,4 +2239,3 @@
     </script>
 </body>
 </html>
-
