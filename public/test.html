@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kaladoshas – Example Song</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f9f9f9;
+  }
+  h1 {
+    color: #222;
+  }
+  .views {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+  }
+  .views span {
+    font-weight: bold;
+    color: #000;
+  }
+</style>
+</head>
+<body>
+
+<h1>Kaladoshas – Example Song</h1>
+
+<div class="views">
+  👁️ <span id="views">0</span> views
+</div>
+
+<script>
+  // CHANGE THIS TO YOUR SONG SLUG
+  const SLUG = "kaladoshas";
+
+  // YOUR WORKER API URL
+  const API = "https://view-counter.zedtopvibes.workers.dev";
+
+  // Function to get current views
+  async function loadViews() {
+    try {
+      const res = await fetch(`${API}/views?slug=${SLUG}`);
+      const data = await res.json();
+      document.getElementById("views").textContent = data.views;
+    } catch (err) {
+      console.error("Failed to load views:", err);
+    }
+  }
+
+  // Function to increment views
+  async function incrementViews() {
+    try {
+      await fetch(`${API}/count?slug=${SLUG}`);
+    } catch (err) {
+      console.error("Failed to increment views:", err);
+    }
+  }
+
+  // Load current views immediately
+  loadViews();
+
+  // Increment view count
+  incrementViews();
+</script>
+
+</body>
+</html>
