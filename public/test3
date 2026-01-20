@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KoshalWorld - Music Download Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .section-header {
+            background-color: #6a11cb;
+            color: white;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-radius: 5px 5px 0 0;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+        
+        .more-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .more-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Header Section */
+        .main-header {
+            background-color: #000000;
+            position: relative;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        
+        .logo {
+            color: white;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .search-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 14px 50px 14px 20px;
+            border-radius: 30px;
+            border: none;
+            font-size: 1rem;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #6a11cb;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 20px 0 40px;
+        }
+        
+        /* Music Card - Universal component for all sections */
+        .music-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 240px;
+            border-top: 4px solid transparent;
+            position: relative;
+        }
+        
+        /* Border accents for specific sections */
+        #trendingSingles .music-card {
+            border-top-color: #6a11cb;
+            border-radius: 12px;
+        }
+        
+        #popularArtists .music-card {
+            border-top-color: #ff6b35;
+            border-radius: 8px;
+        }
+        
+        #newAlbums .music-card {
+            border-radius: 12px;
+        }
+        
+        #latestBollywood .music-card {
+            border-radius: 12px;
+        }
+        
+        #relatedSongs .music-card {
+            border-radius: 12px;
+        }
+        
+        /* Professional hover effects */
+        .music-card:hover {
+            transform: translateY(-5px) scale(1.03) rotate(1.5deg);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        #popularArtists .music-card:hover {
+            transform: translateY(-5px) scale(1.03) rotate(1deg);
+        }
+        
+        /* Border animation on hover */
+        #trendingSingles .music-card:hover {
+            border-top-width: 6px;
+            border-top-color: #2575fc;
+        }
+        
+        #popularArtists .music-card:hover {
+            border-top-width: 6px;
+            border-top-color: #ff8c42;
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .card-content {
+            padding: 12px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card-title {
+            font-weight: bold;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        
+        .download-btn {
+            background-color: #000000;
+            color: white;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+            margin-top: auto;
+        }
+        
+        .download-btn:hover {
+            background-color: #333;
+        }
+        
+        .image-container {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        /* Grid Layout */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        /* Categories Section */
+        .categories-section {
+            background-color: white;
+            border-top: 5px solid #6a11cb;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            padding: 0 0 10px;
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .category-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        
+        .category-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+        
+        .category-icon {
+            background-color: #6a11cb;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .category-name {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        /* Responsive Design */
+        @media (min-width: 576px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .categories-list {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0;
+            }
+            
+            .category-item {
+                border-right: 1px solid #eee;
+            }
+            
+            .category-item:nth-child(even) {
+                border-right: none;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .cards-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            .category-item {
+                padding: 18px 15px;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .cards-grid {
+                grid-template-columns: repeat(6, 1fr);
+            }
+            
+            .container {
+                padding: 0 20px;
+            }
+            
+            .section-header {
+                padding: 15px 20px;
+            }
+        }
+        
+        #purpleLine {
+            border: none;
+            height: 2px;
+            background-color: #6a11cb;
+        }
+        
+        /* Footer */
+        .main-footer {
+            background-color: #000;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .footer-text {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">KoshalWorld</div>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Search songs, artists, albums..." id="searchInput">
+                <button class="search-btn" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                </button>
+                
+            </div>
+        </div>
+        
+    </header>
+    <hr id="purpleLine">
+    
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Trending Singles Section -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">Trending Singles</div>
+                    <button class="more-btn" id="trendingMore">More+</button>
+                </div>
+                <div class="cards-grid" id="trendingSingles"></div>
+            </section>
+
+            <!-- Popular Artists Section -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">Popular Artists</div>
+                    <button class="more-btn" id="artistsMore">More+</button>
+                </div>
+                <div class="cards-grid" id="popularArtists"></div>
+            </section>
+
+            <!-- New Albums Section -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">New Albums</div>
+                    <button class="more-btn" id="albumsMore">More+</button>
+                </div>
+                <div class="cards-grid" id="newAlbums"></div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="categories-section">
+                <div class="section-header">
+                    <div class="section-title">Music Categories</div>
+                    <button class="more-btn" id="categoriesMore">More+</button>
+                </div>
+                <ul class="categories-list" id="categoriesList"></ul>
+            </section>
+
+            <!-- Latest Bollywood Section -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">Latest Bollywood</div>
+                    <button class="more-btn" id="bollywoodMore">More+</button>
+                </div>
+                <div class="cards-grid" id="latestBollywood"></div>
+            </section>
+
+            <!-- Related Songs Section -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">Related Songs</div>
+                    <button class="more-btn" id="relatedMore">More+</button>
+                </div>
+                <div class="cards-grid" id="relatedSongs"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <p class="footer-text">© 2023 KoshalWorld - Music Download Portal. All rights reserved.</p>
+            <p class="footer-text">Disclaimer: This is a demo website for educational purposes only.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample data for the music portal
+        const artists = [
+            { id: 1, name: "Arijit Singh", image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 2, name: "Neha Kakkar", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 3, name: "Badshah", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 4, name: "Shreya Ghoshal", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 5, name: "Diljit Dosanjh", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 6, name: "Sunidhi Chauhan", image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 7, name: "A.R. Rahman", image: "https://images.unsplash.com/photo-1466150036782-869a824aeb25?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 8, name: "Jasleen Royal", image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 9, name: "Vishal Mishra", image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 10, name: "Jonita Gandhi", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjV8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 11, name: "Jubin Nautiyal", image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjZ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 12, name: "Mika Singh", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" }
+        ];
+
+        const singles = [
+            { id: 1, title: "Kesariya", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWN8ZW58MHx8MHx8fDA%3D&w=700&h=490&fit=crop" },
+            { id: 2, title: "Raatan Lambiyan", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bXVzaWN8ZW58MHx8MHx8fDA%3D&w=700&h=490&fit=crop" },
+            { id: 3, title: "Lehra Do", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
+            { id: 4, title: "Maan Meri Jaan", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
+            { id: 5, title: "Namo Namo", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
+            { id: 6, title: "Jhoome Jo Pathaan", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
+            { id: 7, title: "Character Dheela 2.0", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
+            { id: 8, title: "Tere Hawaale", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
+            { id: 9, title: "Besharam Rang", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1499415479124-43c32433a620?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjV8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
+            { id: 10, title: "Apna Bana Le", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
+            { id: 11, title: "Heeriye", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1499415479124-43c32433a620?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
+            { id: 12, title: "O Bedardeya", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzR8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" }
+        ];
+
+        const albums = [
+            { id: 1, title: "Brahmastra", subtitle: "Original Motion Picture", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YWxidW0lMjBjb3ZlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop" },
+            { id: 2, title: "Pathaan", subtitle: "Action Thriller Album", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" },
+            { id: 3, title: "Tu Jhoothi Main Makkaar", subtitle: "Romantic Hits", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" },
+            { id: 4, title: "Rocky Aur Rani", subtitle: "Love Story Album", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" },
+            { id: 5, title: "Animal", subtitle: "Action Drama Songs", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjV8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" },
+            { id: 6, title: "Kabir Singh", subtitle: "Best of 2019", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" },
+            { id: 7, title: "Gully Boy", subtitle: "Hip Hop Album", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" },
+            { id: 8, title: "Shershaah", subtitle: "Patriotic Hits", image: "https://images.unsplash.com/photo-1499415479124-43c32433a620?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" },
+            { id: 9, title: "Ludo", subtitle: "Multi-starrer Album", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDV8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" },
+            { id: 10, title: "Sooryavanshi", subtitle: "Action Album", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTB8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" },
+            { id: 11, title: "Badhai Do", subtitle: "Comedy Drama Songs", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTV8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" },
+            { id: 12, title: "Jugjugg Jeeyo", subtitle: "Family Drama Album", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjB8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" }
+        ];
+
+        const categories = [
+            { id: 1, name: "Hindi Songs", icon: "fas fa-music" },
+            { id: 2, name: "Odia Songs", icon: "fas fa-headphones" },
+            { id: 3, name: "Punjabi Songs", icon: "fas fa-guitar" },
+            { id: 4, name: "Tamil Songs", icon: "fas fa-play-circle" },
+            { id: 5, name: "Bhojpuri Songs", icon: "fas fa-compact-disc" },
+            { id: 6, name: "English Songs", icon: "fas fa-globe" },
+            { id: 7, name: "Remix Songs", icon: "fas fa-sync-alt" },
+            { id: 8, name: "Devotional", icon: "fas fa-pray" }
+        ];
+
+        // DOM Elements
+        const trendingSinglesEl = document.getElementById('trendingSingles');
+        const popularArtistsEl = document.getElementById('popularArtists');
+        const newAlbumsEl = document.getElementById('newAlbums');
+        const latestBollywoodEl = document.getElementById('latestBollywood');
+        const relatedSongsEl = document.getElementById('relatedSongs');
+        const categoriesListEl = document.getElementById('categoriesList');
+
+        // Initialize the page with content
+        function initPage() {
+            renderTrendingSingles();
+            renderPopularArtists();
+            renderNewAlbums();
+            renderLatestBollywood();
+            renderRelatedSongs();
+            renderCategories();
+            setupEventListeners();
+        }
+
+        // Render trending singles
+        function renderTrendingSingles() {
+            let html = '';
+            singles.forEach(single => {
+                html += `
+                    <div class="music-card">
+                        <div class="image-container">
+                            <img src="${single.image}" alt="${single.title}" class="card-image">
+                            <div class="card-badge">${single.badge}</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${single.title}</div>
+                            <button class="download-btn" data-id="${single.id}" data-type="single">Download MP3</button>
+                        </div>
+                    </div>
+                `;
+            });
+            trendingSinglesEl.innerHTML = html;
+        }
+
+        // Render popular artists
+        function renderPopularArtists() {
+            let html = '';
+            artists.forEach(artist => {
+                html += `
+                    <div class="music-card">
+                        <div class="image-container">
+                            <img src="${artist.image}" alt="${artist.name}" class="card-image">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${artist.name}</div>
+                            <button class="download-btn" data-id="${artist.id}" data-type="artist">View Songs</button>
+                        </div>
+                    </div>
+                `;
+            });
+            popularArtistsEl.innerHTML = html;
+        }
+
+        // Render new albums
+        function renderNewAlbums() {
+            let html = '';
+            albums.forEach(album => {
+                html += `
+                    <div class="music-card">
+                        <div class="image-container">
+                            <img src="${album.image}" alt="${album.title}" class="card-image">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${album.title}</div>
+                            <div class="card-subtitle">${album.subtitle}</div>
+                            <button class="download-btn" data-id="${album.id}" data-type="album">Download Album</button>
+                        </div>
+                    </div>
+                `;
+            });
+            newAlbumsEl.innerHTML = html;
+        }
+
+        // Render latest Bollywood (using singles data)
+        function renderLatestBollywood() {
+            let html = '';
+            singles.slice(0, 12).forEach(single => {
+                html += `
+                    <div class="music-card">
+                        <div class="image-container">
+                            <img src="${single.image}" alt="${single.title}" class="card-image">
+                            <div class="card-badge">${single.badge}</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${single.title}</div>
+                            <button class="download-btn" data-id="${single.id}" data-type="bollywood">Download MP3</button>
+                        </div>
+                    </div>
+                `;
+            });
+            latestBollywoodEl.innerHTML = html;
+        }
+
+        // Render related songs (using singles data)
+        function renderRelatedSongs() {
+            let html = '';
+            singles.slice(0, 12).forEach(single => {
+                html += `
+                    <div class="music-card">
+                        <div class="image-container">
+                            <img src="${single.image}" alt="${single.title}" class="card-image">
+                            <div class="card-badge">${single.badge}</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${single.title}</div>
+                            <button class="download-btn" data-id="${single.id}" data-type="related">Download MP3</button>
+                        </div>
+                    </div>
+                `;
+            });
+            relatedSongsEl.innerHTML = html;
+        }
+
+        // Render categories
+        function renderCategories() {
+            let html = '';
+            categories.forEach(category => {
+                html += `
+                    <li class="category-item" data-id="${category.id}">
+                        <div class="category-icon">
+                            <i class="${category.icon}"></i>
+                        </div>
+                        <div class="category-name">${category.name}</div>
+                    </li>
+                `;
+            });
+            categoriesListEl.innerHTML = html;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            
+            const handleSearch = () => {
+                const query = searchInput.value.trim();
+                if (query) {
+                    alert(`Searching for: "${query}"\n(This is a demo - in a real app, this would show results for "${query}")`);
+                    searchInput.value = '';
+                } else {
+                    alert('Please enter a search term');
+                }
+            };
+            
+            searchBtn.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+            
+            // More+ buttons functionality
+            const moreButtons = document.querySelectorAll('.more-btn');
+            moreButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const sectionTitle = this.parentElement.querySelector('.section-title').textContent;
+                    alert(`Loading more content for "${sectionTitle}" section...\n(This is a demo - in a real app, this would load more items)`);
+                });
+            });
+            
+            // Download/View buttons functionality
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('download-btn')) {
+                    const id = e.target.getAttribute('data-id');
+                    const type = e.target.getAttribute('data-type');
+                    let itemType = '';
+                    
+                    switch(type) {
+                        case 'single':
+                            itemType = 'Single Track';
+                            break;
+                        case 'artist':
+                            itemType = 'Artist';
+                            break;
+                        case 'album':
+                            itemType = 'Album';
+                            break;
+                        case 'bollywood':
+                            itemType = 'Bollywood Song';
+                            break;
+                        case 'related':
+                            itemType = 'Related Song';
+                            break;
+                        default:
+                            itemType = 'Item';
+                    }
+                    
+                    alert(`Downloading ${itemType} (ID: ${id})\n(This is a demo - in a real app, this would start the download)`);
+                }
+            });
+            
+            // Category items functionality
+            const categoryItems = document.querySelectorAll('.category-item');
+            categoryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const categoryId = this.getAttribute('data-id');
+                    const categoryName = this.querySelector('.category-name').textContent;
+                    alert(`Opening category: ${categoryName}\n(This is a demo - in a real app, this would show all ${categoryName})`);
+                });
+            });
+        }
+
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
