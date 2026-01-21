@@ -6,7 +6,7 @@
     <title>KoshalWorld - Music Download Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Existing styles from original file */
+        /* Existing styles from original file - UNCHANGED */
         /* Reset & Base Styles */
         * {
             margin: 0;
@@ -119,276 +119,472 @@
             justify-content: center;
         }
         
-   /* FEATURED SLIDER - NEW STYLES */
-.featured-slider-section {
-    padding: 0;
-    margin: 0;
-    background-color: #111;
-    position: relative;
-    overflow: hidden;
-}
-
-.featured-slider {
-    position: relative;
-    width: 100%;
-    height: 0;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    overflow: hidden;
-    border-radius: 0;
-}
-
-.slider-track {
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.5s ease-in-out;
-}
-
-.featured-card {
-    flex: 0 0 100%;
-    height: 100%;
-    position: relative;
-    border-radius: 0;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-}
-
-.card-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 4s ease;
-}
-
-.featured-card.active .card-image {
-    transform: scale(1.05);
-}
-
-.card-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%);
-    padding: 20px 15px;
-    color: white;
-    z-index: 2;
-    /* Add text centering for overlay content */
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.card-badge {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    background-color: #6a11cb;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 0.75rem;
-    font-weight: bold;
-    z-index: 3;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    /* Keep badge aligned to left */
-    text-align: left;
-    width: auto;
-}
-
-.card-badge.hot {
-    background-color: #ff4757;
-}
-
-.card-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /* Center the title text */
-    text-align: center;
-    width: 100%;
-}
-
-.card-artist {
-    font-size: 1rem;
-    opacity: 0.9;
-    margin-bottom: 10px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    /* Center the artist text */
-    text-align: center;
-    width: 100%;
-}
-
-.card-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-top: 10px;
-}
-
-.card-download-btn {
-    background-color: #6a11cb;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-}
-
-.card-download-btn:hover {
-    background-color: #7a2be2;
-    transform: translateY(-2px);
-}
-
-.card-play-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-}
-
-.card-play-btn:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: scale(1.1);
-}
-
-/* Slider Controls */
-.slider-controls {
-    position: absolute;
-    bottom: 20px;
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    z-index: 10;
-}
-
-.slider-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.slider-dot.active {
-    background-color: #6a11cb;
-    transform: scale(1.2);
-}
-
-.slider-nav {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    z-index: 10;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0;
-}
-
-.featured-slider:hover .slider-nav {
-    opacity: 1;
-}
-
-.slider-nav:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
-.slider-nav.prev {
-    left: 15px;
-}
-
-.slider-nav.next {
-    right: 15px;
-}
-
-/* Responsive Design for Slider */
-@media (min-width: 576px) {
-    .featured-slider {
-        padding-bottom: 45%; /* Slightly taller on tablets */
-    }
-    
-    .card-title {
-        font-size: 1.8rem;
-    }
-    
-    .card-artist {
-        font-size: 1.1rem;
-    }
-    
-    .slider-nav {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-    }
-}
-
-@media (min-width: 768px) {
-    .featured-slider {
-        border-radius: 10px;
-        margin: 0 15px;
-        padding-bottom: 35%; /* Adjust aspect ratio for desktop */
-    }
-    
-    .card-overlay {
-        padding: 25px 30px;
-    }
-    
-    .card-title {
-        font-size: 2.2rem;
-    }
-    
-    .card-artist {
-        font-size: 1.3rem;
-    }
-    
-    .card-actions {
-        margin-top: 15px;
-    }
-}
-
-@media (min-width: 992px) {
-    .featured-slider {
-        margin: 0 20px;
-        padding-bottom: 30%;
-    }
-}
+        /* NEW: MENU TOGGLE BUTTON */
+        .menu-toggle {
+            position: absolute;
+            left: 20px;
+            top: 30%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 1.5rem;
+            z-index: 101;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
         
-        /* Existing Main Content Styles */
+        .menu-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* NEW: FULL-SCREEN NAVIGATION MENU */
+        .fullscreen-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.98);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s;
+            overflow-y: auto;
+            padding: 80px 20px 30px;
+        }
+        
+        .fullscreen-menu.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .menu-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: white;
+            font-size: 2rem;
+            background: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .menu-close:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .menu-logo {
+            color: white;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .menu-section {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 30px;
+        }
+        
+        .menu-section-title {
+            color: #6a11cb;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid rgba(106, 17, 203, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .menu-items {
+            list-style: none;
+            width: 100%;
+        }
+        
+        .menu-item {
+            width: 100%;
+            margin-bottom: 12px;
+        }
+        
+        .menu-item a {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 1.1rem;
+            padding: 16px 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid transparent;
+        }
+        
+        .menu-item a:hover {
+            background-color: rgba(106, 17, 203, 0.15);
+            border-left-color: #6a11cb;
+            transform: translateX(5px);
+        }
+        
+        .menu-icon {
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 25px;
+            text-align: center;
+            color: #6a11cb;
+        }
+        
+        .earn-money-btn {
+            background-color: #6a11cb;
+            color: white;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            border: none;
+            position: sticky;
+            bottom: 30px;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+        
+        .earn-money-btn:hover {
+            background-color: #7a2be2;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(106, 17, 203, 0.5);
+        }
+        
+        /* Responsive adjustments for menu */
+        @media (min-width: 576px) {
+            .menu-toggle {
+                left: 25px;
+            }
+            
+            .fullscreen-menu {
+                padding: 90px 30px 40px;
+            }
+            
+            .menu-item a {
+                font-size: 1.2rem;
+                padding: 18px 25px;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .menu-toggle {
+                left: 30px;
+                font-size: 1.8rem;
+            }
+            
+            .menu-logo {
+                font-size: 2.5rem;
+                margin-bottom: 50px;
+            }
+            
+            .menu-section-title {
+                font-size: 1.4rem;
+            }
+            
+            .earn-money-btn {
+                font-size: 1.3rem;
+                padding: 22px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .menu-toggle {
+                left: 40px;
+            }
+        }
+        
+        /* FEATURED SLIDER - NEW STYLES - UNCHANGED */
+        .featured-slider-section {
+            padding: 0;
+            margin: 0;
+            background-color: #111;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .featured-slider {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            border-radius: 0;
+        }
+        
+        .slider-track {
+            display: flex;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .featured-card {
+            flex: 0 0 100%;
+            height: 100%;
+            position: relative;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 4s ease;
+        }
+        
+        .featured-card.active .card-image {
+            transform: scale(1.05);
+        }
+        
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%);
+            padding: 20px 15px;
+            color: white;
+            z-index: 2;
+            /* Add text centering for overlay content */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #6a11cb;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 3;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            /* Keep badge aligned to left */
+            text-align: left;
+            width: auto;
+        }
+        
+        .card-badge.hot {
+            background-color: #ff4757;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            /* Center the title text */
+            text-align: center;
+            width: 100%;
+        }
+        
+        .card-artist {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            /* Center the artist text */
+            text-align: center;
+            width: 100%;
+        }
+        
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+        
+        .card-download-btn {
+            background-color: #6a11cb;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .card-download-btn:hover {
+            background-color: #7a2be2;
+            transform: translateY(-2px);
+        }
+        
+        .card-play-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .card-play-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        /* Slider Controls */
+        .slider-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            z-index: 10;
+        }
+        
+        .slider-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .slider-dot.active {
+            background-color: #6a11cb;
+            transform: scale(1.2);
+        }
+        
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+        
+        .featured-slider:hover .slider-nav {
+            opacity: 1;
+        }
+        
+        .slider-nav:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .slider-nav.prev {
+            left: 15px;
+        }
+        
+        .slider-nav.next {
+            right: 15px;
+        }
+        
+        /* Responsive Design for Slider */
+        @media (min-width: 576px) {
+            .featured-slider {
+                padding-bottom: 45%; /* Slightly taller on tablets */
+            }
+            
+            .card-title {
+                font-size: 1.8rem;
+            }
+            
+            .card-artist {
+                font-size: 1.1rem;
+            }
+            
+            .slider-nav {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .featured-slider {
+                border-radius: 10px;
+                margin: 0 15px;
+                padding-bottom: 35%; /* Adjust aspect ratio for desktop */
+            }
+            
+            .card-overlay {
+                padding: 25px 30px;
+            }
+            
+            .card-title {
+                font-size: 2.2rem;
+            }
+            
+            .card-artist {
+                font-size: 1.3rem;
+            }
+            
+            .card-actions {
+                margin-top: 15px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .featured-slider {
+                margin: 0 20px;
+                padding-bottom: 30%;
+            }
+        }
+        
+        /* Existing Main Content Styles - UNCHANGED */
         .main-content {
             padding: 20px 0 40px;
         }
@@ -672,6 +868,11 @@
     <!-- Header Section -->
     <header class="main-header">
         <div class="container">
+            <!-- NEW: Menu Toggle Button -->
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            
             <div class="logo">KoshalWorld</div>
             <div class="search-container">
                 <input type="text" class="search-bar" placeholder="Search songs, artists, albums..." id="searchInput">
@@ -681,6 +882,85 @@
             </div>
         </div>
     </header>
+    
+    <!-- NEW: FULL-SCREEN NAVIGATION MENU -->
+    <div class="fullscreen-menu" id="fullscreenMenu">
+        <button class="menu-close" id="menuClose">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="menu-logo">KoshalWorld</div>
+        
+        <div class="menu-section">
+            <h3 class="menu-section-title">Music Categories</h3>
+            <ul class="menu-items">
+                <li class="menu-item">
+                    <a href="#">
+                        <i class="fas fa-fire menu-icon"></i>
+                        <span>Trending Songs</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <i class="fas fa-clock menu-icon"></i>
+                        <span>Latest Songs</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <i class="fas fa-compact-disc menu-icon"></i>
+                        <span>Albums</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <i class="fas fa-music menu-icon"></i>
+                        <span>Singles</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <i class="fas fa-video menu-icon"></i>
+                        <span>Videos</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <i class="fas fa-download menu-icon"></i>
+                        <span>Top Downloads</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="menu-section">
+            <h3 class="menu-section-title">Other Pages</h3>
+            <ul class="menu-items">
+                <li class="menu-item">
+                    <a href="#">
+                        <i class="fas fa-info-circle menu-icon"></i>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <i class="fas fa-envelope menu-icon"></i>
+                        <span>Contact</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#">
+                        <i class="fas fa-user menu-icon"></i>
+                        <span>Login</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <button class="earn-money-btn" id="earnMoneyBtn">
+            <i class="fas fa-money-bill-wave"></i> 💰 Earn Money
+        </button>
+    </div>
     
     <!-- FEATURED SLIDER - New Section -->
     <section class="featured-slider-section">
@@ -775,6 +1055,12 @@
     </footer>
 
     <script>
+        // NEW: Menu Elements
+        const menuToggle = document.getElementById('menuToggle');
+        const menuClose = document.getElementById('menuClose');
+        const fullscreenMenu = document.getElementById('fullscreenMenu');
+        const earnMoneyBtn = document.getElementById('earnMoneyBtn');
+
         // Featured posts data - rectangular card format
         const featuredPosts = [
             {
@@ -863,6 +1149,19 @@
         let slideInterval;
         const slideDuration = 5000; // 5 seconds
 
+        // NEW: Menu Functions
+        function openMenu() {
+            fullscreenMenu.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            pauseAutoSlide();
+        }
+
+        function closeMenu() {
+            fullscreenMenu.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+            resumeAutoSlide();
+        }
+
         // Initialize the page with content
         function initPage() {
             renderFeaturedSlider();
@@ -874,6 +1173,28 @@
             renderCategories();
             setupEventListeners();
             startAutoSlide();
+            
+            // NEW: Setup menu event listeners
+            menuToggle.addEventListener('click', openMenu);
+            menuClose.addEventListener('click', closeMenu);
+            earnMoneyBtn.addEventListener('click', () => {
+                alert('Earn Money feature - This is a demo. In a real app, this would redirect to the earnings page.');
+                closeMenu();
+            });
+            
+            // Close menu when clicking outside content
+            fullscreenMenu.addEventListener('click', (e) => {
+                if (e.target === fullscreenMenu) {
+                    closeMenu();
+                }
+            });
+            
+            // Close menu with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && fullscreenMenu.classList.contains('active')) {
+                    closeMenu();
+                }
+            });
         }
 
         // Render featured slider
