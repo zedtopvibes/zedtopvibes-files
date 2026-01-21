@@ -725,4 +725,482 @@
                 <ul class="categories-list" id="categoriesList"></ul>
             </section>
 
-         
+            <!-- Latest Bollywood Section -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">Latest Bollywood</div>
+                    <button class="more-btn" id="bollywoodMore">More+</button>
+                </div>
+                <div class="cards-grid" id="latestBollywood"></div>
+            </section>
+
+            <!-- Related Songs Section -->
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-title">Related Songs</div>
+                    <button class="more-btn" id="relatedMore">More+</button>
+                </div>
+                <div class="cards-grid" id="relatedSongs"></div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <p class="footer-text">© 2023 KoshalWorld - Music Download Portal. All rights reserved.</p>
+            <p class="footer-text">Disclaimer: This is a demo website for educational purposes only.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Featured posts data - rectangular card format
+        const featuredPosts = [
+            {
+                id: 1,
+                title: "Kesariya - Brahmastra",
+                artist: "Arijit Singh, Pritam",
+                image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
+                badge: "FEATURED",
+                badgeClass: ""
+            },
+            {
+                id: 2,
+                title: "Maan Meri Jaan",
+                artist: "King",
+                image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
+                badge: "HOT 🔥",
+                badgeClass: "hot"
+            },
+            {
+                id: 3,
+                title: "Jhoome Jo Pathaan",
+                artist: "Vishal & Shekhar, Arijit Singh",
+                image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
+                badge: "TRENDING",
+                badgeClass: ""
+            },
+            {
+                id: 4,
+                title: "Apna Bana Le",
+                artist: "Arijit Singh, Sachin-Jigar",
+                image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
+                badge: "NEW",
+                badgeClass: ""
+            },
+            {
+                id: 5,
+                title: "Tere Hawaale",
+                artist: "Arijit Singh, Pritam",
+                image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80",
+                badge: "FEATURED",
+                badgeClass: ""
+            }
+        ];
+
+        // Existing data from original file
+        const artists = [
+            { id: 1, name: "Arijit Singh", image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 2, name: "Neha Kakkar", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 3, name: "Badshah", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 4, name: "Shreya Ghoshal", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 5, name: "Diljit Dosanjh", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 6, name: "Sunidhi Chauhan", image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" }
+        ];
+
+        const singles = [
+            { id: 1, title: "Kesariya", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWN8ZW58MHx8MHx8fDA%3D&w=700&h=490&fit=crop" },
+            { id: 2, title: "Raatan Lambiyan", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bXVzaWN8ZW58MHx8MHx8fDA%3D&w=700&h=490&fit=crop" },
+            { id: 3, title: "Lehra Do", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
+            { id: 4, title: "Maan Meri Jaan", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" }
+        ];
+
+        const albums = [
+            { id: 1, title: "Brahmastra", subtitle: "Original Motion Picture", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YWxidW0lMjBjb3ZlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop" },
+            { id: 2, title: "Pathaan", subtitle: "Action Thriller Album", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" }
+        ];
+
+        const categories = [
+            { id: 1, name: "Hindi Songs", icon: "fas fa-music" },
+            { id: 2, name: "Odia Songs", icon: "fas fa-headphones" }
+        ];
+
+        // DOM Elements
+        const sliderTrack = document.getElementById('sliderTrack');
+        const sliderDots = document.getElementById('sliderDots');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const trendingSinglesEl = document.getElementById('trendingSingles');
+        const popularArtistsEl = document.getElementById('popularArtists');
+        const newAlbumsEl = document.getElementById('newAlbums');
+        const latestBollywoodEl = document.getElementById('latestBollywood');
+        const relatedSongsEl = document.getElementById('relatedSongs');
+        const categoriesListEl = document.getElementById('categoriesList');
+
+        // Slider Variables
+        let currentSlide = 0;
+        let slideInterval;
+        const slideDuration = 5000; // 5 seconds
+
+        // Initialize the page with content
+        function initPage() {
+            renderFeaturedSlider();
+            renderTrendingSingles();
+            renderPopularArtists();
+            renderNewAlbums();
+            renderLatestBollywood();
+            renderRelatedSongs();
+            renderCategories();
+            setupEventListeners();
+            startAutoSlide();
+        }
+
+        // Render featured slider
+        function renderFeaturedSlider() {
+            let sliderHTML = '';
+            let dotsHTML = '';
+            
+            featuredPosts.forEach((post, index) => {
+                const activeClass = index === 0 ? 'active' : '';
+                sliderHTML += `
+                    <div class="featured-card ${activeClass}" data-index="${index}">
+                        <div class="card-badge ${post.badgeClass}">${post.badge}</div>
+                        <img src="${post.image}" alt="${post.title}" class="card-image">
+                        <div class="card-overlay">
+                            <h3 class="card-title">${post.title}</h3>
+                            <p class="card-artist">${post.artist}</p>
+                            <div class="card-actions">
+                                <button class="card-download-btn" data-id="${post.id}" data-type="featured">
+                                    <i class="fas fa-download"></i> Download
+                                </button>
+                                <button class="card-play-btn" data-id="${post.id}">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                dotsHTML += `<div class="slider-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`;
+            });
+            
+            sliderTrack.innerHTML = sliderHTML;
+            sliderDots.innerHTML = dotsHTML;
+        }
+
+        // Go to specific slide
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.featured-card');
+            const dots = document.querySelectorAll('.slider-dot');
+            
+            if (index >= slides.length) index = 0;
+            if (index < 0) index = slides.length - 1;
+            
+            // Remove active class from all slides and dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Add active class to current slide and dot
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            
+            // Update slider track position
+            sliderTrack.style.transform = `translateX(-${index * 100}%)`;
+            
+            currentSlide = index;
+        }
+
+        // Next slide
+        function nextSlide() {
+            goToSlide(currentSlide + 1);
+        }
+
+        // Previous slide
+        function prevSlide() {
+            goToSlide(currentSlide - 1);
+        }
+
+        // Start auto sliding
+        function startAutoSlide() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(nextSlide, slideDuration);
+        }
+
+        // Pause auto sliding
+        function pauseAutoSlide() {
+            clearInterval(slideInterval);
+        }
+
+        // Resume auto sliding
+        function resumeAutoSlide() {
+            startAutoSlide();
+        }
+
+        // Existing rendering functions from original file
+        function renderTrendingSingles() {
+            let html = '';
+            singles.forEach(single => {
+                html += `
+                    <div class="music-card song">
+                        <div class="image-container">
+                            <img src="${single.image}" alt="${single.title}" class="card-image">
+                            <div class="card-badge">${single.badge}</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${single.title}</div>
+                            <button class="download-btn" data-id="${single.id}" data-type="single">Download MP3</button>
+                        </div>
+                    </div>
+                `;
+            });
+            trendingSinglesEl.innerHTML = html;
+        }
+
+        function renderPopularArtists() {
+            let html = '';
+            artists.forEach(artist => {
+                html += `
+                    <div class="music-card artist">
+                        <div class="image-container">
+                            <img src="${artist.image}" alt="${artist.name}" class="card-image">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${artist.name}</div>
+                            <button class="download-btn" data-id="${artist.id}" data-type="artist">View Songs</button>
+                        </div>
+                    </div>
+                `;
+            });
+            popularArtistsEl.innerHTML = html;
+        }
+
+        function renderNewAlbums() {
+            let html = '';
+            albums.forEach(album => {
+                html += `
+                    <div class="music-card album">
+                        <div class="image-container">
+                            <img src="${album.image}" alt="${album.title}" class="card-image">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${album.title}</div>
+                            <div class="card-subtitle">${album.subtitle}</div>
+                            <button class="download-btn" data-id="${album.id}" data-type="album">Download Album</button>
+                        </div>
+                    </div>
+                `;
+            });
+            newAlbumsEl.innerHTML = html;
+        }
+
+        function renderLatestBollywood() {
+            let html = '';
+            singles.slice(0, 4).forEach(single => {
+                html += `
+                    <div class="music-card bollywood">
+                        <div class="image-container">
+                            <img src="${single.image}" alt="${single.title}" class="card-image">
+                            <div class="card-badge">${single.badge}</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${single.title}</div>
+                            <button class="download-btn" data-id="${single.id}" data-type="bollywood">Download MP3</button>
+                        </div>
+                    </div>
+                `;
+            });
+            latestBollywoodEl.innerHTML = html;
+        }
+
+        function renderRelatedSongs() {
+            let html = '';
+            singles.slice(0, 4).forEach(single => {
+                html += `
+                    <div class="music-card related">
+                        <div class="image-container">
+                            <img src="${single.image}" alt="${single.title}" class="card-image">
+                            <div class="card-badge">${single.badge}</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${single.title}</div>
+                            <button class="download-btn" data-id="${single.id}" data-type="related">Download MP3</button>
+                        </div>
+                    </div>
+                `;
+            });
+            relatedSongsEl.innerHTML = html;
+        }
+
+        function renderCategories() {
+            let html = '';
+            categories.forEach(category => {
+                html += `
+                    <li class="category-item" data-id="${category.id}">
+                        <div class="category-icon">
+                            <i class="${category.icon}"></i>
+                        </div>
+                        <div class="category-name">${category.name}</div>
+                    </li>
+                `;
+            });
+            categoriesListEl.innerHTML = html;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Slider navigation
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                pauseAutoSlide();
+                setTimeout(resumeAutoSlide, 10000); // Resume after 10 seconds
+            });
+            
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                pauseAutoSlide();
+                setTimeout(resumeAutoSlide, 10000); // Resume after 10 seconds
+            });
+            
+            // Dot navigation
+            sliderDots.addEventListener('click', (e) => {
+                if (e.target.classList.contains('slider-dot')) {
+                    const index = parseInt(e.target.getAttribute('data-index'));
+                    goToSlide(index);
+                    pauseAutoSlide();
+                    setTimeout(resumeAutoSlide, 10000); // Resume after 10 seconds
+                }
+            });
+            
+            // Pause auto-slide on hover
+            const slider = document.getElementById('featuredSlider');
+            slider.addEventListener('mouseenter', pauseAutoSlide);
+            slider.addEventListener('touchstart', pauseAutoSlide);
+            slider.addEventListener('mouseleave', resumeAutoSlide);
+            
+            // Touch swipe functionality for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            slider.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+            
+            slider.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        // Swipe left - next slide
+                        nextSlide();
+                    } else {
+                        // Swipe right - previous slide
+                        prevSlide();
+                    }
+                    pauseAutoSlide();
+                    setTimeout(resumeAutoSlide, 10000);
+                }
+            }
+            
+            // Featured card button actions
+            sliderTrack.addEventListener('click', (e) => {
+                if (e.target.classList.contains('card-download-btn') || 
+                    e.target.parentElement.classList.contains('card-download-btn')) {
+                    const btn = e.target.classList.contains('card-download-btn') ? 
+                        e.target : e.target.parentElement;
+                    const id = btn.getAttribute('data-id');
+                    alert(`Downloading featured content (ID: ${id})\n(This is a demo - in a real app, this would start the download)`);
+                }
+                
+                if (e.target.classList.contains('card-play-btn') || 
+                    e.target.parentElement.classList.contains('card-play-btn')) {
+                    const btn = e.target.classList.contains('card-play-btn') ? 
+                        e.target : e.target.parentElement;
+                    const id = btn.getAttribute('data-id');
+                    alert(`Playing featured content (ID: ${id})\n(This is a demo - in a real app, this would play the song)`);
+                }
+            });
+            
+            // Existing functionality from original file
+            // Search functionality
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            
+            const handleSearch = () => {
+                const query = searchInput.value.trim();
+                if (query) {
+                    alert(`Searching for: "${query}"\n(This is a demo - in a real app, this would show results for "${query}")`);
+                    searchInput.value = '';
+                } else {
+                    alert('Please enter a search term');
+                }
+            };
+            
+            searchBtn.addEventListener('click', handleSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSearch();
+                }
+            });
+            
+            // More+ buttons functionality
+            const moreButtons = document.querySelectorAll('.more-btn');
+            moreButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const sectionTitle = this.parentElement.querySelector('.section-title').textContent;
+                    alert(`Loading more content for "${sectionTitle}" section...\n(This is a demo - in a real app, this would load more items)`);
+                });
+            });
+            
+            // Download/View buttons functionality
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('download-btn')) {
+                    const id = e.target.getAttribute('data-id');
+                    const type = e.target.getAttribute('data-type');
+                    let itemType = '';
+                    
+                    switch(type) {
+                        case 'single':
+                            itemType = 'Single Track';
+                            break;
+                        case 'artist':
+                            itemType = 'Artist';
+                            break;
+                        case 'album':
+                            itemType = 'Album';
+                            break;
+                        case 'bollywood':
+                            itemType = 'Bollywood Song';
+                            break;
+                        case 'related':
+                            itemType = 'Related Song';
+                            break;
+                        default:
+                            itemType = 'Item';
+                    }
+                    
+                    alert(`Downloading ${itemType} (ID: ${id})\n(This is a demo - in a real app, this would start the download)`);
+                }
+            });
+            
+            // Category items functionality
+            const categoryItems = document.querySelectorAll('.category-item');
+            categoryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const categoryId = this.getAttribute('data-id');
+                    const categoryName = this.querySelector('.category-name').textContent;
+                    alert(`Opening category: ${categoryName}\n(This is a demo - in a real app, this would show all ${categoryName})`);
+                });
+            });
+        }
+
+        // Initialize the page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
