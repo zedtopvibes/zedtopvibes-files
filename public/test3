@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +6,7 @@
     <title>KoshalWorld - Music Download Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Existing styles from original file - UNCHANGED */
+        /* Existing styles from original file - UNCHANGED except for section-header components */
         /* Reset & Base Styles */
         * {
             margin: 0;
@@ -41,34 +40,65 @@
             padding: 0 15px;
         }
         
+        /* =========================================== */
+        /* UPDATED SECTION HEADER STYLES - REDESIGNED  */
+        /* =========================================== */
         .section-header {
-            background-color: #6a11cb;
+            background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
             color: white;
-            padding: 12px 15px;
+            padding: 10px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
-            border-radius: 5px 5px 0 0;
+            border-radius: 8px;
+            height: 48px;
+            min-height: 48px;
+            box-shadow: 0 2px 8px rgba(106, 17, 203, 0.2);
         }
         
         .section-title {
-            font-size: 1.4rem;
-            font-weight: bold;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.3px;
+        }
+        
+        .section-title i {
+            font-size: 0.95rem;
+            opacity: 0.9;
         }
         
         .more-btn {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.15);
             color: white;
-            padding: 5px 15px;
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 0.9rem;
-            transition: background-color 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.3px;
         }
         
         .more-btn:hover {
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        
+        /* Categories Section Header Specific Style */
+        .categories-section .section-header {
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
+        }
+        
+        /* =========================================== */
+        /* END OF UPDATED SECTION HEADER STYLES        */
+        /* =========================================== */
         
         /* Header Section */
         .main-header {
@@ -645,7 +675,7 @@
             }
             
             .section-header {
-                padding: 15px 20px;
+                padding: 10px 20px;
             }
         }
         
@@ -918,6 +948,13 @@
                 grid-template-columns: repeat(6, 1fr);
             }
         }
+        
+        /* =========================================== */
+/* ADD THIS RULE TO HIDE THE FEATURED SLIDER  */
+/* =========================================== */
+.featured-slider-section {
+    display: none !important;
+}
     </style>
 </head>
 <body>
@@ -981,7 +1018,7 @@
                 <!-- Trending Singles Section -->
                 <section class="section">
                     <div class="section-header">
-                        <div class="section-title">Trending Singles</div>
+                        <div class="section-title"><i class="fas fa-fire"></i> Trending Singles</div>
                         <button class="more-btn" id="trendingMore">More+</button>
                     </div>
                     <div class="cards-grid" id="trendingSingles"></div>
@@ -990,7 +1027,7 @@
                 <!-- Popular Artists Section -->
                 <section class="section">
                     <div class="section-header">
-                        <div class="section-title">Popular Artists</div>
+                        <div class="section-title"><i class="fas fa-star"></i> Popular Artists</div>
                         <button class="more-btn" id="artistsMore">More+</button>
                     </div>
                     <div class="cards-grid" id="popularArtists"></div>
@@ -999,7 +1036,7 @@
                 <!-- New Albums Section -->
                 <section class="section">
                     <div class="section-header">
-                        <div class="section-title">New Albums</div>
+                        <div class="section-title"><i class="fas fa-compact-disc"></i> New Albums</div>
                         <button class="more-btn" id="albumsMore">More+</button>
                     </div>
                     <div class="cards-grid" id="newAlbums"></div>
@@ -1008,7 +1045,7 @@
                 <!-- Categories Section -->
                 <section class="categories-section">
                     <div class="section-header">
-                        <div class="section-title">Music Categories</div>
+                        <div class="section-title"><i class="fas fa-list"></i> Music Categories</div>
                         <button class="more-btn" id="categoriesMore">More+</button>
                     </div>
                     <ul class="categories-list" id="categoriesList"></ul>
@@ -1017,7 +1054,7 @@
                 <!-- Latest Bollywood Section -->
                 <section class="section">
                     <div class="section-header">
-                        <div class="section-title">Latest Bollywood</div>
+                        <div class="section-title"><i class="fas fa-film"></i> Latest Bollywood</div>
                         <button class="more-btn" id="bollywoodMore">More+</button>
                     </div>
                     <div class="cards-grid" id="latestBollywood"></div>
@@ -1026,7 +1063,7 @@
                 <!-- Related Songs Section -->
                 <section class="section">
                     <div class="section-header">
-                        <div class="section-title">Related Songs</div>
+                        <div class="section-title"><i class="fas fa-music"></i> Related Songs</div>
                         <button class="more-btn" id="relatedMore">More+</button>
                     </div>
                     <div class="cards-grid" id="relatedSongs"></div>
@@ -1051,7 +1088,7 @@
                 <!-- Following Artists Section -->
                 <div class="section">
                     <div class="section-header">
-                        <div class="section-title">Followed Artists</div>
+                        <div class="section-title"><i class="fas fa-user-friends"></i> Followed Artists</div>
                         <button class="more-btn" id="followingArtistsMore">More+</button>
                     </div>
                     <div class="following-cards-grid" id="followingArtistsGrid"></div>
@@ -1060,7 +1097,7 @@
                 <!-- New Releases from Followed Artists -->
                 <div class="section">
                     <div class="section-header">
-                        <div class="section-title">New Releases from Followed Artists</div>
+                        <div class="section-title"><i class="fas fa-bell"></i> New Releases from Followed Artists</div>
                         <button class="more-btn" id="followingReleasesMore">More+</button>
                     </div>
                     <div class="following-cards-grid" id="followingReleasesGrid"></div>
@@ -1103,7 +1140,7 @@
                 <!-- Recommended Artists Section -->
                 <div class="section">
                     <div class="section-header">
-                        <div class="section-title">Recommended Artists</div>
+                        <div class="section-title"><i class="fas fa-user-check"></i> Recommended Artists</div>
                         <button class="more-btn" id="forYouArtistsMore">More+</button>
                     </div>
                     <div class="following-cards-grid" id="forYouArtistsGrid"></div>
@@ -1112,7 +1149,7 @@
                 <!-- Recommended Releases -->
                 <div class="section">
                     <div class="section-header">
-                        <div class="section-title">Recommended Releases</div>
+                        <div class="section-title"><i class="fas fa-gift"></i> Recommended Releases</div>
                         <button class="more-btn" id="forYouReleasesMore">More+</button>
                     </div>
                     <div class="following-cards-grid" id="forYouReleasesGrid"></div>
@@ -1121,7 +1158,7 @@
                 <!-- Discover New Music -->
                 <div class="section">
                     <div class="section-header">
-                        <div class="section-title">Discover New Music</div>
+                        <div class="section-title"><i class="fas fa-compass"></i> Discover New Music</div>
                         <button class="more-btn" id="forYouDiscoverMore">More+</button>
                     </div>
                     <div class="following-cards-grid" id="forYouDiscoverGrid"></div>
@@ -1194,7 +1231,7 @@
         ];
 
         const singles = [
-            { id: 1, title: "Kesariya", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWN8ZW58MHx8MHx8fDA%3D&w=700&h=490&fit=crop" },
+            { id: 1, title: "Yo MAPS - komando ft. Roberto", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWN8ZW58MHx8MHx8fDA%3D&w=700&h=490&fit=crop" },
             { id: 2, title: "Raatan Lambiyan", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bXVzaWN8ZW58MHx8MHx8fDA%3D&w=700&h=490&fit=crop" },
             { id: 3, title: "Lehra Do", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
             { id: 4, title: "Maan Meri Jaan", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" }
