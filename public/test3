@@ -945,6 +945,14 @@
         max-height: 1.3em;
     }
 }
+
+        /* =========================================== */
+/* ADD THIS RULE TO HIDE THE FEATURED SLIDER  */
+/* =========================================== */
+.featured-slider-section {
+    display: none !important;
+}
+
     </style>
   
 </head>
