@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -756,198 +757,8 @@
             display: none;
         }
         
-        /* Following Feed Styles */
-        .following-feed {
-            padding: 20px 0;
-        }
-        
-        .following-section-header {
-            background-color: #6a11cb;
-            color: white;
-            padding: 12px 15px;
-            border-radius: 5px 5px 0 0;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-        
-        .following-feed-item {
-            background-color: white;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            border-left: 4px solid #6a11cb;
-        }
-        
-        .following-artist-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .following-artist-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 12px;
-        }
-        
-        .following-artist-name {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        
-        .following-badge {
-            background-color: #ff7e5f;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 0.7rem;
-            margin-left: 10px;
-        }
-        
-        .following-post-time {
-            color: #666;
-            font-size: 0.85rem;
-            margin-left: auto;
-        }
-        
-        .following-post-content {
-            margin-bottom: 15px;
-        }
-        
-        .following-post-text {
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-        
-        .following-post-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-        }
-        
-        .following-action-btn {
-            background-color: #f8f9fa;
-            border: 1px solid #ddd;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.2s ease;
-        }
-        
-        .following-action-btn:hover {
-            background-color: #6a11cb;
-            color: white;
-            border-color: #6a11cb;
-        }
-        
-        /* Following Cards Grid */
-        .following-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        
-        .following-card-badge {
-            background-color: #ff7e5f;
-        }
-        
-        /* =========================================== */
-        /* NEW STYLES FOR YOU FEED - ADDED BELOW       */
-        /* =========================================== */
-        
-        /* For You specific badge style */
-        .foryou-card-badge {
-            background-color: #4A90E2;
-        }
-        
-        .foryou-badge {
-            background-color: #4A90E2;
-        }
-        
-        /* Empty State */
-        .empty-feed-state {
-            text-align: center;
-            padding: 40px 20px;
-            background-color: white;
-            border-radius: 8px;
-            margin: 20px 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-        
-        .empty-feed-icon {
-            font-size: 3rem;
-            color: #6a11cb;
-            margin-bottom: 15px;
-        }
-        
-        .empty-feed-title {
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-        
-        .empty-feed-text {
-            color: #666;
-            max-width: 500px;
-            margin: 0 auto 20px;
-            line-height: 1.5;
-        }
-        
-        .follow-artist-btn {
-            background-color: #6a11cb;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .follow-artist-btn:hover {
-            background-color: #7a2be2;
-            transform: translateY(-2px);
-        }
-        
-        /* Responsive for Feed Tabs */
-        @media (min-width: 576px) {
-            .following-cards-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .following-cards-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            
-            .feed-tabs {
-                padding: 0 20px;
-            }
-            
-            .feed-tab {
-                padding: 15px 30px;
-                font-size: 1.2rem;
-            }
-        }
-        
-        @media (min-width: 992px) {
-            .following-cards-grid {
-                grid-template-columns: repeat(6, 1fr);
-            }
-        }
+        /* Following Feed Styles - REMOVED */
+        /* All feed-specific styles removed since we're using only card layout */
         
         /* =========================================== */
 /* ADD THIS RULE TO HIDE THE FEATURED SLIDER  */
@@ -955,6 +766,9 @@
 .featured-slider-section {
     display: none !important;
 }
+
+        /* REMOVED all .following-* and .foryou-* specific styles */
+        /* The cards will use the same styling as Home tab */
     </style>
 </head>
 <body>
@@ -1001,11 +815,11 @@
             <button class="feed-tab active" id="homeTab" data-tab="home">
                 <i class="fas fa-home"></i> Home
             </button>
-            <button class="feed-tab" id="followingTab" data-tab="following">
-                <i class="fas fa-user-friends"></i> Following
+            <button class="feed-tab" id="artistsTab" data-tab="artists">
+                <i class="fas fa-users"></i> Artists
             </button>
-            <button class="feed-tab" id="forYouTab" data-tab="forYou">
-                <i class="fas fa-magic"></i> Discover
+            <button class="feed-tab" id="playlistsTab" data-tab="playlists">
+                <i class="fas fa-list-music"></i> Playlists
             </button>
         </div>
     </div>
@@ -1072,97 +886,70 @@
         </main>
     </div>
     
-    <!-- Following Feed Content (New Content) -->
-    <div class="feed-content hidden" id="followingFeed">
-        <div class="following-feed">
+    <!-- Artists Feed Content (Updated Content) -->
+    <div class="feed-content hidden" id="artistsFeed">
+        <div class="main-content">
             <div class="container">
-                <!-- Feed Posts Section -->
-                <div class="following-section-header">
-                    <i class="fas fa-rss"></i> Posts from Followed Artists
-                </div>
-                
-                <div id="followingPosts">
-                    <!-- Following posts will be dynamically inserted here -->
-                </div>
-                
-                <!-- Following Artists Section -->
-                <div class="section">
+                <!-- Featured Artists Section -->
+                <section class="section">
                     <div class="section-header">
-                        <div class="section-title"><i class="fas fa-user-friends"></i> Followed Artists</div>
-                        <button class="more-btn" id="followingArtistsMore">More+</button>
+                        <div class="section-title"><i class="fas fa-users"></i> Featured Artists</div>
+                        <button class="more-btn" id="featuredArtistsMore">More+</button>
                     </div>
-                    <div class="following-cards-grid" id="followingArtistsGrid"></div>
-                </div>
+                    <div class="cards-grid" id="featuredArtistsGrid"></div>
+                </section>
                 
-                <!-- New Releases from Followed Artists -->
-                <div class="section">
+                <!-- Popular Singers Section -->
+                <section class="section">
                     <div class="section-header">
-                        <div class="section-title"><i class="fas fa-bell"></i> New Releases from Followed Artists</div>
-                        <button class="more-btn" id="followingReleasesMore">More+</button>
+                        <div class="section-title"><i class="fas fa-microphone"></i> Popular Singers</div>
+                        <button class="more-btn" id="popularSingersMore">More+</button>
                     </div>
-                    <div class="following-cards-grid" id="followingReleasesGrid"></div>
-                </div>
+                    <div class="cards-grid" id="popularSingersGrid"></div>
+                </section>
                 
-                <!-- Empty State (Optional) - Commented out by default -->
-                <!-- Uncomment below to show the empty state -->
-                <!-- 
-                <div class="empty-feed-state" id="emptyFollowingState">
-                    <div class="empty-feed-icon">
-                        <i class="fas fa-user-friends"></i>
+                <!-- Rising Stars Section -->
+                <section class="section">
+                    <div class="section-header">
+                        <div class="section-title"><i class="fas fa-chart-line"></i> Rising Stars</div>
+                        <button class="more-btn" id="risingStarsMore">More+</button>
                     </div>
-                    <div class="empty-feed-title">Your Following Feed is Empty</div>
-                    <div class="empty-feed-text">
-                        This is a demo. In a real app, posts from artists you follow would appear here.
-                        Follow some artists to see their latest releases and updates.
-                    </div>
-                    <button class="follow-artist-btn" id="demoFollowBtn">
-                        <i class="fas fa-plus"></i> Follow Demo Artists
-                    </button>
-                </div>
-                -->
+                    <div class="cards-grid" id="risingStarsGrid"></div>
+                </section>
             </div>
         </div>
     </div>
     
-    <!-- For You Feed Content (New Content - Same design as Following feed) -->
-    <div class="feed-content hidden" id="forYouFeed">
-        <div class="following-feed">
+    <!-- Playlists Feed Content (Updated Content) -->
+    <div class="feed-content hidden" id="playlistsFeed">
+        <div class="main-content">
             <div class="container">
-                <!-- Feed Posts Section -->
-                <div class="following-section-header">
-                    <i class="fas fa-magic"></i> Recommended For You
-                </div>
-                
-                <div id="forYouPosts">
-                    <!-- For You posts will be dynamically inserted here -->
-                </div>
-                
-                <!-- Recommended Artists Section -->
-                <div class="section">
+                <!-- Trending Playlists Section -->
+                <section class="section">
                     <div class="section-header">
-                        <div class="section-title"><i class="fas fa-user-check"></i> Recommended Artists</div>
-                        <button class="more-btn" id="forYouArtistsMore">More+</button>
+                        <div class="section-title"><i class="fas fa-fire"></i> Trending Playlists</div>
+                        <button class="more-btn" id="trendingPlaylistsMore">More+</button>
                     </div>
-                    <div class="following-cards-grid" id="forYouArtistsGrid"></div>
-                </div>
+                    <div class="cards-grid" id="trendingPlaylistsGrid"></div>
+                </section>
                 
-                <!-- Recommended Releases -->
-                <div class="section">
+                <!-- Mood & Genre Section -->
+                <section class="section">
                     <div class="section-header">
-                        <div class="section-title"><i class="fas fa-gift"></i> Recommended Releases</div>
-                        <button class="more-btn" id="forYouReleasesMore">More+</button>
+                        <div class="section-title"><i class="fas fa-heart"></i> Mood & Genre</div>
+                        <button class="more-btn" id="moodPlaylistsMore">More+</button>
                     </div>
-                    <div class="following-cards-grid" id="forYouReleasesGrid"></div>
-                </div>
+                    <div class="cards-grid" id="moodPlaylistsGrid"></div>
+                </section>
                 
-                <!-- Discover New Music -->
-                <div class="section">
+                <!-- New Playlists Section -->
+                <section class="section">
                     <div class="section-header">
-                        <div class="section-title"><i class="fas fa-compass"></i> Discover New Music</div>
-                        <button class="more-btn" id="forYouDiscoverMore">More+</button>
+                        <div class="section-title"><i class="fas fa-bell"></i> New Playlists</div>
+                        <button class="more-btn" id="newPlaylistsMore">More+</button>
                     </div>
-                    <div class="following-cards-grid" id="forYouDiscoverGrid"></div>
-                </div>
+                    <div class="cards-grid" id="newPlaylistsGrid"></div>
+                </section>
             </div>
         </div>
     </div>
@@ -1248,126 +1035,63 @@
         ];
 
         // ===========================================
-        // NEW DATA FOR FOLLOWING FEED
+        // UPDATED DATA FOR ARTISTS TAB
         // ===========================================
-        const followedArtists = [
-            { 
-                id: 1, 
-                name: "Arijit Singh", 
-                image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face",
-                posts: [
-                    {
-                        id: 1,
-                        text: "Just released my new single 'Tere Hawaale' from the upcoming movie. Hope you all like it!",
-                        time: "2 hours ago",
-                        song: { title: "Tere Hawaale", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
-                    },
-                    {
-                        id: 2,
-                        text: "Thank you for all the love on 'Kesariya'! The song has crossed 500M streams worldwide.",
-                        time: "2 days ago",
-                        song: { title: "Kesariya", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
-                    }
-                ]
-            },
-            { 
-                id: 2, 
-                name: "Neha Kakkar", 
-                image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face",
-                posts: [
-                    {
-                        id: 3,
-                        text: "Excited to announce my new dance single dropping next Friday! Get ready to groove.",
-                        time: "1 day ago",
-                        song: { title: "Dance Single (Coming Soon)", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w-800&q=80" }
-                    }
-                ]
-            },
-            { 
-                id: 4, 
-                name: "Shreya Ghoshal", 
-                image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face",
-                posts: [
-                    {
-                        id: 4,
-                        text: "My classical fusion album 'Raag Rang' is now available on all platforms. A tribute to Indian classical music.",
-                        time: "3 days ago",
-                        song: { title: "Raag Rang (Full Album)", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
-                    }
-                ]
-            }
+        const featuredArtists = [
+            { id: 101, name: "A.R. Rahman", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 102, name: "Jasleen Royal", image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 103, name: "Vishal Mishra", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 104, name: "King", image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 105, name: "Atif Aslam", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 106, name: "Shankar Mahadevan", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" }
         ];
 
-        const followedReleases = [
-            { id: 1, title: "Tere Hawaale", artist: "Arijit Singh", badge: "FOLLOWED ARTIST", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 2, title: "Dance Single", artist: "Neha Kakkar", badge: "FOLLOWED ARTIST", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 3, title: "Raag Rang", artist: "Shreya Ghoshal", badge: "FOLLOWED ARTIST", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 4, title: "Maan Meri Jaan", artist: "King", badge: "FOLLOWED ARTIST", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 5, title: "Kesariya", artist: "Arijit Singh", badge: "FOLLOWED ARTIST", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 6, title: "Lehra Do", artist: "Badshah", badge: "FOLLOWED ARTIST", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
+        const popularSingers = [
+            { id: 201, name: "Arijit Singh", image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 202, name: "Neha Kakkar", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 203, name: "Shreya Ghoshal", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 204, name: "Diljit Dosanjh", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 205, name: "Badshah", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 206, name: "Sunidhi Chauhan", image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" }
+        ];
+
+        const risingStars = [
+            { id: 301, name: "Kanishk Seth", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 302, name: "Raghav Chaitanya", image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 303, name: "Jubin Nautiyal", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 304, name: "Armaan Malik", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
+            { id: 305, name: "Asees Kaur", image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
+            { id: 306, name: "Tulsi Kumar", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" }
         ];
 
         // ===========================================
-        // NEW DATA FOR YOU FEED
+        // UPDATED DATA FOR PLAYLISTS TAB
         // ===========================================
-        const forYouArtists = [
-            { 
-                id: 101, 
-                name: "A.R. Rahman", 
-                image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face",
-                posts: [
-                    {
-                        id: 101,
-                        text: "Working on an exciting new project that blends classical Indian music with electronic sounds. Stay tuned!",
-                        time: "5 hours ago",
-                        song: { title: "New Fusion Project", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
-                    }
-                ]
-            },
-            { 
-                id: 102, 
-                name: "Jasleen Royal", 
-                image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face",
-                posts: [
-                    {
-                        id: 102,
-                        text: "My new indie-pop single 'Heeriye' is out now! It's a song about finding light in dark times.",
-                        time: "1 day ago",
-                        song: { title: "Heeriye", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
-                    }
-                ]
-            },
-            { 
-                id: 103, 
-                name: "Vishal Mishra", 
-                image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face",
-                posts: [
-                    {
-                        id: 103,
-                        text: "Just dropped my acoustic version of 'Tere Hawale'. Hope you enjoy this raw, emotional rendition.",
-                        time: "3 days ago",
-                        song: { title: "Tere Hawale (Acoustic)", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
-                    }
-                ]
-            }
+        const trendingPlaylists = [
+            { id: 401, title: "Top 50 India", subtitle: "Most played tracks", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 402, title: "Bollywood Hits", subtitle: "Latest Bollywood songs", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 403, title: "Punjabi Beats", subtitle: "Bhangra & Pop Hits", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 404, title: "Romantic Mix", subtitle: "Love songs collection", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 405, title: "Workout Energy", subtitle: "High tempo tracks", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 406, title: "Chill Vibes", subtitle: "Relaxing music", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
         ];
 
-        const forYouReleases = [
-            { id: 101, title: "Heeriye", artist: "Jasleen Royal", badge: "FOR YOU", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 102, title: "Rait Zara Si", artist: "Arijit Singh", badge: "RECOMMENDED", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 103, title: "Besharam Rang", artist: "Vishal-Shekhar", badge: "FOR YOU", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 104, title: "Phir Aur Kya Chahiye", artist: "Arijit Singh", badge: "RECOMMENDED", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 105, title: "Kahani Suno 2.0", artist: "Kaifi Khalil", badge: "FOR YOU", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 106, title: "Mere Sohneya", artist: "Sachet Tandon", badge: "RECOMMENDED", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
+        const moodPlaylists = [
+            { id: 501, title: "Happy Mood", subtitle: "Feel good songs", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 502, title: "Sad Songs", subtitle: "Emotional tracks", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 503, title: "Party Hits", subtitle: "Dance floor anthems", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 504, title: "Study Focus", subtitle: "Concentration music", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 505, title: "Road Trip", subtitle: "Travel playlist", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 506, title: "Morning Start", subtitle: "Fresh morning songs", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
         ];
 
-        const forYouDiscover = [
-            { id: 201, title: "Indie Mix", artist: "Various Artists", badge: "NEW DISCOVERY", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 202, title: "Punjabi Beats", artist: "Latest Hits", badge: "TRENDING", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 203, title: "Romantic Ballads", artist: "Love Songs", badge: "FOR YOU", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 204, title: "Workout Energy", artist: "High Tempo", badge: "RECOMMENDED", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 205, title: "Chill Vibes", artist: "Relaxing Mix", badge: "FOR YOU", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 206, title: "Desi Hip Hop", artist: "Urban Beats", badge: "NEW DISCOVERY", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
+        const newPlaylists = [
+            { id: 601, title: "New Releases 2023", subtitle: "Latest songs collection", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 602, title: "Indie Discover", subtitle: "Independent artists", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 603, title: "Acoustic Sessions", subtitle: "Unplugged versions", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 604, title: "Retro Rewind", subtitle: "90s & 2000s hits", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 605, title: "Regional Mix", subtitle: "Multi-language hits", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
+            { id: 606, title: "Festive Special", subtitle: "Celebration songs", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
         ];
 
         // DOM Elements
@@ -1382,22 +1106,23 @@
         const relatedSongsEl = document.getElementById('relatedSongs');
         const categoriesListEl = document.getElementById('categoriesList');
         
-        // NEW DOM Elements for tabs
+        // UPDATED DOM Elements for tabs
         const homeTab = document.getElementById('homeTab');
-        const followingTab = document.getElementById('followingTab');
-        const forYouTab = document.getElementById('forYouTab');
+        const artistsTab = document.getElementById('artistsTab');
+        const playlistsTab = document.getElementById('playlistsTab');
         const homeFeed = document.getElementById('homeFeed');
-        const followingFeed = document.getElementById('followingFeed');
-        const forYouFeed = document.getElementById('forYouFeed');
-        const followingPostsEl = document.getElementById('followingPosts');
-        const followingArtistsGridEl = document.getElementById('followingArtistsGrid');
-        const followingReleasesGridEl = document.getElementById('followingReleasesGrid');
-        const forYouPostsEl = document.getElementById('forYouPosts');
-        const forYouArtistsGridEl = document.getElementById('forYouArtistsGrid');
-        const forYouReleasesGridEl = document.getElementById('forYouReleasesGrid');
-        const forYouDiscoverGridEl = document.getElementById('forYouDiscoverGrid');
-        const emptyFollowingState = document.getElementById('emptyFollowingState');
-        const demoFollowBtn = document.getElementById('demoFollowBtn');
+        const artistsFeed = document.getElementById('artistsFeed');
+        const playlistsFeed = document.getElementById('playlistsFeed');
+        
+        // Artists Tab Elements
+        const featuredArtistsGridEl = document.getElementById('featuredArtistsGrid');
+        const popularSingersGridEl = document.getElementById('popularSingersGrid');
+        const risingStarsGridEl = document.getElementById('risingStarsGrid');
+        
+        // Playlists Tab Elements
+        const trendingPlaylistsGridEl = document.getElementById('trendingPlaylistsGrid');
+        const moodPlaylistsGridEl = document.getElementById('moodPlaylistsGrid');
+        const newPlaylistsGridEl = document.getElementById('newPlaylistsGrid');
 
         // Slider Variables
         let currentSlide = 0;
@@ -1413,10 +1138,10 @@
             renderLatestBollywood();
             renderRelatedSongs();
             renderCategories();
-            // NEW: Render Following feed content
-            renderFollowingFeed();
-            // NEW: Render For You feed content
-            renderForYouFeed();
+            // UPDATED: Render Artists tab content
+            renderArtistsTab();
+            // UPDATED: Render Playlists tab content
+            renderPlaylistsTab();
             setupEventListeners();
             startAutoSlide();
         }
@@ -1455,221 +1180,148 @@
         }
 
         // ===========================================
-        // NEW FUNCTIONS FOR FOLLOWING FEED
+        // UPDATED FUNCTIONS FOR ARTISTS TAB
         // ===========================================
         
-        // Render Following feed content
-        function renderFollowingFeed() {
-            renderFollowingPosts();
-            renderFollowingArtists();
-            renderFollowingReleases();
+        // Render Artists tab content
+        function renderArtistsTab() {
+            renderFeaturedArtists();
+            renderPopularSingers();
+            renderRisingStars();
         }
         
-        // Render posts from followed artists
-        function renderFollowingPosts() {
-            let postsHTML = '';
-            
-            followedArtists.forEach(artist => {
-                artist.posts.forEach(post => {
-                    postsHTML += `
-                        <div class="following-feed-item">
-                            <div class="following-artist-header">
-                                <img src="${artist.image}" alt="${artist.name}" class="following-artist-avatar">
-                                <div class="following-artist-name">${artist.name}</div>
-                                <div class="following-badge">Followed Artist</div>
-                                <div class="following-post-time">${post.time}</div>
-                            </div>
-                            <div class="following-post-content">
-                                <div class="following-post-text">${post.text}</div>
-                                <div class="music-card song" style="height: auto; margin: 0;">
-                                    <div class="image-container">
-                                        <img src="${post.song.image}" alt="${post.song.title}" class="card-image">
-                                        <div class="card-badge following-card-badge">NEW RELEASE</div>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="card-title">${post.song.title}</div>
-                                        <button class="download-btn" data-id="${post.id}" data-type="following">Download MP3</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="following-post-actions">
-                                <button class="following-action-btn" data-id="${post.id}">
-                                    <i class="fas fa-heart"></i> Like
-                                </button>
-                                <button class="following-action-btn" data-id="${post.id}">
-                                    <i class="fas fa-share"></i> Share
-                                </button>
-                                <button class="following-action-btn" data-id="${post.id}">
-                                    <i class="fas fa-comment"></i> Comment
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                });
-            });
-            
-            followingPostsEl.innerHTML = postsHTML;
-        }
-        
-        // Render followed artists grid
-        function renderFollowingArtists() {
+        // Render featured artists grid
+        function renderFeaturedArtists() {
             let html = '';
-            followedArtists.forEach(artist => {
+            featuredArtists.forEach(artist => {
                 html += `
                     <div class="music-card artist">
                         <div class="image-container">
                             <img src="${artist.image}" alt="${artist.name}" class="card-image">
-                            <div class="card-badge following-card-badge">FOLLOWED</div>
+                            <div class="card-badge">FEATURED</div>
                         </div>
                         <div class="card-content">
                             <div class="card-title">${artist.name}</div>
-                            <button class="download-btn" data-id="${artist.id}" data-type="following-artist">View Songs</button>
+                            <button class="download-btn" data-id="${artist.id}" data-type="artist-view">View Songs</button>
                         </div>
                     </div>
                 `;
             });
-            followingArtistsGridEl.innerHTML = html;
+            featuredArtistsGridEl.innerHTML = html;
         }
         
-        // Render releases from followed artists
-        function renderFollowingReleases() {
+        // Render popular singers grid
+        function renderPopularSingers() {
             let html = '';
-            followedReleases.forEach(release => {
+            popularSingers.forEach(artist => {
                 html += `
-                    <div class="music-card song">
+                    <div class="music-card artist">
                         <div class="image-container">
-                            <img src="${release.image}" alt="${release.title}" class="card-image">
-                            <div class="card-badge following-card-badge">${release.badge}</div>
+                            <img src="${artist.image}" alt="${artist.name}" class="card-image">
+                            <div class="card-badge">POPULAR</div>
                         </div>
                         <div class="card-content">
-                            <div class="card-title">${release.title}</div>
-                            <div class="card-subtitle">${release.artist}</div>
-                            <button class="download-btn" data-id="${release.id}" data-type="following-release">Download MP3</button>
+                            <div class="card-title">${artist.name}</div>
+                            <button class="download-btn" data-id="${artist.id}" data-type="artist-view">View Songs</button>
                         </div>
                     </div>
                 `;
             });
-            followingReleasesGridEl.innerHTML = html;
+            popularSingersGridEl.innerHTML = html;
+        }
+        
+        // Render rising stars grid
+        function renderRisingStars() {
+            let html = '';
+            risingStars.forEach(artist => {
+                html += `
+                    <div class="music-card artist">
+                        <div class="image-container">
+                            <img src="${artist.image}" alt="${artist.name}" class="card-image">
+                            <div class="card-badge">RISING</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${artist.name}</div>
+                            <button class="download-btn" data-id="${artist.id}" data-type="artist-view">View Songs</button>
+                        </div>
+                    </div>
+                `;
+            });
+            risingStarsGridEl.innerHTML = html;
         }
 
         // ===========================================
-        // NEW FUNCTIONS FOR YOU FEED
+        // UPDATED FUNCTIONS FOR PLAYLISTS TAB
         // ===========================================
         
-        // Render For You feed content
-        function renderForYouFeed() {
-            renderForYouPosts();
-            renderForYouArtists();
-            renderForYouReleases();
-            renderForYouDiscover();
+        // Render Playlists tab content
+        function renderPlaylistsTab() {
+            renderTrendingPlaylists();
+            renderMoodPlaylists();
+            renderNewPlaylists();
         }
         
-        // Render posts from recommended artists
-        function renderForYouPosts() {
-            let postsHTML = '';
-            
-            forYouArtists.forEach(artist => {
-                artist.posts.forEach(post => {
-                    postsHTML += `
-                        <div class="following-feed-item">
-                            <div class="following-artist-header">
-                                <img src="${artist.image}" alt="${artist.name}" class="following-artist-avatar">
-                                <div class="following-artist-name">${artist.name}</div>
-                                <div class="following-badge foryou-badge">Recommended</div>
-                                <div class="following-post-time">${post.time}</div>
-                            </div>
-                            <div class="following-post-content">
-                                <div class="following-post-text">${post.text}</div>
-                                <div class="music-card song" style="height: auto; margin: 0;">
-                                    <div class="image-container">
-                                        <img src="${post.song.image}" alt="${post.song.title}" class="card-image">
-                                        <div class="card-badge foryou-card-badge">FOR YOU</div>
-                                    </div>
-                                    <div class="card-content">
-                                        <div class="card-title">${post.song.title}</div>
-                                        <button class="download-btn" data-id="${post.id}" data-type="foryou">Download MP3</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="following-post-actions">
-                                <button class="following-action-btn" data-id="${post.id}">
-                                    <i class="fas fa-heart"></i> Like
-                                </button>
-                                <button class="following-action-btn" data-id="${post.id}">
-                                    <i class="fas fa-share"></i> Share
-                                </button>
-                                <button class="following-action-btn" data-id="${post.id}">
-                                    <i class="fas fa-plus"></i> Follow
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                });
-            });
-            
-            forYouPostsEl.innerHTML = postsHTML;
-        }
-        
-        // Render recommended artists grid
-        function renderForYouArtists() {
+        // Render trending playlists grid
+        function renderTrendingPlaylists() {
             let html = '';
-            forYouArtists.forEach(artist => {
-                html += `
-                    <div class="music-card artist">
-                        <div class="image-container">
-                            <img src="${artist.image}" alt="${artist.name}" class="card-image">
-                            <div class="card-badge foryou-card-badge">RECOMMENDED</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-title">${artist.name}</div>
-                            <button class="download-btn" data-id="${artist.id}" data-type="foryou-artist">View Songs</button>
-                        </div>
-                    </div>
-                `;
-            });
-            forYouArtistsGridEl.innerHTML = html;
-        }
-        
-        // Render recommended releases
-        function renderForYouReleases() {
-            let html = '';
-            forYouReleases.forEach(release => {
-                html += `
-                    <div class="music-card song">
-                        <div class="image-container">
-                            <img src="${release.image}" alt="${release.title}" class="card-image">
-                            <div class="card-badge foryou-card-badge">${release.badge}</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-title">${release.title}</div>
-                            <div class="card-subtitle">${release.artist}</div>
-                            <button class="download-btn" data-id="${release.id}" data-type="foryou-release">Download MP3</button>
-                        </div>
-                    </div>
-                `;
-            });
-            forYouReleasesGridEl.innerHTML = html;
-        }
-        
-        // Render discover new music section
-        function renderForYouDiscover() {
-            let html = '';
-            forYouDiscover.forEach(item => {
+            trendingPlaylists.forEach(playlist => {
                 html += `
                     <div class="music-card album">
                         <div class="image-container">
-                            <img src="${item.image}" alt="${item.title}" class="card-image">
-                            <div class="card-badge foryou-card-badge">${item.badge}</div>
+                            <img src="${playlist.image}" alt="${playlist.title}" class="card-image">
+                            <div class="card-badge">TRENDING</div>
                         </div>
                         <div class="card-content">
-                            <div class="card-title">${item.title}</div>
-                            <div class="card-subtitle">${item.artist}</div>
-                            <button class="download-btn" data-id="${item.id}" data-type="foryou-discover">Explore</button>
+                            <div class="card-title">${playlist.title}</div>
+                            <div class="card-subtitle">${playlist.subtitle}</div>
+                            <button class="download-btn" data-id="${playlist.id}" data-type="playlist">Explore</button>
                         </div>
                     </div>
                 `;
             });
-            forYouDiscoverGridEl.innerHTML = html;
+            trendingPlaylistsGridEl.innerHTML = html;
+        }
+        
+        // Render mood playlists grid
+        function renderMoodPlaylists() {
+            let html = '';
+            moodPlaylists.forEach(playlist => {
+                html += `
+                    <div class="music-card album">
+                        <div class="image-container">
+                            <img src="${playlist.image}" alt="${playlist.title}" class="card-image">
+                            <div class="card-badge">MOOD</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${playlist.title}</div>
+                            <div class="card-subtitle">${playlist.subtitle}</div>
+                            <button class="download-btn" data-id="${playlist.id}" data-type="playlist">Explore</button>
+                        </div>
+                    </div>
+                `;
+            });
+            moodPlaylistsGridEl.innerHTML = html;
+        }
+        
+        // Render new playlists grid
+        function renderNewPlaylists() {
+            let html = '';
+            newPlaylists.forEach(playlist => {
+                html += `
+                    <div class="music-card album">
+                        <div class="image-container">
+                            <img src="${playlist.image}" alt="${playlist.title}" class="card-image">
+                            <div class="card-badge">NEW</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${playlist.title}</div>
+                            <div class="card-subtitle">${playlist.subtitle}</div>
+                            <button class="download-btn" data-id="${playlist.id}" data-type="playlist">Explore</button>
+                        </div>
+                    </div>
+                `;
+            });
+            newPlaylistsGridEl.innerHTML = html;
         }
 
         // Go to specific slide
@@ -1831,20 +1483,20 @@
         }
 
         // ===========================================
-        // UPDATED FUNCTION FOR TAB SWITCHING (Now with 3 tabs)
+        // UPDATED FUNCTION FOR TAB SWITCHING
         // ===========================================
         
-        // Switch between Home, Following, and For You tabs
+        // Switch between Home, Artists, and Playlists tabs
         function switchTab(tabName) {
             // Update active tab
             homeTab.classList.toggle('active', tabName === 'home');
-            followingTab.classList.toggle('active', tabName === 'following');
-            forYouTab.classList.toggle('active', tabName === 'forYou');
+            artistsTab.classList.toggle('active', tabName === 'artists');
+            playlistsTab.classList.toggle('active', tabName === 'playlists');
             
             // Show/hide feed content
             homeFeed.classList.toggle('hidden', tabName !== 'home');
-            followingFeed.classList.toggle('hidden', tabName !== 'following');
-            forYouFeed.classList.toggle('hidden', tabName !== 'forYou');
+            artistsFeed.classList.toggle('hidden', tabName !== 'artists');
+            playlistsFeed.classList.toggle('hidden', tabName !== 'playlists');
             
             // Pause slider when not on home tab
             if (tabName !== 'home') {
@@ -1857,18 +1509,11 @@
         // Setup event listeners
         function setupEventListeners() {
             // ===========================================
-            // NEW: Tab switching listeners
+            // UPDATED: Tab switching listeners
             // ===========================================
             homeTab.addEventListener('click', () => switchTab('home'));
-            followingTab.addEventListener('click', () => switchTab('following'));
-            forYouTab.addEventListener('click', () => switchTab('forYou'));
-            
-            // Demo follow button (if enabled)
-            if (demoFollowBtn) {
-                demoFollowBtn.addEventListener('click', () => {
-                    alert("This is a demo. In a real app, you would follow artists to see their posts here.");
-                });
-            }
+            artistsTab.addEventListener('click', () => switchTab('artists'));
+            playlistsTab.addEventListener('click', () => switchTab('playlists'));
             
             // Slider navigation
             prevBtn.addEventListener('click', () => {
@@ -1979,7 +1624,7 @@
                 });
             });
             
-            // Download/View buttons functionality - updated to include for you feed
+            // Download/View buttons functionality - updated to include all tabs
             document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('download-btn')) {
                     const id = e.target.getAttribute('data-id');
@@ -2002,41 +1647,17 @@
                         case 'related':
                             itemType = 'Related Song';
                             break;
-                        case 'following':
-                            itemType = 'Followed Artist Release';
+                        case 'artist-view':
+                            itemType = 'Artist Songs';
                             break;
-                        case 'following-artist':
-                            itemType = 'Followed Artist';
-                            break;
-                        case 'following-release':
-                            itemType = 'Release from Followed Artist';
-                            break;
-                        case 'foryou':
-                            itemType = 'Recommended Song';
-                            break;
-                        case 'foryou-artist':
-                            itemType = 'Recommended Artist';
-                            break;
-                        case 'foryou-release':
-                            itemType = 'Recommended Release';
-                            break;
-                        case 'foryou-discover':
-                            itemType = 'Discovery Playlist';
+                        case 'playlist':
+                            itemType = 'Playlist';
                             break;
                         default:
                             itemType = 'Item';
                     }
                     
-                    alert(`Downloading ${itemType} (ID: ${id})\n(This is a demo - in a real app, this would start the download)`);
-                }
-                
-                // Following feed action buttons
-                if (e.target.classList.contains('following-action-btn') || 
-                    e.target.parentElement.classList.contains('following-action-btn')) {
-                    const btn = e.target.classList.contains('following-action-btn') ? 
-                        e.target : e.target.parentElement;
-                    const action = btn.textContent.trim();
-                    alert(`You clicked "${action}" on a followed artist's post.\n(This is a demo - in a real app, this would perform the action)`);
+                    alert(`Opening ${itemType} (ID: ${id})\n(This is a demo - in a real app, this would show the content)`);
                 }
             });
             
