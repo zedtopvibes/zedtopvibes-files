@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -500,7 +499,7 @@
             padding: 20px 0 40px;
         }
         
-        /* Music Card - Universal component for all sections */
+        /* Updated Music Card - Universal component for all sections - NOW 180x180 */
         .music-card {
             background-color: white;
             overflow: hidden;
@@ -508,8 +507,11 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             display: flex;
             flex-direction: column;
-            height: 240px;
+            width: 180px;
+            height: 180px;
             position: relative;
+            cursor: pointer;
+            margin: 0 auto;
         }
         
         /* Card Type Variations */
@@ -566,7 +568,7 @@
         
         .card-image {
             width: 100%;
-            height: 180px;
+            height: 120px;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
@@ -576,42 +578,54 @@
         }
         
         .card-content {
-            padding: 12px;
+            padding: 8px 10px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
+            min-height: 60px;
+            text-align: center;
         }
         
         .card-title {
             font-weight: bold;
-            font-size: 1rem;
-            text-align: center;
-            margin-bottom: 8px;
-            white-space: nowrap;
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+            white-space: normal;
+            text-overflow: clip;
             overflow: hidden;
-            text-overflow: ellipsis;
+            -webkit-line-clamp: 2;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            line-height: 1.2;
+            max-height: 2.4em;
+            height: 2.4em;
         }
         
         .card-subtitle {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #666;
             text-align: center;
-            margin-bottom: 10px;
-            white-space: nowrap;
+            white-space: normal;
+            text-overflow: clip;
             overflow: hidden;
-            text-overflow: ellipsis;
+            -webkit-line-clamp: 1;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            line-height: 1.2;
+            max-height: 1.2em;
+            height: 1.2em;
         }
         
         .card-badge {
             position: absolute;
-            top: 10px;
-            left: 10px;
+            top: 8px;
+            left: 8px;
             background-color: rgba(0, 0, 0, 0.8);
             color: white;
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 4px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: bold;
             z-index: 2;
             transition: background-color 0.3s ease;
@@ -621,37 +635,24 @@
             background-color: rgba(106, 17, 203, 0.9);
         }
         
+        /* Remove download button styles */
         .download-btn {
-            background-color: #000000;
-            color: white;
-            width: 100%;
-            padding: 10px;
-            text-align: center;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            margin-top: auto;
-        }
-        
-        .download-btn:hover {
-            background-color: #333;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none; /* Hide all download buttons */
         }
         
         .image-container {
             position: relative;
-            height: 180px;
+            height: 120px;
             overflow: hidden;
         }
         
-        /* Grid Layout */
+        /* Grid Layout - Adjusted for 180px cards */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 15px;
             margin-bottom: 30px;
+            justify-content: center;
         }
         
         /* Categories Section */
@@ -668,7 +669,7 @@
         }
         
         .category-item {
-            padding: 15px;
+            padding: 12px;
             border-bottom: 1px solid #eee;
             display: flex;
             align-items: center;
@@ -684,14 +685,14 @@
         .category-icon {
             background-color: #6a11cb;
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
-            font-size: 1.2rem;
+            margin-right: 12px;
+            font-size: 1rem;
             transition: all 0.3s ease;
         }
         
@@ -702,13 +703,13 @@
         
         .category-name {
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         
         /* Responsive Design */
         @media (min-width: 576px) {
             .cards-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             }
             
             .categories-list {
@@ -728,11 +729,11 @@
         
         @media (min-width: 768px) {
             .cards-grid {
-                grid-template-columns: repeat(4, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             }
             
             .category-item {
-                padding: 18px 15px;
+                padding: 15px;
             }
             
             .logo {
@@ -744,11 +745,25 @@
             .search-container {
                 max-width: 450px;
             }
+            
+            /* Keep cards at 180x180 on tablets */
+            .music-card {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .image-container {
+                height: 120px;
+            }
+            
+            .card-image {
+                height: 120px;
+            }
         }
         
         @media (min-width: 992px) {
             .cards-grid {
-                grid-template-columns: repeat(6, 1fr);
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             }
             
             .container {
@@ -762,6 +777,20 @@
             /* Adjust search container for desktop */
             .search-container {
                 max-width: 500px;
+            }
+            
+            /* Keep cards at 180x180 on desktop */
+            .music-card {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .image-container {
+                height: 120px;
+            }
+            
+            .card-image {
+                height: 120px;
             }
         }
         
@@ -846,7 +875,7 @@
         /* All feed-specific styles removed since we're using only card layout */
         
         /* 
-
+        
         /* REMOVED all .following-* and .foryou-* specific styles */
         /* The cards will use the same styling as Home tab */
         
@@ -1343,14 +1372,13 @@
             let html = '';
             featuredArtists.forEach(artist => {
                 html += `
-                    <div class="music-card artist">
+                    <div class="music-card artist" data-id="${artist.id}" data-type="artist-view">
                         <div class="image-container">
                             <img src="${artist.image}" alt="${artist.name}" class="card-image">
                             <div class="card-badge">FEATURED</div>
                         </div>
                         <div class="card-content">
                             <div class="card-title">${artist.name}</div>
-                            <button class="download-btn" data-id="${artist.id}" data-type="artist-view">View Songs</button>
                         </div>
                     </div>
                 `;
@@ -1363,14 +1391,13 @@
             let html = '';
             popularSingers.forEach(artist => {
                 html += `
-                    <div class="music-card artist">
+                    <div class="music-card artist" data-id="${artist.id}" data-type="artist-view">
                         <div class="image-container">
                             <img src="${artist.image}" alt="${artist.name}" class="card-image">
                             <div class="card-badge">POPULAR</div>
                         </div>
                         <div class="card-content">
                             <div class="card-title">${artist.name}</div>
-                            <button class="download-btn" data-id="${artist.id}" data-type="artist-view">View Songs</button>
                         </div>
                     </div>
                 `;
@@ -1383,14 +1410,13 @@
             let html = '';
             risingStars.forEach(artist => {
                 html += `
-                    <div class="music-card artist">
+                    <div class="music-card artist" data-id="${artist.id}" data-type="artist-view">
                         <div class="image-container">
                             <img src="${artist.image}" alt="${artist.name}" class="card-image">
                             <div class="card-badge">RISING</div>
                         </div>
                         <div class="card-content">
                             <div class="card-title">${artist.name}</div>
-                            <button class="download-btn" data-id="${artist.id}" data-type="artist-view">View Songs</button>
                         </div>
                     </div>
                 `;
@@ -1414,7 +1440,7 @@
             let html = '';
             trendingPlaylists.forEach(playlist => {
                 html += `
-                    <div class="music-card album">
+                    <div class="music-card album" data-id="${playlist.id}" data-type="playlist">
                         <div class="image-container">
                             <img src="${playlist.image}" alt="${playlist.title}" class="card-image">
                             <div class="card-badge">TRENDING</div>
@@ -1422,7 +1448,6 @@
                         <div class="card-content">
                             <div class="card-title">${playlist.title}</div>
                             <div class="card-subtitle">${playlist.subtitle}</div>
-                            <button class="download-btn" data-id="${playlist.id}" data-type="playlist">Explore</button>
                         </div>
                     </div>
                 `;
@@ -1435,7 +1460,7 @@
             let html = '';
             moodPlaylists.forEach(playlist => {
                 html += `
-                    <div class="music-card album">
+                    <div class="music-card album" data-id="${playlist.id}" data-type="playlist">
                         <div class="image-container">
                             <img src="${playlist.image}" alt="${playlist.title}" class="card-image">
                             <div class="card-badge">MOOD</div>
@@ -1443,7 +1468,6 @@
                         <div class="card-content">
                             <div class="card-title">${playlist.title}</div>
                             <div class="card-subtitle">${playlist.subtitle}</div>
-                            <button class="download-btn" data-id="${playlist.id}" data-type="playlist">Explore</button>
                         </div>
                     </div>
                 `;
@@ -1456,7 +1480,7 @@
             let html = '';
             newPlaylists.forEach(playlist => {
                 html += `
-                    <div class="music-card album">
+                    <div class="music-card album" data-id="${playlist.id}" data-type="playlist">
                         <div class="image-container">
                             <img src="${playlist.image}" alt="${playlist.title}" class="card-image">
                             <div class="card-badge">NEW</div>
@@ -1464,7 +1488,6 @@
                         <div class="card-content">
                             <div class="card-title">${playlist.title}</div>
                             <div class="card-subtitle">${playlist.subtitle}</div>
-                            <button class="download-btn" data-id="${playlist.id}" data-type="playlist">Explore</button>
                         </div>
                     </div>
                 `;
@@ -1520,19 +1543,18 @@
             startAutoSlide();
         }
 
-        // Existing rendering functions from original file
+        // Updated rendering functions from original file
         function renderTrendingSingles() {
             let html = '';
             singles.forEach(single => {
                 html += `
-                    <div class="music-card song">
+                    <div class="music-card song" data-id="${single.id}" data-type="single">
                         <div class="image-container">
                             <img src="${single.image}" alt="${single.title}" class="card-image">
                             <div class="card-badge">${single.badge}</div>
                         </div>
                         <div class="card-content">
                             <div class="card-title">${single.title}</div>
-                            <button class="download-btn" data-id="${single.id}" data-type="single">Download MP3</button>
                         </div>
                     </div>
                 `;
@@ -1544,13 +1566,12 @@
             let html = '';
             artists.forEach(artist => {
                 html += `
-                    <div class="music-card artist">
+                    <div class="music-card artist" data-id="${artist.id}" data-type="artist">
                         <div class="image-container">
                             <img src="${artist.image}" alt="${artist.name}" class="card-image">
                         </div>
                         <div class="card-content">
                             <div class="card-title">${artist.name}</div>
-                            <button class="download-btn" data-id="${artist.id}" data-type="artist">View Songs</button>
                         </div>
                     </div>
                 `;
@@ -1562,14 +1583,13 @@
             let html = '';
             albums.forEach(album => {
                 html += `
-                    <div class="music-card album">
+                    <div class="music-card album" data-id="${album.id}" data-type="album">
                         <div class="image-container">
                             <img src="${album.image}" alt="${album.title}" class="card-image">
                         </div>
                         <div class="card-content">
                             <div class="card-title">${album.title}</div>
                             <div class="card-subtitle">${album.subtitle}</div>
-                            <button class="download-btn" data-id="${album.id}" data-type="album">Download Album</button>
                         </div>
                     </div>
                 `;
@@ -1581,14 +1601,13 @@
             let html = '';
             singles.slice(0, 4).forEach(single => {
                 html += `
-                    <div class="music-card bollywood">
+                    <div class="music-card bollywood" data-id="${single.id}" data-type="bollywood">
                         <div class="image-container">
                             <img src="${single.image}" alt="${single.title}" class="card-image">
                             <div class="card-badge">${single.badge}</div>
                         </div>
                         <div class="card-content">
                             <div class="card-title">${single.title}</div>
-                            <button class="download-btn" data-id="${single.id}" data-type="bollywood">Download MP3</button>
                         </div>
                     </div>
                 `;
@@ -1600,14 +1619,13 @@
             let html = '';
             singles.slice(0, 4).forEach(single => {
                 html += `
-                    <div class="music-card related">
+                    <div class="music-card related" data-id="${single.id}" data-type="related">
                         <div class="image-container">
                             <img src="${single.image}" alt="${single.title}" class="card-image">
                             <div class="card-badge">${single.badge}</div>
                         </div>
                         <div class="card-content">
                             <div class="card-title">${single.title}</div>
-                            <button class="download-btn" data-id="${single.id}" data-type="related">Download MP3</button>
                         </div>
                     </div>
                 `;
@@ -1772,8 +1790,54 @@
                 });
             });
             
-            // Download/View buttons functionality - updated to include all tabs
+            // Category items functionality
+            const categoryItems = document.querySelectorAll('.category-item');
+            categoryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const categoryId = this.getAttribute('data-id');
+                    const categoryName = this.querySelector('.category-name').textContent;
+                    alert(`Opening category: ${categoryName}\n(This is a demo - in a real app, this would show all ${categoryName})`);
+                });
+            });
+            
+            // Updated event listener to handle click on entire card
             document.addEventListener('click', function(e) {
+                // Check if clicked element is a music card or inside one
+                const musicCard = e.target.closest('.music-card');
+                if (musicCard) {
+                    const id = musicCard.getAttribute('data-id');
+                    const type = musicCard.getAttribute('data-type');
+                    let itemType = '';
+                    
+                    switch(type) {
+                        case 'single':
+                            itemType = 'Single Track';
+                            break;
+                        case 'artist':
+                        case 'artist-view':
+                            itemType = 'Artist';
+                            break;
+                        case 'album':
+                            itemType = 'Album';
+                            break;
+                        case 'bollywood':
+                            itemType = 'Bollywood Song';
+                            break;
+                        case 'related':
+                            itemType = 'Related Song';
+                            break;
+                        case 'playlist':
+                            itemType = 'Playlist';
+                            break;
+                        default:
+                            itemType = 'Item';
+                    }
+                    
+                    alert(`Opening ${itemType} detail page (ID: ${id})\n(This is a demo - in a real app, this would navigate to the ${itemType.toLowerCase()} page)`);
+                    return; // Prevent further processing
+                }
+                
+                // Keep existing button functionality for featured slider
                 if (e.target.classList.contains('download-btn')) {
                     const id = e.target.getAttribute('data-id');
                     const type = e.target.getAttribute('data-type');
@@ -1807,16 +1871,6 @@
                     
                     alert(`Opening ${itemType} (ID: ${id})\n(This is a demo - in a real app, this would show the content)`);
                 }
-            });
-            
-            // Category items functionality
-            const categoryItems = document.querySelectorAll('.category-item');
-            categoryItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const categoryId = this.getAttribute('data-id');
-                    const categoryName = this.querySelector('.category-name').textContent;
-                    alert(`Opening category: ${categoryName}\n(This is a demo - in a real app, this would show all ${categoryName})`);
-                });
             });
         }
 
