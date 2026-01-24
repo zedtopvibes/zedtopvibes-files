@@ -104,7 +104,7 @@
         /* Header Section */
         .main-header {
             background-color: #000000;
-            position: sticky;
+            position: relative;
             top: 0;
             z-index: 100;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
