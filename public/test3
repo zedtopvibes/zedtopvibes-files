@@ -6,226 +6,226 @@
     <title>KoshalWorld - Music Download Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Reset & Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        
-        body {
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.5;
-        }
-        
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        
-        button {
-            cursor: pointer;
-            border: none;
-            background: none;
-        }
-        
-        /* Utility Classes */
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* =========================================== */
-        /* UPDATED SECTION HEADER STYLES - RESIZED & REDESIGNED */
-        /* =========================================== */
-        .section-header {
-            background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
-            color: white;
-            padding: 8px 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            border-radius: 6px;
-            height: 42px;
-            min-height: 42px;
-            box-shadow: 0 2px 6px rgba(106, 17, 203, 0.15);
-        }
-        
-        .section-title {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            letter-spacing: 0.2px;
-        }
-        
-        .section-title i {
-            font-size: 0.85rem;
-            opacity: 0.9;
-        }
-        
-        .more-btn {
-            background-color: rgba(255, 255, 255, 0.15);
-            color: white;
-            padding: 5px 12px;
-            border-radius: 16px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            letter-spacing: 0.2px;
-        }
-        
-        .more-btn:hover {
-            background-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(-1px);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Categories Section Header Specific Style */
-        .categories-section .section-header {
-            border-radius: 6px 6px 0 0;
-            margin-bottom: 0;
-        }
-        
-        /* =========================================== */
-        /* RESPONSIVE ADJUSTMENTS FOR SECTION HEADERS */
-        /* =========================================== */
-        @media (min-width: 576px) {
-            .section-header {
-                padding: 8px 15px;
-                margin-bottom: 12px;
-                height: 44px;
-                min-height: 44px;
-            }
-            
-            .section-title {
-                font-size: 1rem;
-                gap: 7px;
-            }
-            
-            .more-btn {
-                padding: 5px 14px;
-                font-size: 0.82rem;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .section-header {
-                padding: 9px 18px;
-                margin-bottom: 14px;
-                border-radius: 7px;
-            }
-            
-            .section-title {
-                font-size: 1.05rem;
-                font-weight: 500;
-                gap: 8px;
-            }
-            
-            .more-btn {
-                padding: 6px 15px;
-                font-size: 0.85rem;
-            }
-        }
-        
-        @media (min-width: 992px) {
-            .section-header {
-                padding: 10px 20px;
-                margin-bottom: 15px;
-                border-radius: 8px;
-            }
-            
-            .section-title {
-                font-size: 1.1rem;
-                font-weight: 500;
-            }
-            
-            .more-btn {
-                padding: 6px 16px;
-                font-size: 0.85rem;
-            }
-        }
-        
-        /* Header Section */
-        .main-header {
-            background-color: #000000;
-            position: relative;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 15px 0;
-        }
-        
-        .logo {
-            color: white;
-            text-align: center;
-            font-size: 2.2rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        
-        /* =========================================== */
-        /* REDESIGNED SEARCH BAR - BOXED RECTANGULAR   */
-        /* =========================================== */
-        .search-container {
-            width: 100%;
-            max-width: 500px; /* Reduced width */
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 0;
-            background-color: white;
-            border: 1px solid #ddd;
-            height: 42px; /* Reduced height */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-        }
-        
-        .search-bar {
-            flex: 1;
-            padding: 0 15px;
-            border: none;
-            font-size: 0.95rem;
-            background-color: white;
-            height: 100%;
-            outline: none;
-            line-height: 42px; /* Match height for vertical centering */
-        }
-        
-        .search-btn {
-            background-color: #6a11cb;
-            color: white;
-            width: 80px; /* Fixed width for button */
-            height: 42px; /* Match input height */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border-left: 1px solid #5a0db5;
-        }
-        
-        .search-btn:hover {
-            background-color: #5a0db5;
-        }
-        
-        .search-btn i {
-            margin-right: 6px;
-            font-size: 0.9rem;
-        }
-        /* =========================================== */
-        /* END OF REDESIGNED SEARCH BAR                */
-        /* =========================================== */
-        
-   /* FEATURED SLIDER - NEW STYLES */
+ /* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* Utility Classes */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* =========================================== */
+/* UPDATED SECTION HEADER STYLES - RESIZED & REDESIGNED */
+/* =========================================== */
+.section-header {
+    background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
+    color: white;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    height: 42px;
+    min-height: 42px;
+    box-shadow: 0 2px 6px rgba(106, 17, 203, 0.15);
+}
+
+.section-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.2px;
+}
+
+.section-title i {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.more-btn {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.2px;
+}
+
+.more-btn:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Categories Section Header Specific Style */
+.categories-section .section-header {
+    border-radius: 6px 6px 0 0;
+    margin-bottom: 0;
+}
+
+/* =========================================== */
+/* RESPONSIVE ADJUSTMENTS FOR SECTION HEADERS */
+/* =========================================== */
+@media (min-width: 576px) {
+    .section-header {
+        padding: 8px 15px;
+        margin-bottom: 12px;
+        height: 44px;
+        min-height: 44px;
+    }
+    
+    .section-title {
+        font-size: 1rem;
+        gap: 7px;
+    }
+    
+    .more-btn {
+        padding: 5px 14px;
+        font-size: 0.82rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .section-header {
+        padding: 9px 18px;
+        margin-bottom: 14px;
+        border-radius: 7px;
+    }
+    
+    .section-title {
+        font-size: 1.05rem;
+        font-weight: 500;
+        gap: 8px;
+    }
+    
+    .more-btn {
+        padding: 6px 15px;
+        font-size: 0.85rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .section-header {
+        padding: 10px 20px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+    }
+    
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+    
+    .more-btn {
+        padding: 6px 16px;
+        font-size: 0.85rem;
+    }
+}
+
+/* Header Section */
+.main-header {
+    background-color: #000000;
+    position: relative;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 15px 0;
+}
+
+.logo {
+    color: white;
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* =========================================== */
+/* REDESIGNED SEARCH BAR - BOXED RECTANGULAR   */
+/* =========================================== */
+.search-container {
+    width: 100%;
+    max-width: 500px; /* Reduced width */
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    height: 42px; /* Reduced height */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.search-bar {
+    flex: 1;
+    padding: 0 15px;
+    border: none;
+    font-size: 0.95rem;
+    background-color: white;
+    height: 100%;
+    outline: none;
+    line-height: 42px; /* Match height for vertical centering */
+}
+
+.search-btn {
+    background-color: #6a11cb;
+    color: white;
+    width: 80px; /* Fixed width for button */
+    height: 42px; /* Match input height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border-left: 1px solid #5a0db5;
+}
+
+.search-btn:hover {
+    background-color: #5a0db5;
+}
+
+.search-btn i {
+    margin-right: 6px;
+    font-size: 0.9rem;
+}
+/* =========================================== */
+/* END OF REDESIGNED SEARCH BAR                */
+/* =========================================== */
+
+/* FEATURED SLIDER - NEW STYLES */
 .featured-slider-section {
     padding: 0;
     margin: 0;
@@ -493,393 +493,403 @@
         padding-bottom: 30%;
     }
 }
-        
-        /* Existing Main Content Styles */
-        .main-content {
-            padding: 20px 0 40px;
-        }
-        
-        /* Updated Music Card - Universal component for all sections - NOW 180x180 */
-        .music-card {
-            background-color: white;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            width: 180px;
-            height: 180px;
-            position: relative;
-            cursor: pointer;
-            margin: 0 auto;
-        }
-        
-        /* Card Type Variations */
-        .music-card.song {
-            border-radius: 12px;
-            border-top: 4px solid #6a11cb;
-        }
-        
-        .music-card.artist {
-            border-radius: 8px;
-            border-top: 4px solid #ff7e5f;
-        }
-        
-        .music-card.album {
-            border-radius: 10px;
-            border-top: 4px solid #4A90E2;
-        }
-        
-        .music-card.bollywood {
-            border-radius: 12px;
-            border-top: 4px solid #FF4081;
-        }
-        
-        .music-card.related {
-            border-radius: 12px;
-            border-top: 4px solid #9C27B0;
-        }
-        
-        /* Professional Hover Effects */
-        .music-card:hover {
-            transform: scale(1.03) rotate(1deg);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .music-card.song:hover {
-            border-top-color: #8a2be2;
-        }
-        
-        .music-card.artist:hover {
-            border-top-color: #ff9a8b;
-        }
-        
-        .music-card.album:hover {
-            border-top-color: #5da8ff;
-        }
-        
-        .music-card.bollywood:hover {
-            border-top-color: #ff6b9d;
-        }
-        
-        .music-card.related:hover {
-            border-top-color: #ba68c8;
-        }
-        
-        .card-image {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .music-card:hover .card-image {
-            transform: scale(1.05);
-        }
-        
-        .card-content {
-            padding: 8px 10px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 60px;
-            text-align: center;
-        }
-        
-        .card-title {
-            font-weight: bold;
-            font-size: 0.95rem;
-            margin-bottom: 3px;
-            white-space: normal;
-            text-overflow: clip;
-            overflow: hidden;
-            -webkit-line-clamp: 2;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            line-height: 1.2;
-            max-height: 2.4em;
-            height: 2.4em;
-        }
-        
-        .card-subtitle {
-            font-size: 0.8rem;
-            color: #666;
-            text-align: center;
-            white-space: normal;
-            text-overflow: clip;
-            overflow: hidden;
-            -webkit-line-clamp: 1;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            line-height: 1.2;
-            max-height: 1.2em;
-            height: 1.2em;
-        }
-        
-        .card-badge {
-            position: absolute;
-            top: 8px;
-            left: 8px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.65rem;
-            font-weight: bold;
-            z-index: 2;
-            transition: background-color 0.3s ease;
-        }
-        
-        .music-card:hover .card-badge {
-            background-color: rgba(106, 17, 203, 0.9);
-        }
-        
-        /* Remove download button styles */
-        .download-btn {
-            display: none; /* Hide all download buttons */
-        }
-        
-        .image-container {
-            position: relative;
-            height: 120px;
-            overflow: hidden;
-        }
-        
-        /* Grid Layout - Adjusted for 180px cards */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-            margin-bottom: 30px;
-            justify-content: center;
-        }
-        
-        /* Categories Section */
-        .categories-section {
-            background-color: white;
-            border-top: 5px solid #6a11cb;
-            border-radius: 5px;
-            margin-bottom: 30px;
-            padding: 0 0 10px;
-        }
-        
-        .categories-list {
-            list-style: none;
-        }
-        
-        .category-item {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .category-item:hover {
-            background-color: #f8f9fa;
-            transform: translateX(5px);
-        }
-        
-        .category-icon {
-            background-color: #6a11cb;
-            color: white;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .category-item:hover .category-icon {
-            background-color: #8a2be2;
-            transform: scale(1.1);
-        }
-        
-        .category-name {
-            font-weight: bold;
-            font-size: 1rem;
-        }
-        
-        /* Responsive Design */
-        @media (min-width: 576px) {
-            .cards-grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            }
-            
-            .categories-list {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 0;
-            }
-            
-            .category-item {
-                border-right: 1px solid #eee;
-            }
-            
-            .category-item:nth-child(even) {
-                border-right: none;
-            }
-        }
-        
-        @media (min-width: 768px) {
-            .cards-grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            }
-            
-            .category-item {
-                padding: 15px;
-            }
-            
-            .logo {
-                font-size: 2.5rem;
-                margin-bottom: 20px;
-            }
-            
-            /* Adjust search container for larger screens */
-            .search-container {
-                max-width: 450px;
-            }
-            
-            /* Keep cards at 180x180 on tablets */
-            .music-card {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .image-container {
-                height: 120px;
-            }
-            
-            .card-image {
-                height: 120px;
-            }
-        }
-        
-        @media (min-width: 992px) {
-            .cards-grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            }
-            
-            .container {
-                padding: 0 20px;
-            }
-            
-            .section-header {
-                padding: 10px 20px;
-            }
-            
-            /* Adjust search container for desktop */
-            .search-container {
-                max-width: 500px;
-            }
-            
-            /* Keep cards at 180x180 on desktop */
-            .music-card {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .image-container {
-                height: 120px;
-            }
-            
-            .card-image {
-                height: 120px;
-            }
-        }
-        
-        #purpleLine {
-            border: none;
-            height: 3px;
-            background-color: #6a11cb;
-        }
-        
-        /* Footer */
-        .main-footer {
-            background-color: #000;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        
-        .footer-text {
-            opacity: 0.8;
-        }
+    
+/* Existing Main Content Styles */
+.main-content {
+    padding: 20px 0 40px;
+}
 
-        /* =========================================== */
-        /* NEW STYLES FOR FEED TABS - ADDED BELOW      */
-        /* =========================================== */
-        
-        /* Feed Tabs Container */
-        .feed-tabs-container {
-            background-color: white;
-            margin: 0 auto;
-            padding-top: 15px;
-            position: relative;
-            z-index: 10;
-        }
-        
-        .feed-tabs {
-            display: flex;
-            justify-content: center;
-            border-bottom: 1px solid #eee;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        .feed-tab {
-            padding: 12px 24px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #666;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .feed-tab:hover {
-            color: #6a11cb;
-        }
-        
-        .feed-tab.active {
-            color: #6a11cb;
-            border-bottom-color: #6a11cb;
-        }
-        
-        .feed-tab i {
-            margin-right: 8px;
-            font-size: 1rem;
-        }
-        
-        /* Feed Content */
-        .feed-content {
-            display: block;
-        }
-        
-        .feed-content.hidden {
-            display: none;
-        }
-        
-        /* Following Feed Styles - REMOVED */
-        /* All feed-specific styles removed since we're using only card layout */
-        
-        /* 
-        
-        /* REMOVED all .following-* and .foryou-* specific styles */
-        /* The cards will use the same styling as Home tab */
-        
-        /* =========================================== */
+/* Updated Music Card - Universal component for all sections - NOW 180x180 */
+.music-card {
+    background-color: white;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    height: 180px;
+    position: relative;
+    cursor: pointer;
+    margin: 0 auto;
+}
+
+/* Card Type Variations */
+.music-card.song {
+    border-radius: 12px;
+    border-top: 4px solid #6a11cb;
+}
+
+.music-card.artist {
+    border-radius: 8px;
+    border-top: 4px solid #ff7e5f;
+}
+
+.music-card.album {
+    border-radius: 10px;
+    border-top: 4px solid #4A90E2;
+}
+
+.music-card.bollywood {
+    border-radius: 12px;
+    border-top: 4px solid #FF4081;
+}
+
+.music-card.related {
+    border-radius: 12px;
+    border-top: 4px solid #9C27B0;
+}
+
+/* Professional Hover Effects */
+.music-card:hover {
+    transform: scale(1.03) rotate(1deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.music-card.song:hover {
+    border-top-color: #8a2be2;
+}
+
+.music-card.artist:hover {
+    border-top-color: #ff9a8b;
+}
+
+.music-card.album:hover {
+    border-top-color: #5da8ff;
+}
+
+.music-card.bollywood:hover {
+    border-top-color: #ff6b9d;
+}
+
+.music-card.related:hover {
+    border-top-color: #ba68c8;
+}
+
+.card-image {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.music-card:hover .card-image {
+    transform: scale(1.05);
+}
+
+.card-content {
+    padding: 8px 10px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 60px;
+    text-align: center;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+    white-space: normal;
+    text-overflow: clip;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-height: 1.2;
+    max-height: 2.4em;
+    height: 2.4em;
+}
+
+.card-subtitle {
+    font-size: 0.8rem;
+    color: #666;
+    text-align: center;
+    white-space: normal;
+    text-overflow: clip;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-height: 1.2;
+    max-height: 1.2em;
+    height: 1.2em;
+}
+
+.card-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: bold;
+    z-index: 2;
+    transition: background-color 0.3s ease;
+}
+
+.music-card:hover .card-badge {
+    background-color: rgba(106, 17, 203, 0.9);
+}
+
+/* Remove download button styles */
+.download-btn {
+    display: none; /* Hide all download buttons */
+}
+
+.image-container {
+    position: relative;
+    height: 120px;
+    overflow: hidden;
+}
+
+/* Grid Layout - Adjusted for 180px cards */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+/* Categories Section */
+.categories-section {
+    background-color: white;
+    border-top: 5px solid #6a11cb;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    padding: 0 0 10px;
+}
+
+.categories-list {
+    list-style: none;
+}
+
+.category-item {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.category-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+
+.category-icon {
+    background-color: #6a11cb;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.category-item:hover .category-icon {
+    background-color: #8a2be2;
+    transform: scale(1.1);
+}
+
+.category-name {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (min-width: 576px) {
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+    
+    .categories-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+    }
+    
+    .category-item {
+        border-right: 1px solid #eee;
+    }
+    
+    .category-item:nth-child(even) {
+        border-right: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Changed from 180px to 200px */
+    }
+    
+    .category-item {
+        padding: 15px;
+    }
+    
+    .logo {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+    
+    /* Adjust search container for larger screens */
+    .search-container {
+        max-width: 450px;
+    }
+    
+    /* Keep cards at 200x200 on tablets (increased from 180x180) */
+    .music-card {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .image-container {
+        height: 130px; /* Adjusted for 200px card (was 120px) */
+    }
+    
+    .card-image {
+        height: 130px; /* Adjusted for 200px card (was 120px) */
+    }
+    
+    /* Adjust card content for larger size */
+    .card-content {
+        min-height: 70px; /* Adjusted for 200px card (was 60px) */
+        padding: 10px 12px; /* Slightly increased padding */
+    }
+}
+
+@media (min-width: 992px) {
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Changed from 180px to 220px */
+    }
+    
+    .container {
+        padding: 0 20px;
+    }
+    
+    .section-header {
+        padding: 10px 20px;
+    }
+    
+    /* Adjust search container for desktop */
+    .search-container {
+        max-width: 500px;
+    }
+    
+    /* Keep cards at 220x220 on desktop (increased from 180x180) */
+    .music-card {
+        width: 220px;
+        height: 220px;
+    }
+    
+    .image-container {
+        height: 140px; /* Adjusted for 220px card (was 120px) */
+    }
+    
+    .card-image {
+        height: 140px; /* Adjusted for 220px card (was 120px) */
+    }
+    
+    /* Adjust card content for larger size */
+    .card-content {
+        min-height: 80px; /* Adjusted for 220px card (was 60px) */
+        padding: 12px 14px; /* Slightly increased padding */
+    }
+}
+
+#purpleLine {
+    border: none;
+    height: 3px;
+    background-color: #6a11cb;
+}
+
+/* Footer */
+.main-footer {
+    background-color: #000;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.footer-text {
+    opacity: 0.8;
+}
+
+/* =========================================== */
+/* NEW STYLES FOR FEED TABS - ADDED BELOW      */
+/* =========================================== */
+
+/* Feed Tabs Container */
+.feed-tabs-container {
+    background-color: white;
+    margin: 0 auto;
+    padding-top: 15px;
+    position: relative;
+    z-index: 10;
+}
+
+.feed-tabs {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #eee;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.feed-tab {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #666;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.feed-tab:hover {
+    color: #6a11cb;
+}
+
+.feed-tab.active {
+    color: #6a11cb;
+    border-bottom-color: #6a11cb;
+}
+
+.feed-tab i {
+    margin-right: 8px;
+    font-size: 1rem;
+}
+
+/* Feed Content */
+.feed-content {
+    display: block;
+}
+
+.feed-content.hidden {
+    display: none;
+}
+
+/* Following Feed Styles - REMOVED */
+/* All feed-specific styles removed since we're using only card layout */
+
+/* REMOVED all .following-* and .foryou-* specific styles */
+/* The cards will use the same styling as Home tab */
+
+/* =========================================== */
 /* UPDATED CARD TITLE STYLES FOR TEXT WRAPPING */
 /* =========================================== */
 
@@ -946,13 +956,12 @@
     }
 }
 
-        /* =========================================== */
+/* =========================================== */
 /* ADD THIS RULE TO HIDE THE FEATURED SLIDER  */
 /* =========================================== */
 .featured-slider-section {
     display: none !important;
 }
-
     </style>
   
 </head>
