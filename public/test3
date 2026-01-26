@@ -257,9 +257,10 @@
     flex: 0 0 100%;
     height: 100%;
     position: relative;
-    border-radius: 0;
+    border-radius: 12px; /* Added border-radius */
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-top: 4px solid #6a11cb; /* Added top border */
 }
 
 .card-image {
@@ -513,10 +514,14 @@
             width: 100%;
         }
         
-        /* Card Container */
+        /* =========================================== */
+        /* UPDATED CARD COMPONENT STYLES - BORDER RADIUS & TOP BORDER */
+        /* =========================================== */
+        
+        /* Card Container - Updated with new border styles */
         .album-card {
             background-color: #ffffff;
-            border-radius: 10px;
+            border-radius: 8px; /* Updated from 10px */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
@@ -524,15 +529,16 @@
             transition: all 0.3s ease;
             cursor: pointer;
             position: relative;
+            border-top: 4px solid #6a11cb; /* Added top border */
         }
         
-        /* Mobile Tap Effect */
+        /* Mobile Tap Effect - Updated to maintain border-radius */
         .album-card:active {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
         }
         
-        /* Desktop Hover Effects */
+        /* Desktop Hover Effects - Updated to maintain border-radius */
         @media (hover: hover) {
             .album-card:hover {
                 transform: translateY(-5px);
@@ -540,14 +546,14 @@
             }
         }
         
-        /* Album Image Container */
+        /* Album Image Container - Updated border-radius to match card */
         .album-image-container {
             width: 100%;
             height: 0;
             padding-top: 100%; /* Creates 1:1 aspect ratio */
             position: relative;
             overflow: hidden;
-            border-radius: 10px 10px 0 0;
+            border-radius: 8px 8px 0 0; /* Updated to match card border-radius */
             background-color: #f1f1f1;
         }
         
@@ -875,7 +881,7 @@
                 <i class="fas fa-users"></i> Artists
             </button>
             <button class="feed-tab" id="playlistsTab" data-tab="playlists">
-                <i class="fas fa-list-music"></i> Playlists
+                <i class="fas fa-music"></i> Playlists
             </button>
         </div>
     </div>
