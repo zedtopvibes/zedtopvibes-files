@@ -221,6 +221,10 @@
             margin-right: 6px;
             font-size: 0.9rem;
         }
+        .search-container {
+    border-radius: 6px;   /* your requirement */
+    overflow: hidden;     /* clips inner elements */
+}
         /* =========================================== */
         /* END OF REDESIGNED SEARCH BAR                */
         /* =========================================== */
