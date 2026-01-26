@@ -6,226 +6,226 @@
     <title>KoshalWorld - Music Download Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
- /* Reset & Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-body {
-    background-color: #f8f9fa;
-    color: #333;
-    line-height: 1.5;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-button {
-    cursor: pointer;
-    border: none;
-    background: none;
-}
-
-/* Utility Classes */
-.container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-/* =========================================== */
-/* UPDATED SECTION HEADER STYLES - RESIZED & REDESIGNED */
-/* =========================================== */
-.section-header {
-    background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
-    color: white;
-    padding: 8px 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    border-radius: 6px;
-    height: 42px;
-    min-height: 42px;
-    box-shadow: 0 2px 6px rgba(106, 17, 203, 0.15);
-}
-
-.section-title {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    letter-spacing: 0.2px;
-}
-
-.section-title i {
-    font-size: 0.85rem;
-    opacity: 0.9;
-}
-
-.more-btn {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: white;
-    padding: 5px 12px;
-    border-radius: 16px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    letter-spacing: 0.2px;
-}
-
-.more-btn:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-1px);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Categories Section Header Specific Style */
-.categories-section .section-header {
-    border-radius: 6px 6px 0 0;
-    margin-bottom: 0;
-}
-
-/* =========================================== */
-/* RESPONSIVE ADJUSTMENTS FOR SECTION HEADERS */
-/* =========================================== */
-@media (min-width: 576px) {
-    .section-header {
-        padding: 8px 15px;
-        margin-bottom: 12px;
-        height: 44px;
-        min-height: 44px;
-    }
-    
-    .section-title {
-        font-size: 1rem;
-        gap: 7px;
-    }
-    
-    .more-btn {
-        padding: 5px 14px;
-        font-size: 0.82rem;
-    }
-}
-
-@media (min-width: 768px) {
-    .section-header {
-        padding: 9px 18px;
-        margin-bottom: 14px;
-        border-radius: 7px;
-    }
-    
-    .section-title {
-        font-size: 1.05rem;
-        font-weight: 500;
-        gap: 8px;
-    }
-    
-    .more-btn {
-        padding: 6px 15px;
-        font-size: 0.85rem;
-    }
-}
-
-@media (min-width: 992px) {
-    .section-header {
-        padding: 10px 20px;
-        margin-bottom: 15px;
-        border-radius: 8px;
-    }
-    
-    .section-title {
-        font-size: 1.1rem;
-        font-weight: 500;
-    }
-    
-    .more-btn {
-        padding: 6px 16px;
-        font-size: 0.85rem;
-    }
-}
-
-/* Header Section */
-.main-header {
-    background-color: #000000;
-    position: relative;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    padding: 15px 0;
-}
-
-.logo {
-    color: white;
-    text-align: center;
-    font-size: 2.2rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-/* =========================================== */
-/* REDESIGNED SEARCH BAR - BOXED RECTANGULAR   */
-/* =========================================== */
-.search-container {
-    width: 100%;
-    max-width: 500px; /* Reduced width */
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 0;
-    background-color: white;
-    border: 1px solid #ddd;
-    height: 42px; /* Reduced height */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-}
-
-.search-bar {
-    flex: 1;
-    padding: 0 15px;
-    border: none;
-    font-size: 0.95rem;
-    background-color: white;
-    height: 100%;
-    outline: none;
-    line-height: 42px; /* Match height for vertical centering */
-}
-
-.search-btn {
-    background-color: #6a11cb;
-    color: white;
-    width: 80px; /* Fixed width for button */
-    height: 42px; /* Match input height */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border-left: 1px solid #5a0db5;
-}
-
-.search-btn:hover {
-    background-color: #5a0db5;
-}
-
-.search-btn i {
-    margin-right: 6px;
-    font-size: 0.9rem;
-}
-/* =========================================== */
-/* END OF REDESIGNED SEARCH BAR                */
-/* =========================================== */
-
-/* FEATURED SLIDER - NEW STYLES */
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        button {
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+        
+        /* Utility Classes */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* =========================================== */
+        /* UPDATED SECTION HEADER STYLES - RESIZED & REDESIGNED */
+        /* =========================================== */
+        .section-header {
+            background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
+            color: white;
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            height: 42px;
+            min-height: 42px;
+            box-shadow: 0 2px 6px rgba(106, 17, 203, 0.15);
+        }
+        
+        .section-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0.2px;
+        }
+        
+        .section-title i {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .more-btn {
+            background-color: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            letter-spacing: 0.2px;
+        }
+        
+        .more-btn:hover {
+            background-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Categories Section Header Specific Style */
+        .categories-section .section-header {
+            border-radius: 6px 6px 0 0;
+            margin-bottom: 0;
+        }
+        
+        /* =========================================== */
+        /* RESPONSIVE ADJUSTMENTS FOR SECTION HEADERS */
+        /* =========================================== */
+        @media (min-width: 576px) {
+            .section-header {
+                padding: 8px 15px;
+                margin-bottom: 12px;
+                height: 44px;
+                min-height: 44px;
+            }
+            
+            .section-title {
+                font-size: 1rem;
+                gap: 7px;
+            }
+            
+            .more-btn {
+                padding: 5px 14px;
+                font-size: 0.82rem;
+            }
+        }
+        
+        @media (min-width: 768px) {
+            .section-header {
+                padding: 9px 18px;
+                margin-bottom: 14px;
+                border-radius: 7px;
+            }
+            
+            .section-title {
+                font-size: 1.05rem;
+                font-weight: 500;
+                gap: 8px;
+            }
+            
+            .more-btn {
+                padding: 6px 15px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .section-header {
+                padding: 10px 20px;
+                margin-bottom: 15px;
+                border-radius: 8px;
+            }
+            
+            .section-title {
+                font-size: 1.1rem;
+                font-weight: 500;
+            }
+            
+            .more-btn {
+                padding: 6px 16px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        /* Header Section */
+        .main-header {
+            background-color: #000000;
+            position: relative;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+        }
+        
+        .logo {
+            color: white;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        /* =========================================== */
+        /* REDESIGNED SEARCH BAR - BOXED RECTANGULAR   */
+        /* =========================================== */
+        .search-container {
+            width: 100%;
+            max-width: 500px; /* Reduced width */
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            background-color: white;
+            border: 1px solid #ddd;
+            height: 42px; /* Reduced height */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+        
+        .search-bar {
+            flex: 1;
+            padding: 0 15px;
+            border: none;
+            font-size: 0.95rem;
+            background-color: white;
+            height: 100%;
+            outline: none;
+            line-height: 42px; /* Match height for vertical centering */
+        }
+        
+        .search-btn {
+            background-color: #6a11cb;
+            color: white;
+            width: 80px; /* Fixed width for button */
+            height: 42px; /* Match input height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 1px solid #5a0db5;
+        }
+        
+        .search-btn:hover {
+            background-color: #5a0db5;
+        }
+        
+        .search-btn i {
+            margin-right: 6px;
+            font-size: 0.9rem;
+        }
+        /* =========================================== */
+        /* END OF REDESIGNED SEARCH BAR                */
+        /* =========================================== */
+        
+   /* FEATURED SLIDER - NEW STYLES */
 .featured-slider-section {
     padding: 0;
     margin: 0;
@@ -493,475 +493,337 @@ button {
         padding-bottom: 30%;
     }
 }
-    
-/* Existing Main Content Styles */
-.main-content {
-    padding: 20px 0 40px;
-}
+        
+        /* Existing Main Content Styles */
+        .main-content {
+            padding: 20px 0 40px;
+        }
+        
+        /* =========================================== */
+        /* NEW RESPONSIVE GRID SYSTEM - MOBILE FIRST   */
+        /* =========================================== */
+        
+        /* Grid Container */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        /* Card Container */
+        .album-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        /* Mobile Tap Effect */
+        .album-card:active {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+        }
+        
+        /* Desktop Hover Effects */
+        @media (hover: hover) {
+            .album-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+            }
+        }
+        
+        /* Album Image Container */
+        .album-image-container {
+            width: 100%;
+            height: 0;
+            padding-top: 100%; /* Creates 1:1 aspect ratio */
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px 10px 0 0;
+            background-color: #f1f1f1;
+        }
+        
+        .album-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* =========================================== */
+        /* ADDED TITLE SECTION - CARD FOOTER           */
+        /* =========================================== */
+        
+        /* Card Footer (Title Section) */
+        .album-title {
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95rem;
+            line-height: 1.3;
+            color: inherit;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 48px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            border-top: none;
+            background-color: transparent;
+        }
+        
+        /* Ensure title wraps naturally */
+        .album-title span {
+            display: block;
+            width: 100%;
+        }
+        
+        /* =========================================== */
+        /* RESPONSIVE BREAKPOINTS                      */
+        /* =========================================== */
+        
+        /* Tablet - 3 columns */
+        @media (min-width: 768px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+            
+            /* Title responsive adjustments */
+            .album-title {
+                font-size: 1rem;
+                padding: 14px 10px;
+                line-height: 1.4;
+                min-height: 52px;
+            }
+        }
+        
+        /* Desktop - 4 columns */
+        @media (min-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 18px;
+            }
+            
+            /* Title responsive adjustments */
+            .album-title {
+                font-size: 1.05rem;
+                padding: 16px 12px;
+                line-height: 1.4;
+                min-height: 56px;
+            }
+        }
+        
+        /* Large Desktop - 5 columns */
+        @media (min-width: 1400px) {
+            .cards-grid {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 20px;
+            }
+        }
+        
+        /* Ensure grid respects container max-width */
+        .cards-grid {
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* =========================================== */
+        /* END OF NEW GRID SYSTEM                      */
+        /* =========================================== */
+        
+        /* Existing Categories Section */
+        .categories-section {
+            background-color: white;
+            border-top: 5px solid #6a11cb;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            padding: 0 0 10px;
+        }
+        
+        .categories-list {
+            list-style: none;
+        }
+        
+        .category-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .category-item:hover {
+            background-color: #f8f9fa;
+            transform: translateX(5px);
+        }
+        
+        .category-icon {
+            background-color: #6a11cb;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .category-item:hover .category-icon {
+            background-color: #8a2be2;
+            transform: scale(1.1);
+        }
+        
+        .category-name {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        /* Responsive Design for Categories */
+        @media (min-width: 576px) {
+            .categories-list {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0;
+            }
+            
+            .category-item {
+                border-right: 1px solid #eee;
+            }
+            
+            .category-item:nth-child(even) {
+                border-right: none;
+            }
+        }
+        
+        /* Existing responsive adjustments for header */
+        @media (min-width: 768px) {
+            .logo {
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+            }
+            
+            .search-container {
+                max-width: 450px;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .section-header {
+                padding: 10px 20px;
+            }
+            
+            .search-container {
+                max-width: 500px;
+            }
+        }
+        
+        #purpleLine {
+            border: none;
+            height: 3px;
+            background-color: #6a11cb;
+        }
+        
+        /* Footer */
+        .main-footer {
+            background-color: #000;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .footer-text {
+            opacity: 0.8;
+        }
 
-/* Updated Music Card - Universal component for all sections - NOW 180x180 */
-.music-card {
-    background-color: white;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    width: 180px;
-    height: 180px;
-    position: relative;
-    cursor: pointer;
-    margin: 0 auto;
-}
+        /* =========================================== */
+        /* FEED TABS STYLES                            */
+        /* =========================================== */
+        
+        /* Feed Tabs Container */
+        .feed-tabs-container {
+            background-color: white;
+            margin: 0 auto;
+            padding-top: 15px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .feed-tabs {
+            display: flex;
+            justify-content: center;
+            border-bottom: 1px solid #eee;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .feed-tab {
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #666;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .feed-tab:hover {
+            color: #6a11cb;
+        }
+        
+        .feed-tab.active {
+            color: #6a11cb;
+            border-bottom-color: #6a11cb;
+        }
+        
+        .feed-tab i {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+        
+        /* Feed Content */
+        .feed-content {
+            display: block;
+        }
+        
+        .feed-content.hidden {
+            display: none;
+        }
+        
+        /* =========================================== */
+        /* HIDE FEATURED SLIDER                        */
+        /* =========================================== */
+        .featured-slider-section {
+            display: none !important;
+        }
 
-/* Card Type Variations */
-.music-card.song {
-    border-radius: 12px;
-    border-top: 4px solid #6a11cb;
-}
-
-.music-card.artist {
-    border-radius: 8px;
-    border-top: 4px solid #ff7e5f;
-}
-
-.music-card.album {
-    border-radius: 10px;
-    border-top: 4px solid #4A90E2;
-}
-
-.music-card.bollywood {
-    border-radius: 12px;
-    border-top: 4px solid #FF4081;
-}
-
-.music-card.related {
-    border-radius: 12px;
-    border-top: 4px solid #9C27B0;
-}
-
-/* Professional Hover Effects */
-.music-card:hover {
-    transform: scale(1.03) rotate(1deg);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-.music-card.song:hover {
-    border-top-color: #8a2be2;
-}
-
-.music-card.artist:hover {
-    border-top-color: #ff9a8b;
-}
-
-.music-card.album:hover {
-    border-top-color: #5da8ff;
-}
-
-.music-card.bollywood:hover {
-    border-top-color: #ff6b9d;
-}
-
-.music-card.related:hover {
-    border-top-color: #ba68c8;
-}
-
-.card-image {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.music-card:hover .card-image {
-    transform: scale(1.05);
-}
-
-.card-content {
-    padding: 8px 10px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 60px;
-    text-align: center;
-}
-
-.card-title {
-    font-weight: bold;
-    font-size: 0.95rem;
-    margin-bottom: 3px;
-    white-space: normal;
-    text-overflow: clip;
-    overflow: hidden;
-    -webkit-line-clamp: 2;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    line-height: 1.2;
-    max-height: 2.4em;
-    height: 2.4em;
-}
-
-.card-subtitle {
-    font-size: 0.8rem;
-    color: #666;
-    text-align: center;
-    white-space: normal;
-    text-overflow: clip;
-    overflow: hidden;
-    -webkit-line-clamp: 1;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    line-height: 1.2;
-    max-height: 1.2em;
-    height: 1.2em;
-}
-
-.card-badge {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-size: 0.65rem;
-    font-weight: bold;
-    z-index: 2;
-    transition: background-color 0.3s ease;
-}
-
-.music-card:hover .card-badge {
-    background-color: rgba(106, 17, 203, 0.9);
-}
-
-/* Remove download button styles */
-.download-btn {
-    display: none; /* Hide all download buttons */
-}
-
-.image-container {
-    position: relative;
-    height: 120px;
-    overflow: hidden;
-}
-
-/* Grid Layout - Adjusted for 180px cards */
-.cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 15px;
-    margin-bottom: 30px;
-    justify-content: center;
-}
-
-/* Categories Section */
-.categories-section {
-    background-color: white;
-    border-top: 5px solid #6a11cb;
-    border-radius: 5px;
-    margin-bottom: 30px;
-    padding: 0 0 10px;
-}
-
-.categories-list {
-    list-style: none;
-}
-
-.category-item {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    align-items: center;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.category-item:hover {
-    background-color: #f8f9fa;
-    transform: translateX(5px);
-}
-
-.category-icon {
-    background-color: #6a11cb;
-    color: white;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 12px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-}
-
-.category-item:hover .category-icon {
-    background-color: #8a2be2;
-    transform: scale(1.1);
-}
-
-.category-name {
-    font-weight: bold;
-    font-size: 1rem;
-}
-
-/* Responsive Design */
-@media (min-width: 576px) {
-    .cards-grid {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    }
-    
-    .categories-list {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0;
-    }
-    
-    .category-item {
-        border-right: 1px solid #eee;
-    }
-    
-    .category-item:nth-child(even) {
-        border-right: none;
-    }
-}
-
-@media (min-width: 768px) {
-    .cards-grid {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Changed from 180px to 200px */
-    }
-    
-    .category-item {
-        padding: 15px;
-    }
-    
-    .logo {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-    }
-    
-    /* Adjust search container for larger screens */
-    .search-container {
-        max-width: 450px;
-    }
-    
-    /* Keep cards at 200x200 on tablets (increased from 180x180) */
-    .music-card {
-        width: 200px;
-        height: 200px;
-    }
-    
-    .image-container {
-        height: 130px; /* Adjusted for 200px card (was 120px) */
-    }
-    
-    .card-image {
-        height: 130px; /* Adjusted for 200px card (was 120px) */
-    }
-    
-    /* Adjust card content for larger size */
-    .card-content {
-        min-height: 70px; /* Adjusted for 200px card (was 60px) */
-        padding: 10px 12px; /* Slightly increased padding */
-    }
-}
-
-@media (min-width: 992px) {
-    .cards-grid {
-        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* Changed from 180px to 220px */
-    }
-    
-    .container {
-        padding: 0 20px;
-    }
-    
-    .section-header {
-        padding: 10px 20px;
-    }
-    
-    /* Adjust search container for desktop */
-    .search-container {
-        max-width: 500px;
-    }
-    
-    /* Keep cards at 220x220 on desktop (increased from 180x180) */
-    .music-card {
-        width: 220px;
-        height: 220px;
-    }
-    
-    .image-container {
-        height: 140px; /* Adjusted for 220px card (was 120px) */
-    }
-    
-    .card-image {
-        height: 140px; /* Adjusted for 220px card (was 120px) */
-    }
-    
-    /* Adjust card content for larger size */
-    .card-content {
-        min-height: 80px; /* Adjusted for 220px card (was 60px) */
-        padding: 12px 14px; /* Slightly increased padding */
-    }
-}
-
-#purpleLine {
-    border: none;
-    height: 3px;
-    background-color: #6a11cb;
-}
-
-/* Footer */
-.main-footer {
-    background-color: #000;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-.footer-text {
-    opacity: 0.8;
-}
-
-/* =========================================== */
-/* NEW STYLES FOR FEED TABS - ADDED BELOW      */
-/* =========================================== */
-
-/* Feed Tabs Container */
-.feed-tabs-container {
-    background-color: white;
-    margin: 0 auto;
-    padding-top: 15px;
-    position: relative;
-    z-index: 10;
-}
-
-.feed-tabs {
-    display: flex;
-    justify-content: center;
-    border-bottom: 1px solid #eee;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-}
-
-.feed-tab {
-    padding: 12px 24px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #666;
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    position: relative;
-}
-
-.feed-tab:hover {
-    color: #6a11cb;
-}
-
-.feed-tab.active {
-    color: #6a11cb;
-    border-bottom-color: #6a11cb;
-}
-
-.feed-tab i {
-    margin-right: 8px;
-    font-size: 1rem;
-}
-
-/* Feed Content */
-.feed-content {
-    display: block;
-}
-
-.feed-content.hidden {
-    display: none;
-}
-
-/* Following Feed Styles - REMOVED */
-/* All feed-specific styles removed since we're using only card layout */
-
-/* REMOVED all .following-* and .foryou-* specific styles */
-/* The cards will use the same styling as Home tab */
-
-/* =========================================== */
-/* UPDATED CARD TITLE STYLES FOR TEXT WRAPPING */
-/* =========================================== */
-
-/* Featured slider card titles */
-.featured-slider .card-title {
-    white-space: normal;
-    text-overflow: clip;
-    overflow: visible;
-    -webkit-line-clamp: 2;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    line-height: 1.3;
-    max-height: 2.6em;
-    margin-bottom: 4px;
-}
-
-.featured-slider .card-artist {
-    white-space: normal;
-    text-overflow: clip;
-    overflow: visible;
-    -webkit-line-clamp: 1;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    line-height: 1.3;
-    max-height: 1.3em;
-}
-
-/* Music grid card titles */
-.music-card .card-title {
-    white-space: normal;
-    text-overflow: clip;
-    overflow: hidden;
-    -webkit-line-clamp: 2;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    line-height: 1.2;
-    max-height: 2.4em;
-    margin-bottom: 6px;
-    height: 2.4em;
-}
-
-.music-card .card-subtitle {
-    white-space: normal;
-    text-overflow: clip;
-    overflow: hidden;
-    -webkit-line-clamp: 1;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    line-height: 1.2;
-    max-height: 1.2em;
-    height: 1.2em;
-}
-
-/* Responsive adjustments for wrapped text */
-@media (min-width: 768px) {
-    .featured-slider .card-title {
-        line-height: 1.4;
-        max-height: 2.8em;
-    }
-    
-    .featured-slider .card-artist {
-        line-height: 1.3;
-        max-height: 1.3em;
-    }
-}
-
-/* =========================================== */
-/* ADD THIS RULE TO HIDE THE FEATURED SLIDER  */
-/* =========================================== */
-.featured-slider-section {
-    display: none !important;
-}
     </style>
   
 </head>
@@ -979,7 +841,7 @@ button {
         </div>
     </header>
     
-    <!-- FEATURED SLIDER - New Section -->
+    <!-- FEATURED SLIDER - Hidden -->
     <section class="featured-slider-section">
         <div class="featured-slider" id="featuredSlider">
             <div class="slider-track" id="sliderTrack">
@@ -1022,35 +884,40 @@ button {
     <div class="feed-content" id="homeFeed">
         <main class="main-content">
             <div class="container">
-                <!-- Existing sections... -->
-                <!-- Trending Singles Section -->
+                <!-- Trending Singles Section - UPDATED WITH TITLES -->
                 <section class="section">
                     <div class="section-header">
                         <div class="section-title"><i class="fas fa-fire"></i> Trending Singles</div>
                         <button class="more-btn" id="trendingMore">More+</button>
                     </div>
-                    <div class="cards-grid" id="trendingSingles"></div>
+                    <div class="cards-grid" id="trendingSingles">
+                        <!-- Cards will be inserted here by JavaScript -->
+                    </div>
                 </section>
 
-                <!-- Popular Artists Section -->
+                <!-- Popular Artists Section - UPDATED WITH TITLES -->
                 <section class="section">
                     <div class="section-header">
                         <div class="section-title"><i class="fas fa-star"></i> Popular Artists</div>
                         <button class="more-btn" id="artistsMore">More+</button>
                     </div>
-                    <div class="cards-grid" id="popularArtists"></div>
+                    <div class="cards-grid" id="popularArtists">
+                        <!-- Cards will be inserted here by JavaScript -->
+                    </div>
                 </section>
 
-                <!-- New Albums Section -->
+                <!-- New Albums Section - UPDATED WITH TITLES -->
                 <section class="section">
                     <div class="section-header">
                         <div class="section-title"><i class="fas fa-compact-disc"></i> New Albums</div>
                         <button class="more-btn" id="albumsMore">More+</button>
                     </div>
-                    <div class="cards-grid" id="newAlbums"></div>
+                    <div class="cards-grid" id="newAlbums">
+                        <!-- Cards will be inserted here by JavaScript -->
+                    </div>
                 </section>
 
-                <!-- Categories Section -->
+                <!-- Categories Section - UNCHANGED -->
                 <section class="categories-section">
                     <div class="section-header">
                         <div class="section-title"><i class="fas fa-list"></i> Music Categories</div>
@@ -1059,22 +926,26 @@ button {
                     <ul class="categories-list" id="categoriesList"></ul>
                 </section>
 
-                <!-- Latest Bollywood Section -->
+                <!-- Latest Bollywood Section - UPDATED WITH TITLES -->
                 <section class="section">
                     <div class="section-header">
                         <div class="section-title"><i class="fas fa-film"></i> Latest Bollywood</div>
                         <button class="more-btn" id="bollywoodMore">More+</button>
                     </div>
-                    <div class="cards-grid" id="latestBollywood"></div>
+                    <div class="cards-grid" id="latestBollywood">
+                        <!-- Cards will be inserted here by JavaScript -->
+                    </div>
                 </section>
 
-                <!-- Related Songs Section -->
+                <!-- Related Songs Section - UPDATED WITH TITLES -->
                 <section class="section">
                     <div class="section-header">
                         <div class="section-title"><i class="fas fa-music"></i> Related Songs</div>
                         <button class="more-btn" id="relatedMore">More+</button>
                     </div>
-                    <div class="cards-grid" id="relatedSongs"></div>
+                    <div class="cards-grid" id="relatedSongs">
+                        <!-- Cards will be inserted here by JavaScript -->
+                    </div>
                 </section>
             </div>
         </main>
@@ -1201,26 +1072,42 @@ button {
             }
         ];
 
-        // Existing data from original file
-        const artists = [
-            { id: 1, name: "Arijit Singh", image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 2, name: "Neha Kakkar", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 3, name: "Badshah", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 4, name: "Shreya Ghoshal", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 5, name: "Diljit Dosanjh", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
-            { id: 6, name: "Sunidhi Chauhan", image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" }
-        ];
-
-        const singles = [
-            { id: 1, title: "Yo MAPS - komando ft. Roberto", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bXVzaWN8ZW58MHx8MHx8fDA%3D&w=700&h=490&fit=crop" },
-            { id: 2, title: "Raatan Lambiyan", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bXVzaWN8ZW58MHx8MHx8fDA%3D&w=700&h=490&fit=crop" },
-            { id: 3, title: "Lehra Do", badge: "4K VIDEO", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" },
-            { id: 4, title: "Maan Meri Jaan", badge: "HD VIDEO", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG11c2ljfGVufDB8fDB8fHww&w=700&h=490&fit=crop" }
-        ];
-
+        // Updated data for demo cards - using the provided image for all
+        const demoAlbumImage = "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhDiuu5EI4s2nSoENBqPdKDbVs0dE0kx1hlVdzfbh1sjTkPXCjkEPpCH8QVwXnpzhyphenhyphengS8iuuLPwbK_XCzUaNB8pHM2d66qLDkmYr7UkNDnxAQAotiVSJ12SKeka2sGVAzVvFTmekpW8ZL9ipUc8VDvyxibiIAozDAcqNNiLWNSRnRPsjMDHK_QUxQjyO-IF/s300/Jae%20Cash%20-%20%20Voice%20Yo%20Dula%20Album%20(Www.ZedAlbums.Top).png";
+        
+        // 8 demo albums with the same image
         const albums = [
-            { id: 1, title: "Brahmastra", subtitle: "Original Motion Picture", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YWxidW0lMjBjb3ZlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop" },
-            { id: 2, title: "Pathaan", subtitle: "Action Thriller Album", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGFsYnVtJTIwY292ZXJ8ZW58MHx8MHx8fDA%3D&w=400&h=400&fit=crop" }
+            { id: 1, title: "Voice Yo Dula Album", image: demoAlbumImage },
+            { id: 2, title: "Best of Jae Cash", image: demoAlbumImage },
+            { id: 3, title: "Chart Toppers 2023", image: demoAlbumImage },
+            { id: 4, title: "Hit Collection", image: demoAlbumImage },
+            { id: 5, title: "Premium Mix", image: demoAlbumImage },
+            { id: 6, title: "Top Downloads", image: demoAlbumImage },
+            { id: 7, title: "Featured Hits", image: demoAlbumImage },
+            { id: 8, title: "Latest Releases", image: demoAlbumImage }
+        ];
+
+        // Other data arrays updated to use demo image
+        const singles = [
+            { id: 1, title: "Yo MAPS - komando ft. Roberto", image: demoAlbumImage },
+            { id: 2, title: "Raatan Lambiyan", image: demoAlbumImage },
+            { id: 3, title: "Lehra Do", image: demoAlbumImage },
+            { id: 4, title: "Maan Meri Jaan", image: demoAlbumImage },
+            { id: 5, title: "Popular Single", image: demoAlbumImage },
+            { id: 6, title: "New Release", image: demoAlbumImage },
+            { id: 7, title: "Trending Now", image: demoAlbumImage },
+            { id: 8, title: "Top Chart", image: demoAlbumImage }
+        ];
+
+        const artists = [
+            { id: 1, name: "Arijit Singh", image: demoAlbumImage },
+            { id: 2, name: "Neha Kakkar", image: demoAlbumImage },
+            { id: 3, name: "Badshah", image: demoAlbumImage },
+            { id: 4, name: "Shreya Ghoshal", image: demoAlbumImage },
+            { id: 5, name: "Diljit Dosanjh", image: demoAlbumImage },
+            { id: 6, name: "Sunidhi Chauhan", image: demoAlbumImage },
+            { id: 7, name: "King", image: demoAlbumImage },
+            { id: 8, name: "A.R. Rahman", image: demoAlbumImage }
         ];
 
         const categories = [
@@ -1232,67 +1119,75 @@ button {
         // UPDATED DATA FOR ARTISTS TAB
         // ===========================================
         const featuredArtists = [
-            { id: 101, name: "A.R. Rahman", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
-            { id: 102, name: "Jasleen Royal", image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
-            { id: 103, name: "Vishal Mishra", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
-            { id: 104, name: "King", image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 105, name: "Atif Aslam", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 106, name: "Shankar Mahadevan", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" }
+            { id: 101, name: "A.R. Rahman", image: demoAlbumImage },
+            { id: 102, name: "Jasleen Royal", image: demoAlbumImage },
+            { id: 103, name: "Vishal Mishra", image: demoAlbumImage },
+            { id: 104, name: "King", image: demoAlbumImage },
+            { id: 105, name: "Atif Aslam", image: demoAlbumImage },
+            { id: 106, name: "Shankar Mahadevan", image: demoAlbumImage },
+            { id: 107, name: "KK", image: demoAlbumImage },
+            { id: 108, name: "Mohit Chauhan", image: demoAlbumImage }
         ];
 
         const popularSingers = [
-            { id: 201, name: "Arijit Singh", image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 202, name: "Neha Kakkar", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 203, name: "Shreya Ghoshal", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 204, name: "Diljit Dosanjh", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
-            { id: 205, name: "Badshah", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 206, name: "Sunidhi Chauhan", image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" }
+            { id: 201, name: "Arijit Singh", image: demoAlbumImage },
+            { id: 202, name: "Neha Kakkar", image: demoAlbumImage },
+            { id: 203, name: "Shreya Ghoshal", image: demoAlbumImage },
+            { id: 204, name: "Diljit Dosanjh", image: demoAlbumImage },
+            { id: 205, name: "Badshah", image: demoAlbumImage },
+            { id: 206, name: "Sunidhi Chauhan", image: demoAlbumImage },
+            { id: 207, name: "Yo Yo Honey Singh", image: demoAlbumImage },
+            { id: 208, name: "Jubin Nautiyal", image: demoAlbumImage }
         ];
 
         const risingStars = [
-            { id: 301, name: "Kanishk Seth", image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
-            { id: 302, name: "Raghav Chaitanya", image: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 303, name: "Jubin Nautiyal", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 304, name: "Armaan Malik", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" },
-            { id: 305, name: "Asees Kaur", image: "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHNpbmdlcnxlbnwwfHwwfHx8MA%3D%3D&w=400&h=400&fit=crop&crop=face" },
-            { id: 306, name: "Tulsi Kumar", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2luZ2VyfGVufDB8fDB8fHww&w=400&h=400&fit=crop&crop=face" }
+            { id: 301, name: "Kanishk Seth", image: demoAlbumImage },
+            { id: 302, name: "Raghav Chaitanya", image: demoAlbumImage },
+            { id: 303, name: "Jubin Nautiyal", image: demoAlbumImage },
+            { id: 304, name: "Armaan Malik", image: demoAlbumImage },
+            { id: 305, name: "Asees Kaur", image: demoAlbumImage },
+            { id: 306, name: "Tulsi Kumar", image: demoAlbumImage },
+            { id: 307, name: "Stebin Ben", image: demoAlbumImage },
+            { id: 308, name: "Payal Dev", image: demoAlbumImage }
         ];
 
         // ===========================================
         // UPDATED DATA FOR PLAYLISTS TAB
         // ===========================================
         const trendingPlaylists = [
-            { id: 401, title: "Top 50 India", subtitle: "Most played tracks", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 402, title: "Bollywood Hits", subtitle: "Latest Bollywood songs", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 403, title: "Punjabi Beats", subtitle: "Bhangra & Pop Hits", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 404, title: "Romantic Mix", subtitle: "Love songs collection", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 405, title: "Workout Energy", subtitle: "High tempo tracks", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 406, title: "Chill Vibes", subtitle: "Relaxing music", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
+            { id: 401, title: "Top 50 India", subtitle: "Most played tracks", image: demoAlbumImage },
+            { id: 402, title: "Bollywood Hits", subtitle: "Latest Bollywood songs", image: demoAlbumImage },
+            { id: 403, title: "Punjabi Beats", subtitle: "Bhangra & Pop Hits", image: demoAlbumImage },
+            { id: 404, title: "Romantic Mix", subtitle: "Love songs collection", image: demoAlbumImage },
+            { id: 405, title: "Workout Energy", subtitle: "High tempo tracks", image: demoAlbumImage },
+            { id: 406, title: "Chill Vibes", subtitle: "Relaxing music", image: demoAlbumImage },
+            { id: 407, title: "Party Anthems", subtitle: "Dance floor hits", image: demoAlbumImage },
+            { id: 408, title: "Acoustic Sessions", subtitle: "Unplugged versions", image: demoAlbumImage }
         ];
 
         const moodPlaylists = [
-            { id: 501, title: "Happy Mood", subtitle: "Feel good songs", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 502, title: "Sad Songs", subtitle: "Emotional tracks", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 503, title: "Party Hits", subtitle: "Dance floor anthems", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 504, title: "Study Focus", subtitle: "Concentration music", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 505, title: "Road Trip", subtitle: "Travel playlist", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 506, title: "Morning Start", subtitle: "Fresh morning songs", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
+            { id: 501, title: "Happy Mood", subtitle: "Feel good songs", image: demoAlbumImage },
+            { id: 502, title: "Sad Songs", subtitle: "Emotional tracks", image: demoAlbumImage },
+            { id: 503, title: "Party Hits", subtitle: "Dance floor anthems", image: demoAlbumImage },
+            { id: 504, title: "Study Focus", subtitle: "Concentration music", image: demoAlbumImage },
+            { id: 505, title: "Road Trip", subtitle: "Travel playlist", image: demoAlbumImage },
+            { id: 506, title: "Morning Start", subtitle: "Fresh morning songs", image: demoAlbumImage },
+            { id: 507, title: "Work Motivation", subtitle: "Productivity boost", image: demoAlbumImage },
+            { id: 508, title: "Sleep Well", subtitle: "Relaxing tunes", image: demoAlbumImage }
         ];
 
         const newPlaylists = [
-            { id: 601, title: "New Releases 2023", subtitle: "Latest songs collection", image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 602, title: "Indie Discover", subtitle: "Independent artists", image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 603, title: "Acoustic Sessions", subtitle: "Unplugged versions", image: "https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 604, title: "Retro Rewind", subtitle: "90s & 2000s hits", image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 605, title: "Regional Mix", subtitle: "Multi-language hits", image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" },
-            { id: 606, title: "Festive Special", subtitle: "Celebration songs", image: "https://images.unsplash.com/photo-1517230878791-4d28214057c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" }
+            { id: 601, title: "New Releases 2023", subtitle: "Latest songs collection", image: demoAlbumImage },
+            { id: 602, title: "Indie Discover", subtitle: "Independent artists", image: demoAlbumImage },
+            { id: 603, title: "Acoustic Sessions", subtitle: "Unplugged versions", image: demoAlbumImage },
+            { id: 604, title: "Retro Rewind", subtitle: "90s & 2000s hits", image: demoAlbumImage },
+            { id: 605, title: "Regional Mix", subtitle: "Multi-language hits", image: demoAlbumImage },
+            { id: 606, title: "Festive Special", subtitle: "Celebration songs", image: demoAlbumImage },
+            { id: 607, title: "Fresh Finds", subtitle: "New discoveries", image: demoAlbumImage },
+            { id: 608, title: "Editor's Pick", subtitle: "Curated selection", image: demoAlbumImage }
         ];
 
         // DOM Elements
-        const sliderTrack = document.getElementById('sliderTrack');
-        const sliderDots = document.getElementById('sliderDots');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
         const trendingSinglesEl = document.getElementById('trendingSingles');
         const popularArtistsEl = document.getElementById('popularArtists');
         const newAlbumsEl = document.getElementById('newAlbums');
@@ -1318,14 +1213,8 @@ button {
         const moodPlaylistsGridEl = document.getElementById('moodPlaylistsGrid');
         const newPlaylistsGridEl = document.getElementById('newPlaylistsGrid');
 
-        // Slider Variables
-        let currentSlide = 0;
-        let slideInterval;
-        const slideDuration = 5000; // 5 seconds
-
         // Initialize the page with content
         function initPage() {
-            renderFeaturedSlider();
             renderTrendingSingles();
             renderPopularArtists();
             renderNewAlbums();
@@ -1337,40 +1226,90 @@ button {
             // UPDATED: Render Playlists tab content
             renderPlaylistsTab();
             setupEventListeners();
-            startAutoSlide();
         }
 
-        // Render featured slider
-        function renderFeaturedSlider() {
-            let sliderHTML = '';
-            let dotsHTML = '';
-            
-            featuredPosts.forEach((post, index) => {
-                const activeClass = index === 0 ? 'active' : '';
-                sliderHTML += `
-                    <div class="featured-card ${activeClass}" data-index="${index}">
-                        <div class="card-badge ${post.badgeClass}">${post.badge}</div>
-                        <img src="${post.image}" alt="${post.title}" class="card-image">
-                        <div class="card-overlay">
-                            <h3 class="card-title">${post.title}</h3>
-                            <p class="card-artist">${post.artist}</p>
-                            <div class="card-actions">
-                                <button class="card-download-btn" data-id="${post.id}" data-type="featured">
-                                    <i class="fas fa-download"></i> Download
-                                </button>
-                                <button class="card-play-btn" data-id="${post.id}">
-                                    <i class="fas fa-play"></i>
-                                </button>
-                            </div>
+        // ===========================================
+        // UPDATED RENDERING FUNCTIONS WITH TITLES
+        // ===========================================
+        
+        // Render trending singles grid
+        function renderTrendingSingles() {
+            let html = '';
+            singles.forEach(single => {
+                html += `
+                    <div class="album-card" data-id="${single.id}" data-type="single">
+                        <div class="album-image-container">
+                            <img src="${single.image}" alt="${single.title}" class="album-image">
                         </div>
+                        <div class="album-title"><span>${single.title}</span></div>
                     </div>
                 `;
-                
-                dotsHTML += `<div class="slider-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>`;
             });
-            
-            sliderTrack.innerHTML = sliderHTML;
-            sliderDots.innerHTML = dotsHTML;
+            trendingSinglesEl.innerHTML = html;
+        }
+        
+        // Render popular artists grid
+        function renderPopularArtists() {
+            let html = '';
+            artists.forEach(artist => {
+                html += `
+                    <div class="album-card" data-id="${artist.id}" data-type="artist">
+                        <div class="album-image-container">
+                            <img src="${artist.image}" alt="${artist.name}" class="album-image">
+                        </div>
+                        <div class="album-title"><span>${artist.name}</span></div>
+                    </div>
+                `;
+            });
+            popularArtistsEl.innerHTML = html;
+        }
+        
+        // Render new albums grid - 8 demo cards
+        function renderNewAlbums() {
+            let html = '';
+            albums.forEach(album => {
+                html += `
+                    <div class="album-card" data-id="${album.id}" data-type="album">
+                        <div class="album-image-container">
+                            <img src="${album.image}" alt="${album.title}" class="album-image">
+                        </div>
+                        <div class="album-title"><span>${album.title}</span></div>
+                    </div>
+                `;
+            });
+            newAlbumsEl.innerHTML = html;
+        }
+        
+        // Render latest bollywood grid
+        function renderLatestBollywood() {
+            let html = '';
+            singles.slice(0, 8).forEach(single => {
+                html += `
+                    <div class="album-card" data-id="${single.id}" data-type="bollywood">
+                        <div class="album-image-container">
+                            <img src="${single.image}" alt="${single.title}" class="album-image">
+                        </div>
+                        <div class="album-title"><span>${single.title}</span></div>
+                    </div>
+                `;
+            });
+            latestBollywoodEl.innerHTML = html;
+        }
+        
+        // Render related songs grid
+        function renderRelatedSongs() {
+            let html = '';
+            singles.slice(0, 8).forEach(single => {
+                html += `
+                    <div class="album-card" data-id="${single.id}" data-type="related">
+                        <div class="album-image-container">
+                            <img src="${single.image}" alt="${single.title}" class="album-image">
+                        </div>
+                        <div class="album-title"><span>${single.title}</span></div>
+                    </div>
+                `;
+            });
+            relatedSongsEl.innerHTML = html;
         }
 
         // ===========================================
@@ -1389,14 +1328,11 @@ button {
             let html = '';
             featuredArtists.forEach(artist => {
                 html += `
-                    <div class="music-card artist" data-id="${artist.id}" data-type="artist-view">
-                        <div class="image-container">
-                            <img src="${artist.image}" alt="${artist.name}" class="card-image">
-                            <div class="card-badge">FEATURED</div>
+                    <div class="album-card" data-id="${artist.id}" data-type="artist-view">
+                        <div class="album-image-container">
+                            <img src="${artist.image}" alt="${artist.name}" class="album-image">
                         </div>
-                        <div class="card-content">
-                            <div class="card-title">${artist.name}</div>
-                        </div>
+                        <div class="album-title"><span>${artist.name}</span></div>
                     </div>
                 `;
             });
@@ -1408,14 +1344,11 @@ button {
             let html = '';
             popularSingers.forEach(artist => {
                 html += `
-                    <div class="music-card artist" data-id="${artist.id}" data-type="artist-view">
-                        <div class="image-container">
-                            <img src="${artist.image}" alt="${artist.name}" class="card-image">
-                            <div class="card-badge">POPULAR</div>
+                    <div class="album-card" data-id="${artist.id}" data-type="artist-view">
+                        <div class="album-image-container">
+                            <img src="${artist.image}" alt="${artist.name}" class="album-image">
                         </div>
-                        <div class="card-content">
-                            <div class="card-title">${artist.name}</div>
-                        </div>
+                        <div class="album-title"><span>${artist.name}</span></div>
                     </div>
                 `;
             });
@@ -1427,14 +1360,11 @@ button {
             let html = '';
             risingStars.forEach(artist => {
                 html += `
-                    <div class="music-card artist" data-id="${artist.id}" data-type="artist-view">
-                        <div class="image-container">
-                            <img src="${artist.image}" alt="${artist.name}" class="card-image">
-                            <div class="card-badge">RISING</div>
+                    <div class="album-card" data-id="${artist.id}" data-type="artist-view">
+                        <div class="album-image-container">
+                            <img src="${artist.image}" alt="${artist.name}" class="album-image">
                         </div>
-                        <div class="card-content">
-                            <div class="card-title">${artist.name}</div>
-                        </div>
+                        <div class="album-title"><span>${artist.name}</span></div>
                     </div>
                 `;
             });
@@ -1457,15 +1387,11 @@ button {
             let html = '';
             trendingPlaylists.forEach(playlist => {
                 html += `
-                    <div class="music-card album" data-id="${playlist.id}" data-type="playlist">
-                        <div class="image-container">
-                            <img src="${playlist.image}" alt="${playlist.title}" class="card-image">
-                            <div class="card-badge">TRENDING</div>
+                    <div class="album-card" data-id="${playlist.id}" data-type="playlist">
+                        <div class="album-image-container">
+                            <img src="${playlist.image}" alt="${playlist.title}" class="album-image">
                         </div>
-                        <div class="card-content">
-                            <div class="card-title">${playlist.title}</div>
-                            <div class="card-subtitle">${playlist.subtitle}</div>
-                        </div>
+                        <div class="album-title"><span>${playlist.title}</span></div>
                     </div>
                 `;
             });
@@ -1477,15 +1403,11 @@ button {
             let html = '';
             moodPlaylists.forEach(playlist => {
                 html += `
-                    <div class="music-card album" data-id="${playlist.id}" data-type="playlist">
-                        <div class="image-container">
-                            <img src="${playlist.image}" alt="${playlist.title}" class="card-image">
-                            <div class="card-badge">MOOD</div>
+                    <div class="album-card" data-id="${playlist.id}" data-type="playlist">
+                        <div class="album-image-container">
+                            <img src="${playlist.image}" alt="${playlist.title}" class="album-image">
                         </div>
-                        <div class="card-content">
-                            <div class="card-title">${playlist.title}</div>
-                            <div class="card-subtitle">${playlist.subtitle}</div>
-                        </div>
+                        <div class="album-title"><span>${playlist.title}</span></div>
                     </div>
                 `;
             });
@@ -1497,157 +1419,15 @@ button {
             let html = '';
             newPlaylists.forEach(playlist => {
                 html += `
-                    <div class="music-card album" data-id="${playlist.id}" data-type="playlist">
-                        <div class="image-container">
-                            <img src="${playlist.image}" alt="${playlist.title}" class="card-image">
-                            <div class="card-badge">NEW</div>
+                    <div class="album-card" data-id="${playlist.id}" data-type="playlist">
+                        <div class="album-image-container">
+                            <img src="${playlist.image}" alt="${playlist.title}" class="album-image">
                         </div>
-                        <div class="card-content">
-                            <div class="card-title">${playlist.title}</div>
-                            <div class="card-subtitle">${playlist.subtitle}</div>
-                        </div>
+                        <div class="album-title"><span>${playlist.title}</span></div>
                     </div>
                 `;
             });
             newPlaylistsGridEl.innerHTML = html;
-        }
-
-        // Go to specific slide
-        function goToSlide(index) {
-            const slides = document.querySelectorAll('.featured-card');
-            const dots = document.querySelectorAll('.slider-dot');
-            
-            if (index >= slides.length) index = 0;
-            if (index < 0) index = slides.length - 1;
-            
-            // Remove active class from all slides and dots
-            slides.forEach(slide => slide.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
-            
-            // Add active class to current slide and dot
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
-            
-            // Update slider track position
-            sliderTrack.style.transform = `translateX(-${index * 100}%)`;
-            
-            currentSlide = index;
-        }
-
-        // Next slide
-        function nextSlide() {
-            goToSlide(currentSlide + 1);
-        }
-
-        // Previous slide
-        function prevSlide() {
-            goToSlide(currentSlide - 1);
-        }
-
-        // Start auto sliding
-        function startAutoSlide() {
-            clearInterval(slideInterval);
-            slideInterval = setInterval(nextSlide, slideDuration);
-        }
-
-        // Pause auto sliding
-        function pauseAutoSlide() {
-            clearInterval(slideInterval);
-        }
-
-        // Resume auto sliding
-        function resumeAutoSlide() {
-            startAutoSlide();
-        }
-
-        // Updated rendering functions from original file
-        function renderTrendingSingles() {
-            let html = '';
-            singles.forEach(single => {
-                html += `
-                    <div class="music-card song" data-id="${single.id}" data-type="single">
-                        <div class="image-container">
-                            <img src="${single.image}" alt="${single.title}" class="card-image">
-                            <div class="card-badge">${single.badge}</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-title">${single.title}</div>
-                        </div>
-                    </div>
-                `;
-            });
-            trendingSinglesEl.innerHTML = html;
-        }
-
-        function renderPopularArtists() {
-            let html = '';
-            artists.forEach(artist => {
-                html += `
-                    <div class="music-card artist" data-id="${artist.id}" data-type="artist">
-                        <div class="image-container">
-                            <img src="${artist.image}" alt="${artist.name}" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <div class="card-title">${artist.name}</div>
-                        </div>
-                    </div>
-                `;
-            });
-            popularArtistsEl.innerHTML = html;
-        }
-
-        function renderNewAlbums() {
-            let html = '';
-            albums.forEach(album => {
-                html += `
-                    <div class="music-card album" data-id="${album.id}" data-type="album">
-                        <div class="image-container">
-                            <img src="${album.image}" alt="${album.title}" class="card-image">
-                        </div>
-                        <div class="card-content">
-                            <div class="card-title">${album.title}</div>
-                            <div class="card-subtitle">${album.subtitle}</div>
-                        </div>
-                    </div>
-                `;
-            });
-            newAlbumsEl.innerHTML = html;
-        }
-
-        function renderLatestBollywood() {
-            let html = '';
-            singles.slice(0, 4).forEach(single => {
-                html += `
-                    <div class="music-card bollywood" data-id="${single.id}" data-type="bollywood">
-                        <div class="image-container">
-                            <img src="${single.image}" alt="${single.title}" class="card-image">
-                            <div class="card-badge">${single.badge}</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-title">${single.title}</div>
-                        </div>
-                    </div>
-                `;
-            });
-            latestBollywoodEl.innerHTML = html;
-        }
-
-        function renderRelatedSongs() {
-            let html = '';
-            singles.slice(0, 4).forEach(single => {
-                html += `
-                    <div class="music-card related" data-id="${single.id}" data-type="related">
-                        <div class="image-container">
-                            <img src="${single.image}" alt="${single.title}" class="card-image">
-                            <div class="card-badge">${single.badge}</div>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-title">${single.title}</div>
-                        </div>
-                    </div>
-                `;
-            });
-            relatedSongsEl.innerHTML = html;
         }
 
         function renderCategories() {
@@ -1680,13 +1460,6 @@ button {
             homeFeed.classList.toggle('hidden', tabName !== 'home');
             artistsFeed.classList.toggle('hidden', tabName !== 'artists');
             playlistsFeed.classList.toggle('hidden', tabName !== 'playlists');
-            
-            // Pause slider when not on home tab
-            if (tabName !== 'home') {
-                pauseAutoSlide();
-            } else {
-                resumeAutoSlide();
-            }
         }
 
         // Setup event listeners
@@ -1697,84 +1470,6 @@ button {
             homeTab.addEventListener('click', () => switchTab('home'));
             artistsTab.addEventListener('click', () => switchTab('artists'));
             playlistsTab.addEventListener('click', () => switchTab('playlists'));
-            
-            // Slider navigation
-            prevBtn.addEventListener('click', () => {
-                prevSlide();
-                pauseAutoSlide();
-                setTimeout(resumeAutoSlide, 10000); // Resume after 10 seconds
-            });
-            
-            nextBtn.addEventListener('click', () => {
-                nextSlide();
-                pauseAutoSlide();
-                setTimeout(resumeAutoSlide, 10000); // Resume after 10 seconds
-            });
-            
-            // Dot navigation
-            sliderDots.addEventListener('click', (e) => {
-                if (e.target.classList.contains('slider-dot')) {
-                    const index = parseInt(e.target.getAttribute('data-index'));
-                    goToSlide(index);
-                    pauseAutoSlide();
-                    setTimeout(resumeAutoSlide, 10000); // Resume after 10 seconds
-                }
-            });
-            
-            // Pause auto-slide on hover
-            const slider = document.getElementById('featuredSlider');
-            slider.addEventListener('mouseenter', pauseAutoSlide);
-            slider.addEventListener('touchstart', pauseAutoSlide);
-            slider.addEventListener('mouseleave', resumeAutoSlide);
-            
-            // Touch swipe functionality for mobile
-            let touchStartX = 0;
-            let touchEndX = 0;
-            
-            slider.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-            });
-            
-            slider.addEventListener('touchend', (e) => {
-                touchEndX = e.changedTouches[0].screenX;
-                handleSwipe();
-            });
-            
-            function handleSwipe() {
-                const swipeThreshold = 50;
-                const diff = touchStartX - touchEndX;
-                
-                if (Math.abs(diff) > swipeThreshold) {
-                    if (diff > 0) {
-                        // Swipe left - next slide
-                        nextSlide();
-                    } else {
-                        // Swipe right - previous slide
-                        prevSlide();
-                    }
-                    pauseAutoSlide();
-                    setTimeout(resumeAutoSlide, 10000);
-                }
-            }
-            
-            // Featured card button actions
-            sliderTrack.addEventListener('click', (e) => {
-                if (e.target.classList.contains('card-download-btn') || 
-                    e.target.parentElement.classList.contains('card-download-btn')) {
-                    const btn = e.target.classList.contains('card-download-btn') ? 
-                        e.target : e.target.parentElement;
-                    const id = btn.getAttribute('data-id');
-                    alert(`Downloading featured content (ID: ${id})\n(This is a demo - in a real app, this would start the download)`);
-                }
-                
-                if (e.target.classList.contains('card-play-btn') || 
-                    e.target.parentElement.classList.contains('card-play-btn')) {
-                    const btn = e.target.classList.contains('card-play-btn') ? 
-                        e.target : e.target.parentElement;
-                    const id = btn.getAttribute('data-id');
-                    alert(`Playing featured content (ID: ${id})\n(This is a demo - in a real app, this would play the song)`);
-                }
-            });
             
             // Existing functionality from original file
             // Search functionality
@@ -1817,13 +1512,13 @@ button {
                 });
             });
             
-            // Updated event listener to handle click on entire card
+            // Card click functionality
             document.addEventListener('click', function(e) {
-                // Check if clicked element is a music card or inside one
-                const musicCard = e.target.closest('.music-card');
-                if (musicCard) {
-                    const id = musicCard.getAttribute('data-id');
-                    const type = musicCard.getAttribute('data-type');
+                // Check if clicked element is an album card or inside one
+                const albumCard = e.target.closest('.album-card');
+                if (albumCard) {
+                    const id = albumCard.getAttribute('data-id');
+                    const type = albumCard.getAttribute('data-type');
                     let itemType = '';
                     
                     switch(type) {
@@ -1851,42 +1546,6 @@ button {
                     }
                     
                     alert(`Opening ${itemType} detail page (ID: ${id})\n(This is a demo - in a real app, this would navigate to the ${itemType.toLowerCase()} page)`);
-                    return; // Prevent further processing
-                }
-                
-                // Keep existing button functionality for featured slider
-                if (e.target.classList.contains('download-btn')) {
-                    const id = e.target.getAttribute('data-id');
-                    const type = e.target.getAttribute('data-type');
-                    let itemType = '';
-                    
-                    switch(type) {
-                        case 'single':
-                            itemType = 'Single Track';
-                            break;
-                        case 'artist':
-                            itemType = 'Artist';
-                            break;
-                        case 'album':
-                            itemType = 'Album';
-                            break;
-                        case 'bollywood':
-                            itemType = 'Bollywood Song';
-                            break;
-                        case 'related':
-                            itemType = 'Related Song';
-                            break;
-                        case 'artist-view':
-                            itemType = 'Artist Songs';
-                            break;
-                        case 'playlist':
-                            itemType = 'Playlist';
-                            break;
-                        default:
-                            itemType = 'Item';
-                    }
-                    
-                    alert(`Opening ${itemType} (ID: ${id})\n(This is a demo - in a real app, this would show the content)`);
                 }
             });
         }
