@@ -577,7 +577,7 @@
         
         /* Card Footer (Title Section) */
         .album-title {
-            padding: 6px 6px;
+            padding: 2px 2px;
             text-align: center;
             font-weight: 600;
             font-size: 0.95rem;
