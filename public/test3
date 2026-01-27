@@ -587,7 +587,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 40px;
+            min-height: 42px;
             word-wrap: break-word;
             overflow-wrap: break-word;
             hyphens: auto;
