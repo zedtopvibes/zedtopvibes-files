@@ -577,7 +577,7 @@
         
         /* Card Footer (Title Section) */
         .album-title {
-            padding: 4px 4px;
+            padding: 12px 12x;
             text-align: center;
             font-weight: 600;
             font-size: 0.95rem;
@@ -587,7 +587,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 42px;
+            min-height: 40px;
             word-wrap: break-word;
             overflow-wrap: break-word;
             hyphens: auto;
@@ -833,8 +833,9 @@
         .featured-slider-section {
             display: none !important;
         }
-album-image-container {
-    padding-top: 85%;
+
+.album-image-container {
+    padding-top: 81%;
 }
     </style>
   
