@@ -512,7 +512,7 @@
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 14px;
             margin-bottom: 30px;
             justify-content: center;
             width: 100%;
