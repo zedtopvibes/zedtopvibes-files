@@ -833,7 +833,9 @@
         .featured-slider-section {
             display: none !important;
         }
-
+album-image-container {
+    padding-top: 85%;
+}
     </style>
   
 </head>
