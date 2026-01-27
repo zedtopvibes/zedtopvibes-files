@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KoshalWorld - Music Download Portal</title>
+    <title>ZedTopVibes.Com | The Ultimate Zambian Music Library </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Reset & Base Styles */
@@ -156,20 +156,24 @@
         
         /* Header Section */
         .main-header {
-            background-color: #6a11cb;
-            position: relative;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 20px 0;
-        }
+    /* Use linear-gradient instead of solid color */
+    background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
+
+    position: relative;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+    /* Fix padding (you probably meant '12px 2px') */
+    padding: 25px 2px;
+}
         
         .logo {
             color: white;
             text-align: center;
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: bold;
-            margin-bottom: 0px;
+            margin-bottom: 2px;
         }
         
         /* =========================================== */
@@ -750,24 +754,19 @@
             }
         }
         
-        #purpleLine {
-            border: none;
-            height: 3px;
-            background-color: #6a11cb;
-        }
         
-        /* Footer */
-        .main-footer {
-            background-color: #000;
-            color: white;
-            padding: 20px 0;
-            text-align: center;
-            font-size: 0.9rem;
-        }
         
-        .footer-text {
-            opacity: 0.8;
-        }
+     .main-footer {
+    /* Use the same diagonal gradient as header */
+    background: linear-gradient(135deg, #6a11cb 0%, #8a2be2 100%);
+    
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+        
 
         /* =========================================== */
         /* FEED TABS STYLES                            */
@@ -844,7 +843,7 @@
     <!-- Header Section -->
     <header class="main-header">
         <div class="container">
-            <div class="logo">KoshalWorld</div>
+            <div class="logo">ZEDTOPVIBES</div>
             <div class="search-container">
                 <input type="text" class="search-bar" placeholder="Search songs, artists, albums..." id="searchInput">
                 <button class="search-btn" id="searchBtn">
@@ -876,7 +875,6 @@
         </div>
     </section>
     
-    <hr id="purpleLine">
     
     <!-- Feed Tabs -->
     <div class="feed-tabs-container">
