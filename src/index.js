@@ -130,7 +130,7 @@ button{margin-left:6px}
 a{margin-left:6px}
 </style>
 </head>
-<body>
+<body> 
 
 <h2>Upload File</h2>
 <form id="upload">
