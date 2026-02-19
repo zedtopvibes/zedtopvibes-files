@@ -1,0 +1,7 @@
+name = "files"
+main = "src/index.js"
+compatibility_date = "2025-02-01"
+
+[[r2_buckets]]
+binding = "recycle"
+bucket_name = "recycle"
