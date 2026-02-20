@@ -1,4 +1,4 @@
-// src/index.js - MP3 Upload with ID3 Tags + Cover Art
+// src/index.js - Fixed version with proper escaping
 const UPLOAD_FORM = `<!DOCTYPE html>
 <html>
 <head>
@@ -148,15 +148,8 @@ const UPLOAD_FORM = `<!DOCTYPE html>
             border-radius: 6px;
             font-weight: 500;
         }
-        .cover-link {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            background: #9f7aea;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 500;
+        .download-link:hover {
+            background: #38a169;
         }
         .tag-badge {
             display: inline-block;
@@ -237,9 +230,8 @@ const UPLOAD_FORM = `<!DOCTYPE html>
             const titleInput = document.getElementById('title');
             
             if (file && !titleInput.value) {
-                // Remove .mp3 and clean up filename
                 let title = file.name.replace('.mp3', '').replace(/[_-]/g, ' ');
-                title = title.replace(/\s+/g, ' ').trim();
+                title = title.replace(/\\s+/g, ' ').trim();
                 titleInput.value = title;
             }
         });
@@ -252,11 +244,11 @@ const UPLOAD_FORM = `<!DOCTYPE html>
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    preview.innerHTML = `<img src="${e.target.result}" alt="Cover Preview">`;
+                    preview.innerHTML = '<img src=\"' + e.target.result + '\" alt=\"Cover Preview\">';
                 };
                 reader.readAsDataURL(file);
             } else {
-                preview.innerHTML = `<div class="preview-placeholder">Cover preview</div>`;
+                preview.innerHTML = '<div class=\"preview-placeholder\">Cover preview</div>';
             }
         });
 
@@ -312,21 +304,19 @@ const UPLOAD_FORM = `<!DOCTYPE html>
                     const data = JSON.parse(xhr.responseText);
                     
                     if (xhr.status === 200) {
-                        let html = `
-                            <p>✅ Upload successful!</p>
-                            <p>
-                                <span class="tag-badge">🎤 ${data.tags.artist}</span>
-                                <span class="tag-badge">💿 ${data.tags.album}</span>
-                                <span class="tag-badge">📝 ${data.tags.title}</span>
-                            </p>
-                            <a href="/download/${data.filename}" class="download-link" download>📥 Download MP3</a>
-                        `;
+                        let html = '<p>✅ Upload successful!</p>' +
+                            '<p>' +
+                            '<span class="tag-badge">🎤 ' + data.tags.artist + '</span> ' +
+                            '<span class="tag-badge">💿 ' + data.tags.album + '</span> ' +
+                            '<span class="tag-badge">📝 ' + data.tags.title + '</span>' +
+                            '</p>' +
+                            '<a href="/download/' + data.filename + '" class="download-link" download>📥 Download MP3</a>';
                         
                         result.className = 'result success';
                         result.innerHTML = html;
                     } else {
                         result.className = 'result error';
-                        result.innerHTML = `❌ Error: ${data.error || 'Upload failed'}`;
+                        result.innerHTML = '❌ Error: ' + (data.error || 'Upload failed');
                     }
                     
                     result.style.display = 'block';
@@ -424,8 +414,8 @@ async function handleUpload(request, env) {
 
     // Generate safe filename
     const timestamp = Date.now();
-    const safeName = `${tags.artist} - ${tags.title}`.replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, ' ');
-    const filename = `${timestamp}-${safeName}.mp3`;
+    const safeName = (tags.artist + ' - ' + tags.title).replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, ' ');
+    const filename = timestamp + '-' + safeName + '.mp3';
     
     // Read MP3 file
     const fileBuffer = await file.arrayBuffer();
@@ -451,10 +441,15 @@ async function handleUpload(request, env) {
     await env.recycle.put(filename, mp3WithTags, {
       httpMetadata: {
         contentType: 'audio/mpeg',
-        contentDisposition: `attachment; filename="${filename}"`
+        contentDisposition: 'attachment; filename="' + filename + '"'
       },
       customMetadata: {
-        ...tags,
+        artist: tags.artist,
+        album: tags.album,
+        title: tags.title,
+        year: tags.year,
+        genre: tags.genre,
+        track: tags.track,
         uploadedAt: new Date().toISOString(),
         hasCover: coverBuffer ? 'true' : 'false'
       }
@@ -492,7 +487,7 @@ async function handleDownload(filename, env) {
     return new Response(object.body, {
       headers: {
         'Content-Type': 'audio/mpeg',
-        'Content-Disposition': `attachment; filename="${filename}"`,
+        'Content-Disposition': 'attachment; filename="' + filename + '"',
         'Cache-Control': 'public, max-age=3600',
         'Access-Control-Allow-Origin': '*'
       }
