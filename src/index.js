@@ -1,4 +1,4 @@
-// src/index.js - Complete working version
+// src/index.js - COMPLETELY FIXED VERSION
 const UPLOAD_FORM = `<!DOCTYPE html>
 <html>
 <head>
@@ -159,11 +159,6 @@ const UPLOAD_FORM = `<!DOCTYPE html>
             border-radius: 4px;
             font-size: 12px;
             margin: 2px;
-        }
-        .note {
-            font-size: 12px;
-            color: #718096;
-            margin-top: 5px;
         }
     </style>
 </head>
@@ -381,11 +376,8 @@ export default {
       return handleDownload(filename, env);
     }
 
-    // Redirect to form
-    return new Response(null, {
-      status: 302,
-      headers: { 'Location': '/' }
-    });
+    // Return 404 for everything else
+    return new Response('Not found', { status: 404 });
   }
 };
 
@@ -394,16 +386,6 @@ async function handleUpload(request, env) {
     const formData = await request.formData();
     const file = formData.get('file');
     const cover = formData.get('cover');
-    
-    // Get metadata from form
-    const tags = {
-      artist: formData.get('artist') || 'Unknown Artist',
-      album: formData.get('album') || 'Unknown Album',
-      title: formData.get('title') || file.name.replace('.mp3', ''),
-      year: formData.get('year') || '2024',
-      genre: formData.get('genre') || 'Unknown',
-      track: formData.get('track') || '1'
-    };
     
     if (!file) {
       return new Response(JSON.stringify({ error: 'No file uploaded' }), {
@@ -419,7 +401,17 @@ async function handleUpload(request, env) {
       });
     }
 
-    // Generate safe filename with .mp3 extension
+    // Get metadata from form
+    const tags = {
+      artist: formData.get('artist') || 'Unknown Artist',
+      album: formData.get('album') || 'Unknown Album',
+      title: formData.get('title') || file.name.replace('.mp3', ''),
+      year: formData.get('year') || '2024',
+      genre: formData.get('genre') || 'Unknown',
+      track: formData.get('track') || '1'
+    };
+
+    // Generate filename
     const timestamp = Date.now();
     const safeName = (tags.artist + ' - ' + tags.title).replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, ' ');
     const filename = timestamp + '-' + safeName + '.mp3';
@@ -444,21 +436,11 @@ async function handleUpload(request, env) {
     // Add ID3 tags to MP3
     const mp3WithTags = addID3Tags(fileBuffer, tags, coverBuffer, coverMime);
     
-    // Store tagged MP3 in R2
+    // Store in R2
     await env.recycle.put(filename, mp3WithTags, {
       httpMetadata: {
         contentType: 'audio/mpeg',
         contentDisposition: 'attachment; filename="' + filename + '"'
-      },
-      customMetadata: {
-        artist: tags.artist,
-        album: tags.album,
-        title: tags.title,
-        year: tags.year,
-        genre: tags.genre,
-        track: tags.track,
-        uploadedAt: new Date().toISOString(),
-        hasCover: coverBuffer ? 'true' : 'false'
       }
     });
 
@@ -468,14 +450,10 @@ async function handleUpload(request, env) {
       tags: tags,
       size: file.size
     }), {
-      headers: { 
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }
+      headers: { 'Content-Type': 'application/json' }
     });
 
   } catch (error) {
-    console.error('Upload error:', error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
@@ -483,7 +461,7 @@ async function handleUpload(request, env) {
   }
 }
 
-// FIXED DOWNLOAD HANDLER - Ensures MP3 files download correctly
+// SIMPLE FIXED DOWNLOAD HANDLER
 async function handleDownload(filename, env) {
   try {
     const object = await env.recycle.get(filename);
@@ -492,27 +470,15 @@ async function handleDownload(filename, env) {
       return new Response('File not found', { status: 404 });
     }
 
-    // Ensure filename has .mp3 extension
-    let downloadFilename = filename;
-    if (!downloadFilename.toLowerCase().endsWith('.mp3')) {
-      downloadFilename = downloadFilename + '.mp3';
-    }
-
-    // Get the file data as ArrayBuffer to ensure proper handling
-    const fileData = await object.arrayBuffer();
-    
-    return new Response(fileData, {
+    // Return the object directly - this is the correct way
+    return new Response(object.body, {
       headers: {
         'Content-Type': 'audio/mpeg',
-        'Content-Disposition': 'attachment; filename="' + downloadFilename + '"',
-        'Content-Length': fileData.byteLength,
-        'Cache-Control': 'public, max-age=3600',
-        'Access-Control-Allow-Origin': '*',
-        'Content-Transfer-Encoding': 'binary'
+        'Content-Disposition': 'attachment; filename="' + filename + '"'
       }
     });
   } catch (error) {
-    return new Response('Download failed: ' + error.message, { status: 500 });
+    return new Response('Download failed', { status: 500 });
   }
 }
 
@@ -604,33 +570,26 @@ function createID3v23Tags(tags, coverBuffer, coverMime) {
 
 function createTextFrame(frameId, text) {
   const encoder = new TextEncoder();
-  const textBytes = encoder.encode(text + '\0'); // Null-terminated string
+  const textBytes = encoder.encode(text + '\0');
   
-  // Frame header (10 bytes) + encoding (1 byte) + text
   const frameSize = 10 + 1 + textBytes.length;
   const frame = new Uint8Array(frameSize);
   
-  // Frame ID (4 bytes)
   frame[0] = frameId.charCodeAt(0);
   frame[1] = frameId.charCodeAt(1);
   frame[2] = frameId.charCodeAt(2);
   frame[3] = frameId.charCodeAt(3);
   
-  // Size (4 bytes) - excluding header
   const dataSize = 1 + textBytes.length;
   frame[4] = (dataSize >> 24) & 0xFF;
   frame[5] = (dataSize >> 16) & 0xFF;
   frame[6] = (dataSize >> 8) & 0xFF;
   frame[7] = dataSize & 0xFF;
   
-  // Flags (2 bytes)
   frame[8] = 0x00;
   frame[9] = 0x00;
+  frame[10] = 0x03; // UTF-8 encoding
   
-  // Encoding (3 = UTF-8)
-  frame[10] = 0x03;
-  
-  // Text
   frame.set(textBytes, 11);
   
   return frame;
@@ -639,7 +598,6 @@ function createTextFrame(frameId, text) {
 function createCoverFrame(coverBuffer, coverMime) {
   const coverBytes = new Uint8Array(coverBuffer);
   
-  // Determine MIME type string
   let mimeString;
   if (coverMime.includes('png')) {
     mimeString = 'image/png\0';
@@ -653,44 +611,31 @@ function createCoverFrame(coverBuffer, coverMime) {
   const description = 'Cover\0';
   const descBytes = new TextEncoder().encode(description);
   
-  // Frame size: header(10) + encoding(1) + mime + type(1) + description + data
   const frameSize = 10 + 1 + mimeBytes.length + 1 + descBytes.length + coverBytes.length;
   const frame = new Uint8Array(frameSize);
   
-  // Frame ID: APIC
   frame[0] = 0x41; // A
   frame[1] = 0x50; // P
   frame[2] = 0x49; // I
   frame[3] = 0x43; // C
   
-  // Size
   const dataSize = frameSize - 10;
   frame[4] = (dataSize >> 24) & 0xFF;
   frame[5] = (dataSize >> 16) & 0xFF;
   frame[6] = (dataSize >> 8) & 0xFF;
   frame[7] = dataSize & 0xFF;
   
-  // Flags
   frame[8] = 0x00;
   frame[9] = 0x00;
+  frame[10] = 0x00; // Encoding
   
-  // Text encoding (0 = ISO-8859-1)
-  frame[10] = 0x00;
-  
-  // MIME type
   let offset = 11;
   frame.set(mimeBytes, offset);
   offset += mimeBytes.length;
-  
-  // Picture type (3 = cover front)
-  frame[offset] = 0x03;
+  frame[offset] = 0x03; // Cover type
   offset++;
-  
-  // Description
   frame.set(descBytes, offset);
   offset += descBytes.length;
-  
-  // Picture data
   frame.set(coverBytes, offset);
   
   return frame;
