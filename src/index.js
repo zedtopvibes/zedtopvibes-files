@@ -1,4 +1,4 @@
-// src/index.js - Fixed version with proper escaping
+// src/index.js - Complete working version
 const UPLOAD_FORM = `<!DOCTYPE html>
 <html>
 <head>
@@ -141,12 +141,13 @@ const UPLOAD_FORM = `<!DOCTYPE html>
         .download-link {
             display: inline-block;
             margin: 10px;
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: #48bb78;
             color: white;
             text-decoration: none;
             border-radius: 6px;
             font-weight: 500;
+            font-size: 16px;
         }
         .download-link:hover {
             background: #38a169;
@@ -158,6 +159,11 @@ const UPLOAD_FORM = `<!DOCTYPE html>
             border-radius: 4px;
             font-size: 12px;
             margin: 2px;
+        }
+        .note {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -369,9 +375,10 @@ export default {
       return handleUpload(request, env);
     }
 
-    // Handle download
+    // Handle download - FIXED VERSION
     if (path.startsWith('/download/')) {
-      return handleDownload(path.replace('/download/', ''), env);
+      const filename = path.replace('/download/', '');
+      return handleDownload(filename, env);
     }
 
     // Redirect to form
@@ -412,7 +419,7 @@ async function handleUpload(request, env) {
       });
     }
 
-    // Generate safe filename
+    // Generate safe filename with .mp3 extension
     const timestamp = Date.now();
     const safeName = (tags.artist + ' - ' + tags.title).replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, ' ');
     const filename = timestamp + '-' + safeName + '.mp3';
@@ -476,6 +483,7 @@ async function handleUpload(request, env) {
   }
 }
 
+// FIXED DOWNLOAD HANDLER - Ensures MP3 files download correctly
 async function handleDownload(filename, env) {
   try {
     const object = await env.recycle.get(filename);
@@ -484,16 +492,27 @@ async function handleDownload(filename, env) {
       return new Response('File not found', { status: 404 });
     }
 
-    return new Response(object.body, {
+    // Ensure filename has .mp3 extension
+    let downloadFilename = filename;
+    if (!downloadFilename.toLowerCase().endsWith('.mp3')) {
+      downloadFilename = downloadFilename + '.mp3';
+    }
+
+    // Get the file data as ArrayBuffer to ensure proper handling
+    const fileData = await object.arrayBuffer();
+    
+    return new Response(fileData, {
       headers: {
         'Content-Type': 'audio/mpeg',
-        'Content-Disposition': 'attachment; filename="' + filename + '"',
+        'Content-Disposition': 'attachment; filename="' + downloadFilename + '"',
+        'Content-Length': fileData.byteLength,
         'Cache-Control': 'public, max-age=3600',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Content-Transfer-Encoding': 'binary'
       }
     });
   } catch (error) {
-    return new Response('Download failed', { status: 500 });
+    return new Response('Download failed: ' + error.message, { status: 500 });
   }
 }
 
