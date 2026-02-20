@@ -1,15 +1,15 @@
-// src/index.js - Ultra Lightweight Upload Form
+// src/index.js - MP3 Upload with ID3 Tags + Cover Art
 const UPLOAD_FORM = `<!DOCTYPE html>
 <html>
 <head>
-    <title>MP3 Upload</title>
+    <title>MP3 Upload with Tags</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * { box-sizing: border-box; }
         body { 
             font-family: system-ui, -apple-system, sans-serif; 
             padding: 20px;
-            max-width: 500px;
+            max-width: 600px;
             margin: 0 auto;
             background: #f0f2f5;
         }
@@ -35,42 +35,57 @@ const UPLOAD_FORM = `<!DOCTYPE html>
             color: #4a5568;
             font-size: 14px;
         }
-        input[type="file"] {
+        input[type="file"], input[type="text"] {
             width: 100%;
             padding: 10px;
-            border: 2px dashed #cbd5e0;
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
             background: #f8fafc;
             font-size: 14px;
         }
-        input[type="file"]:hover {
+        input[type="text"] {
+            background: white;
+        }
+        input[type="file"]:hover, input[type="text"]:focus {
             border-color: #4299e1;
             background: #fff;
         }
         .preview {
             margin-top: 15px;
             text-align: center;
-            min-height: 100px;
+            min-height: 150px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
         .preview img {
-            max-width: 150px;
-            max-height: 150px;
+            max-width: 200px;
+            max-height: 200px;
             border-radius: 8px;
             border: 2px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .preview-placeholder {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 12px;
+            font-size: 14px;
+            border: 2px dashed #fff;
+        }
+        .row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .row .form-group {
+            flex: 1;
+            margin-bottom: 0;
         }
         button {
             width: 100%;
@@ -125,7 +140,7 @@ const UPLOAD_FORM = `<!DOCTYPE html>
         }
         .download-link {
             display: inline-block;
-            margin-top: 10px;
+            margin: 10px;
             padding: 10px 20px;
             background: #48bb78;
             color: white;
@@ -133,31 +148,79 @@ const UPLOAD_FORM = `<!DOCTYPE html>
             border-radius: 6px;
             font-weight: 500;
         }
-        .download-link:hover {
-            background: #38a169;
+        .cover-link {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px 20px;
+            background: #9f7aea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .tag-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            font-size: 12px;
+            margin: 2px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎵 Upload MP3</h1>
+        <h1>🎵 Upload MP3 with ID3 Tags</h1>
         
         <div class="form-group">
-            <label>Choose MP3 File</label>
+            <label>📁 MP3 File</label>
             <input type="file" id="mp3File" accept=".mp3" required>
         </div>
         
+        <div class="row">
+            <div class="form-group">
+                <label>🎤 Artist</label>
+                <input type="text" id="artist" placeholder="Artist name" value="Unknown Artist">
+            </div>
+            <div class="form-group">
+                <label>💿 Album</label>
+                <input type="text" id="album" placeholder="Album name" value="Unknown Album">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group">
+                <label>📝 Title</label>
+                <input type="text" id="title" placeholder="Song title">
+            </div>
+            <div class="form-group">
+                <label>📅 Year</label>
+                <input type="text" id="year" placeholder="2024" value="2024">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="form-group">
+                <label>🎸 Genre</label>
+                <input type="text" id="genre" placeholder="Genre" value="Unknown">
+            </div>
+            <div class="form-group">
+                <label>🔢 Track</label>
+                <input type="text" id="track" placeholder="1" value="1">
+            </div>
+        </div>
+        
         <div class="form-group">
-            <label>Cover Art (optional)</label>
+            <label>🖼️ Cover Art (optional - will be embedded in MP3)</label>
             <input type="file" id="coverFile" accept=".jpg,.jpeg,.png,.gif">
             <div class="preview" id="preview">
                 <div class="preview-placeholder" id="previewPlaceholder">
-                    No cover selected
+                    Cover preview
                 </div>
             </div>
         </div>
         
-        <button id="uploadBtn">⬆️ Upload</button>
+        <button id="uploadBtn">⬆️ Upload & Add Tags</button>
         
         <div class="progress" id="progress">
             <div class="progress-bar" id="progressBar"></div>
@@ -168,6 +231,19 @@ const UPLOAD_FORM = `<!DOCTYPE html>
     </div>
 
     <script>
+        // Auto-fill title from filename
+        document.getElementById('mp3File').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const titleInput = document.getElementById('title');
+            
+            if (file && !titleInput.value) {
+                // Remove .mp3 and clean up filename
+                let title = file.name.replace('.mp3', '').replace(/[_-]/g, ' ');
+                title = title.replace(/\s+/g, ' ').trim();
+                titleInput.value = title;
+            }
+        });
+
         // Preview cover
         document.getElementById('coverFile').addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -176,15 +252,15 @@ const UPLOAD_FORM = `<!DOCTYPE html>
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    preview.innerHTML = \`<img src="\${e.target.result}" alt="Cover">\`;
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Cover Preview">`;
                 };
                 reader.readAsDataURL(file);
             } else {
-                preview.innerHTML = \`<div class="preview-placeholder">No cover selected</div>\`;
+                preview.innerHTML = `<div class="preview-placeholder">Cover preview</div>`;
             }
         });
 
-        // Upload with progress
+        // Upload function
         document.getElementById('uploadBtn').addEventListener('click', async function() {
             const mp3File = document.getElementById('mp3File').files[0];
             
@@ -195,9 +271,16 @@ const UPLOAD_FORM = `<!DOCTYPE html>
 
             const formData = new FormData();
             formData.append('file', mp3File);
+            formData.append('artist', document.getElementById('artist').value || 'Unknown Artist');
+            formData.append('album', document.getElementById('album').value || 'Unknown Album');
+            formData.append('title', document.getElementById('title').value || mp3File.name.replace('.mp3', ''));
+            formData.append('year', document.getElementById('year').value || '2024');
+            formData.append('genre', document.getElementById('genre').value || 'Unknown');
+            formData.append('track', document.getElementById('track').value || '1');
             
-            if (document.getElementById('coverFile').files[0]) {
-                formData.append('cover', document.getElementById('coverFile').files[0]);
+            const coverFile = document.getElementById('coverFile').files[0];
+            if (coverFile) {
+                formData.append('cover', coverFile);
             }
 
             const btn = document.getElementById('uploadBtn');
@@ -209,6 +292,8 @@ const UPLOAD_FORM = `<!DOCTYPE html>
             btn.disabled = true;
             progress.style.display = 'block';
             result.style.display = 'none';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
 
             const xhr = new XMLHttpRequest();
             
@@ -220,21 +305,28 @@ const UPLOAD_FORM = `<!DOCTYPE html>
                 }
             });
 
-            xhr.addEventListener('load', () => {
+            xhr.addEventListener('load', function() {
                 btn.disabled = false;
                 
                 try {
                     const data = JSON.parse(xhr.responseText);
                     
                     if (xhr.status === 200) {
-                        result.className = 'result success';
-                        result.innerHTML = \`
+                        let html = `
                             <p>✅ Upload successful!</p>
-                            <a href="/download/\${data.filename}" class="download-link" download>📥 Download MP3</a>
-                        \`;
+                            <p>
+                                <span class="tag-badge">🎤 ${data.tags.artist}</span>
+                                <span class="tag-badge">💿 ${data.tags.album}</span>
+                                <span class="tag-badge">📝 ${data.tags.title}</span>
+                            </p>
+                            <a href="/download/${data.filename}" class="download-link" download>📥 Download MP3</a>
+                        `;
+                        
+                        result.className = 'result success';
+                        result.innerHTML = html;
                     } else {
                         result.className = 'result error';
-                        result.innerHTML = \`❌ \${data.error || 'Upload failed'}\`;
+                        result.innerHTML = `❌ Error: ${data.error || 'Upload failed'}`;
                     }
                     
                     result.style.display = 'block';
@@ -246,15 +338,16 @@ const UPLOAD_FORM = `<!DOCTYPE html>
                     
                 } catch (err) {
                     result.className = 'result error';
-                    result.innerHTML = '❌ Upload failed';
+                    result.innerHTML = '❌ Upload failed: ' + err.message;
                     result.style.display = 'block';
+                    progress.style.display = 'none';
                 }
             });
 
-            xhr.addEventListener('error', () => {
+            xhr.addEventListener('error', function() {
                 btn.disabled = false;
                 result.className = 'result error';
-                result.innerHTML = '❌ Upload failed';
+                result.innerHTML = '❌ Upload failed - network error';
                 result.style.display = 'block';
                 progress.style.display = 'none';
             });
@@ -274,7 +367,10 @@ export default {
     // Serve upload form
     if (path === '/' || path === '/upload-form') {
       return new Response(UPLOAD_FORM, {
-        headers: { 'Content-Type': 'text/html' }
+        headers: { 
+          'Content-Type': 'text/html',
+          'Cache-Control': 'no-cache'
+        }
       });
     }
 
@@ -302,52 +398,82 @@ async function handleUpload(request, env) {
     const file = formData.get('file');
     const cover = formData.get('cover');
     
+    // Get metadata from form
+    const tags = {
+      artist: formData.get('artist') || 'Unknown Artist',
+      album: formData.get('album') || 'Unknown Album',
+      title: formData.get('title') || file.name.replace('.mp3', ''),
+      year: formData.get('year') || '2024',
+      genre: formData.get('genre') || 'Unknown',
+      track: formData.get('track') || '1'
+    };
+    
     if (!file) {
-      return new Response(JSON.stringify({ error: 'No file' }), {
+      return new Response(JSON.stringify({ error: 'No file uploaded' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    if (!file.name.endsWith('.mp3')) {
-      return new Response(JSON.stringify({ error: 'MP3 only' }), {
+    if (!file.name.toLowerCase().endsWith('.mp3')) {
+      return new Response(JSON.stringify({ error: 'Only MP3 files are allowed' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    // Read file
+    // Generate safe filename
+    const timestamp = Date.now();
+    const safeName = `${tags.artist} - ${tags.title}`.replace(/[^a-zA-Z0-9\s-]/g, '').replace(/\s+/g, ' ');
+    const filename = `${timestamp}-${safeName}.mp3`;
+    
+    // Read MP3 file
     const fileBuffer = await file.arrayBuffer();
     
-    // Simple filename (remove special chars)
-    const filename = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+    // Process cover if provided
+    let coverBuffer = null;
+    let coverMime = null;
+    if (cover && cover.size > 0) {
+      if (!cover.type.startsWith('image/')) {
+        return new Response(JSON.stringify({ error: 'Cover must be an image' }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        });
+      }
+      coverBuffer = await cover.arrayBuffer();
+      coverMime = cover.type;
+    }
     
-    // Store in R2
-    await env.recycle.put(filename, fileBuffer, {
+    // Add ID3 tags to MP3
+    const mp3WithTags = addID3Tags(fileBuffer, tags, coverBuffer, coverMime);
+    
+    // Store tagged MP3 in R2
+    await env.recycle.put(filename, mp3WithTags, {
       httpMetadata: {
         contentType: 'audio/mpeg',
         contentDisposition: `attachment; filename="${filename}"`
+      },
+      customMetadata: {
+        ...tags,
+        uploadedAt: new Date().toISOString(),
+        hasCover: coverBuffer ? 'true' : 'false'
       }
     });
-
-    // Store cover if exists
-    if (cover && cover.size > 0) {
-      const coverBuffer = await cover.arrayBuffer();
-      const coverName = filename.replace('.mp3', '.jpg');
-      await env.recycle.put(`covers/${coverName}`, coverBuffer, {
-        httpMetadata: { contentType: cover.type }
-      });
-    }
 
     return new Response(JSON.stringify({
       success: true,
       filename: filename,
+      tags: tags,
       size: file.size
     }), {
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }
     });
 
   } catch (error) {
+    console.error('Upload error:', error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
@@ -356,17 +482,202 @@ async function handleUpload(request, env) {
 }
 
 async function handleDownload(filename, env) {
-  const object = await env.recycle.get(filename);
-  
-  if (!object) {
-    return new Response('Not found', { status: 404 });
-  }
-
-  return new Response(object.body, {
-    headers: {
-      'Content-Type': 'audio/mpeg',
-      'Content-Disposition': `attachment; filename="${filename}"`,
-      'Cache-Control': 'public, max-age=3600'
+  try {
+    const object = await env.recycle.get(filename);
+    
+    if (!object) {
+      return new Response('File not found', { status: 404 });
     }
-  });
+
+    return new Response(object.body, {
+      headers: {
+        'Content-Type': 'audio/mpeg',
+        'Content-Disposition': `attachment; filename="${filename}"`,
+        'Cache-Control': 'public, max-age=3600',
+        'Access-Control-Allow-Origin': '*'
+      }
+    });
+  } catch (error) {
+    return new Response('Download failed', { status: 500 });
+  }
+}
+
+// ==================== ID3 TAG FUNCTIONS ====================
+
+function addID3Tags(audioBuffer, tags, coverBuffer, coverMime) {
+  const audioBytes = new Uint8Array(audioBuffer);
+  
+  // Check for existing ID3 tags
+  const hasExistingID3 = audioBytes.length > 10 && 
+                         audioBytes[0] === 0x49 && 
+                         audioBytes[1] === 0x44 && 
+                         audioBytes[2] === 0x33;
+  
+  let id3Size = 0;
+  if (hasExistingID3) {
+    id3Size = ((audioBytes[6] & 0x7F) << 21) |
+              ((audioBytes[7] & 0x7F) << 14) |
+              ((audioBytes[8] & 0x7F) << 7) |
+              (audioBytes[9] & 0x7F);
+    id3Size += 10;
+  }
+  
+  // Create new ID3 tags
+  const id3Tags = createID3v23Tags(tags, coverBuffer, coverMime);
+  
+  // Remove existing tags and prepend new ones
+  const audioData = hasExistingID3 ? audioBytes.slice(id3Size) : audioBytes;
+  
+  // Combine
+  const finalBuffer = new Uint8Array(id3Tags.length + audioData.length);
+  finalBuffer.set(id3Tags, 0);
+  finalBuffer.set(audioData, id3Tags.length);
+  
+  return finalBuffer.buffer;
+}
+
+function createID3v23Tags(tags, coverBuffer, coverMime) {
+  const header = new Uint8Array(10);
+  
+  // ID3v2.3 header
+  header[0] = 0x49; // I
+  header[1] = 0x44; // D
+  header[2] = 0x33; // 3
+  header[3] = 0x03; // Version 2.3.0
+  header[4] = 0x00;
+  header[5] = 0x00; // Flags
+  
+  const frames = [];
+  
+  // Add text frames for each tag
+  if (tags.title) frames.push(createTextFrame('TIT2', tags.title));
+  if (tags.artist) frames.push(createTextFrame('TPE1', tags.artist));
+  if (tags.album) frames.push(createTextFrame('TALB', tags.album));
+  if (tags.year) frames.push(createTextFrame('TYER', tags.year));
+  if (tags.genre) frames.push(createTextFrame('TCON', tags.genre));
+  if (tags.track) frames.push(createTextFrame('TRCK', tags.track));
+  
+  // Add cover if provided
+  if (coverBuffer && coverMime) {
+    frames.push(createCoverFrame(coverBuffer, coverMime));
+  }
+  
+  // Calculate total size
+  let framesSize = 0;
+  for (const frame of frames) {
+    framesSize += frame.length;
+  }
+  
+  // Set size in header (synchsafe)
+  const size = framesSize;
+  header[6] = (size >> 21) & 0x7F;
+  header[7] = (size >> 14) & 0x7F;
+  header[8] = (size >> 7) & 0x7F;
+  header[9] = size & 0x7F;
+  
+  // Combine header and frames
+  const id3Tag = new Uint8Array(10 + framesSize);
+  id3Tag.set(header, 0);
+  
+  let offset = 10;
+  for (const frame of frames) {
+    id3Tag.set(frame, offset);
+    offset += frame.length;
+  }
+  
+  return id3Tag;
+}
+
+function createTextFrame(frameId, text) {
+  const encoder = new TextEncoder();
+  const textBytes = encoder.encode(text + '\0'); // Null-terminated string
+  
+  // Frame header (10 bytes) + encoding (1 byte) + text
+  const frameSize = 10 + 1 + textBytes.length;
+  const frame = new Uint8Array(frameSize);
+  
+  // Frame ID (4 bytes)
+  frame[0] = frameId.charCodeAt(0);
+  frame[1] = frameId.charCodeAt(1);
+  frame[2] = frameId.charCodeAt(2);
+  frame[3] = frameId.charCodeAt(3);
+  
+  // Size (4 bytes) - excluding header
+  const dataSize = 1 + textBytes.length;
+  frame[4] = (dataSize >> 24) & 0xFF;
+  frame[5] = (dataSize >> 16) & 0xFF;
+  frame[6] = (dataSize >> 8) & 0xFF;
+  frame[7] = dataSize & 0xFF;
+  
+  // Flags (2 bytes)
+  frame[8] = 0x00;
+  frame[9] = 0x00;
+  
+  // Encoding (3 = UTF-8)
+  frame[10] = 0x03;
+  
+  // Text
+  frame.set(textBytes, 11);
+  
+  return frame;
+}
+
+function createCoverFrame(coverBuffer, coverMime) {
+  const coverBytes = new Uint8Array(coverBuffer);
+  
+  // Determine MIME type string
+  let mimeString;
+  if (coverMime.includes('png')) {
+    mimeString = 'image/png\0';
+  } else if (coverMime.includes('gif')) {
+    mimeString = 'image/gif\0';
+  } else {
+    mimeString = 'image/jpeg\0';
+  }
+  
+  const mimeBytes = new TextEncoder().encode(mimeString);
+  const description = 'Cover\0';
+  const descBytes = new TextEncoder().encode(description);
+  
+  // Frame size: header(10) + encoding(1) + mime + type(1) + description + data
+  const frameSize = 10 + 1 + mimeBytes.length + 1 + descBytes.length + coverBytes.length;
+  const frame = new Uint8Array(frameSize);
+  
+  // Frame ID: APIC
+  frame[0] = 0x41; // A
+  frame[1] = 0x50; // P
+  frame[2] = 0x49; // I
+  frame[3] = 0x43; // C
+  
+  // Size
+  const dataSize = frameSize - 10;
+  frame[4] = (dataSize >> 24) & 0xFF;
+  frame[5] = (dataSize >> 16) & 0xFF;
+  frame[6] = (dataSize >> 8) & 0xFF;
+  frame[7] = dataSize & 0xFF;
+  
+  // Flags
+  frame[8] = 0x00;
+  frame[9] = 0x00;
+  
+  // Text encoding (0 = ISO-8859-1)
+  frame[10] = 0x00;
+  
+  // MIME type
+  let offset = 11;
+  frame.set(mimeBytes, offset);
+  offset += mimeBytes.length;
+  
+  // Picture type (3 = cover front)
+  frame[offset] = 0x03;
+  offset++;
+  
+  // Description
+  frame.set(descBytes, offset);
+  offset += descBytes.length;
+  
+  // Picture data
+  frame.set(coverBytes, offset);
+  
+  return frame;
 }
