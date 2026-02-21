@@ -2,32 +2,25 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
-    // --- 1. ROUTE: FRONTEND (The UI) ---
-    if (url.pathname === "/" && request.method === "GET") {
-      return new Response(getHTML(), {
-        headers: { "Content-Type": "text/html;charset=UTF-8" },
-      });
-    }
-
-    // --- 2. ROUTE: DOWNLOAD ---
+    // --- 1. ROUTE: DOWNLOAD (Serves the actual MP3) ---
     if (url.pathname.startsWith('/download/')) {
       const filename = url.pathname.split('/').pop();
       const object = await env.recycle.get(filename);
+      
       if (!object) return new Response('File Not Found', { status: 404 });
 
-      return new Response(object.body, {
-        headers: {
-          "Content-Type": "audio/mpeg",
-          "Content-Length": object.size,
-          "Accept-Ranges": "bytes",
-          "Content-Disposition": `inline; filename="${filename}"`,
-          "Access-Control-Allow-Origin": "*"
-        }
-      });
+      const headers = new Headers();
+      headers.set('Content-Type', 'audio/mpeg');
+      headers.set('Content-Length', object.size);
+      headers.set('Accept-Ranges', 'bytes');
+      headers.set('Content-Disposition', `attachment; filename="${filename}"`);
+      headers.set('Access-Control-Allow-Origin', '*');
+
+      return new Response(object.body, { headers });
     }
 
-    // --- 3. ROUTE: UPLOAD & TAG (The Backend) ---
-    if (url.pathname === "/upload" && request.method === "POST") {
+    // --- 2. ROUTE: UPLOAD (The API endpoint) ---
+    if (request.method === 'POST' && url.pathname === '/upload') {
       try {
         const formData = await request.formData();
         const file = formData.get('file');
@@ -54,34 +47,44 @@ export default {
       }
     }
 
-    return new Response('Not Found', { status: 404 });
+    // --- 3. ROUTE: FRONTEND (The UI) ---
+    return new Response(getHTML(url.origin), {
+      headers: { 'Content-Type': 'text/html;charset=UTF-8' }
+    });
   }
 };
 
-/** * UI COMPONENT
+/**
+ * THE UI (HTML & JS)
  */
-function getHTML() {
+function getHTML(origin) {
   return `
   <!DOCTYPE html>
   <html>
   <head>
-    <title>MP3 Admin</title>
+    <title>MP3 Admin Panel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-      body { font-family: system-ui; max-width: 400px; margin: 2rem auto; padding: 1rem; background: #f4f4f9; }
-      .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-      input, button { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-      button { background: #007bff; color: white; border: none; font-weight: bold; cursor: pointer; }
-      #status { margin-top: 1rem; font-size: 0.9rem; color: #555; }
+      body { font-family: system-ui, -apple-system, sans-serif; max-width: 450px; margin: 2rem auto; padding: 1rem; background: #f8f9fa; color: #333; }
+      .card { background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+      h2 { margin-top: 0; color: #007bff; text-align: center; }
+      input, button { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 1rem; }
+      button { background: #007bff; color: white; border: none; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+      button:hover { background: #0056b3; }
+      button:disabled { background: #ccc; cursor: not-allowed; }
+      #status { margin-top: 1.5rem; padding: 1rem; border-radius: 8px; font-size: 0.9rem; text-align: center; display: none; }
+      .success-box { background: #e7f3ff; border: 1px solid #b3d7ff; color: #004085; display: block !important; }
+      .link-btn { display: inline-block; margin-top: 10px; color: #007bff; text-decoration: none; font-weight: bold; }
     </style>
   </head>
   <body>
     <div class="card">
-      <h2>MP3 Uploader</h2>
+      <h2>🎵 MP3 Uploader</h2>
+      <label>Select MP3</label>
       <input type="file" id="f" accept="audio/mpeg">
-      <input type="text" id="t" placeholder="Title">
-      <input type="text" id="a" placeholder="Artist">
-      <button id="btn">Upload & Tag</button>
+      <input type="text" id="t" placeholder="Song Title">
+      <input type="text" id="a" placeholder="Artist Name">
+      <button id="btn">Upload & Watermark</button>
       <div id="status"></div>
     </div>
 
@@ -92,19 +95,30 @@ function getHTML() {
       document.getElementById('f').onchange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
-        document.getElementById('status').innerText = "Calculating duration...";
-        const buf = await file.arrayBuffer();
-        const decoded = await ctx.decodeAudioData(buf);
-        ms = Math.floor(decoded.duration * 1000);
-        document.getElementById('status').innerText = "Duration: " + Math.floor(decoded.duration) + "s (Ready)";
+        const status = document.getElementById('status');
+        status.style.display = 'block';
+        status.innerText = "Analyzing duration...";
+        
+        try {
+          const buf = await file.arrayBuffer();
+          const decoded = await ctx.decodeAudioData(buf);
+          ms = Math.floor(decoded.duration * 1000);
+          status.innerText = "Duration: " + Math.floor(decoded.duration) + "s (Ready)";
+        } catch(e) {
+          status.innerText = "Could not read duration.";
+        }
       };
 
       document.getElementById('btn').onclick = async () => {
         const file = document.getElementById('f').files[0];
-        if (!file) return alert("Select file");
+        if (!file) return alert("Please select a file.");
         
-        document.getElementById('btn').disabled = true;
-        document.getElementById('status').innerText = "Uploading...";
+        const btn = document.getElementById('btn');
+        const status = document.getElementById('status');
+        
+        btn.disabled = true;
+        status.style.display = 'block';
+        status.innerText = "Uploading to R2...";
 
         const fd = new FormData();
         fd.append('file', file);
@@ -112,14 +126,24 @@ function getHTML() {
         fd.append('artist', document.getElementById('a').value);
         fd.append('duration', ms);
 
-        const res = await fetch('/upload', { method: 'POST', body: fd });
-        const data = await res.json();
-        
-        if (data.success) {
-          document.getElementById('status').innerHTML = '✅ Done! <br><small>' + data.filename + '</small>';
-        } else {
-          document.getElementById('status').innerText = "Error!";
-          document.getElementById('btn').disabled = false;
+        try {
+          const res = await fetch('/upload', { method: 'POST', body: fd });
+          const data = await res.json();
+          
+          if (data.success) {
+            status.className = 'success-box';
+            const dlLink = \`\${window.location.origin}/download/\${data.filename}\`;
+            status.innerHTML = \`
+              <b>✅ Upload Complete!</b><br>
+              <a href="\${dlLink}" class="link-btn" target="_blank">Download Tagged File</a><br>
+              <small style="word-break: break-all;">\${dlLink}</small>
+            \`;
+          } else {
+            throw new Error();
+          }
+        } catch (e) {
+          status.innerText = "Upload failed. Check your R2 binding.";
+          btn.disabled = false;
         }
       };
     </script>
@@ -127,7 +151,8 @@ function getHTML() {
   </html>`;
 }
 
-/** * BINARY TAGGING LOGIC
+/**
+ * BINARY HELPERS
  */
 function addID3Tags(audioBuffer, tags, coverBuffer) {
   const audioBytes = new Uint8Array(audioBuffer);
