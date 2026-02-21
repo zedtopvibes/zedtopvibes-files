@@ -27,7 +27,7 @@ export default {
         const rawArtist = formData.get('artist') || 'Unknown';
         const duration = formData.get('duration') || '';
 
-        // Apply your specific branding format
+        // Internal Metadata Branding
         const taggedTitle = `${rawTitle} (${SITENAME})`;
         const taggedArtist = `${rawArtist} | ${SITENAME}`;
 
@@ -41,8 +41,9 @@ export default {
           duration 
         }, coverBuffer);
 
-        // Dashboard-friendly filename (No hashes, just clean names)
-        const filename = `${rawTitle} - ${rawArtist}.mp3`.replace(/[<>:"/\\|?*]/g, '');
+        // --- THE FINAL FILENAME FIX ---
+        // Format: rawTitle - rawArtist (Example.Com).mp3
+        const filename = `${rawTitle} - ${rawArtist} (${SITENAME}).mp3`.replace(/[<>:"/\\|?*]/g, '');
 
         await env.recycle.put(filename, taggedMp3, {
           httpMetadata: { contentType: 'audio/mpeg' }
@@ -77,9 +78,11 @@ function getHTML(site) {
       body { font-family: system-ui; max-width: 400px; margin: 2rem auto; padding: 1rem; background: #f4f4f9; }
       .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
       input, button { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-      button { background: #007bff; color: white; border: none; font-weight: bold; cursor: pointer; }
+      button { background: #28a745; color: white; border: none; font-weight: bold; cursor: pointer; font-size: 1rem; }
+      button:disabled { background: #ccc; }
       #status { margin-top: 1rem; font-size: 0.9rem; color: #555; text-align: center; }
-      .link-box { margin-top: 10px; padding: 10px; background: #eef; border-radius: 4px; word-break: break-all; }
+      .link-box { margin-top: 10px; padding: 10px; background: #eef; border-radius: 4px; word-break: break-all; font-family: monospace; font-size: 0.8rem; }
+      .copy-btn { background: #007bff; margin-top: 5px; padding: 5px; font-size: 0.8rem; }
     </style>
   </head>
   <body>
@@ -97,7 +100,7 @@ function getHTML(site) {
       document.getElementById('f').onchange = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
-        document.getElementById('status').innerText = "Analyzing...";
+        document.getElementById('status').innerText = "Analyzing duration...";
         const buf = await file.arrayBuffer();
         const decoded = await ctx.decodeAudioData(buf);
         ms = Math.floor(decoded.duration * 1000);
@@ -117,12 +120,17 @@ function getHTML(site) {
         const data = await res.json();
         if (data.success) {
           const url = window.location.origin + '/download/' + encodeURIComponent(data.filename);
-          document.getElementById('status').innerHTML = '✅ <b>Branded!</b><div class="link-box">' + url + '</div>';
+          document.getElementById('status').innerHTML = '✅ <b>Branded!</b><div class="link-box" id="linkText">' + url + '</div><button class="copy-btn" onclick="copyLink()">Copy URL</button>';
         } else {
           document.getElementById('status').innerText = "Error!";
           document.getElementById('btn').disabled = false;
         }
       };
+      function copyLink() {
+        const text = document.getElementById('linkText').innerText;
+        navigator.clipboard.writeText(text);
+        alert("Link copied!");
+      }
     </script>
   </body>
   </html>`;
