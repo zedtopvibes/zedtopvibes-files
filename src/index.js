@@ -1,44 +1,43 @@
-// src/index.js - Fully Optimized Version
+// src/index.js - UUID + R2 Watermark + Streaming Download
 
 const UPLOAD_FORM = `<!DOCTYPE html>
 <html>
 <head>
-    <title>MP3 Tag Studio</title>
+    <title>Brand MP3 Tagger</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * { box-sizing: border-box; }
-        body { font-family: system-ui, sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; background: #f0f2f5; }
-        .container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        body { font-family: system-ui, sans-serif; padding: 20px; max-width: 500px; margin: 0 auto; background: #f4f7f6; }
+        .container { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1 { font-size: 22px; text-align: center; color: #333; }
         .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 14px; }
-        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
-        .row { display: flex; gap: 10px; margin-bottom: 10px; }
-        .row div { flex: 1; }
-        button { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        button:disabled { background: #ccc; }
-        .result { margin-top: 20px; padding: 15px; border-radius: 6px; display: none; text-align: center; }
-        .success { background: #d4edda; color: #155724; }
-        .error { background: #f8d7da; color: #721c24; }
-        .preview img { max-width: 150px; margin-top: 10px; border-radius: 4px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #555; }
+        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        button { width: 100%; padding: 14px; background: #000; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: opacity 0.2s; }
+        button:disabled { opacity: 0.5; }
+        .result { margin-top: 20px; padding: 15px; border-radius: 8px; display: none; text-align: center; border: 1px solid transparent; }
+        .success { background: #e7f9ee; color: #1d753c; border-color: #bee3cc; }
+        .error { background: #fff5f5; color: #c53030; border-color: #fed7d7; }
+        .brand-note { font-size: 12px; color: #888; text-align: center; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🎵 MP3 Tagger</h1>
         <div class="form-group">
-            <label>MP3 File</label>
+            <label>Select MP3 File</label>
             <input type="file" id="mp3File" accept=".mp3">
         </div>
-        <div class="row">
-            <div><label>Artist</label><input type="text" id="artist" value="Unknown Artist"></div>
-            <div><label>Title</label><input type="text" id="title"></div>
+        <div class="form-group">
+            <label>Artist Name</label>
+            <input type="text" id="artist" value="My Brand">
         </div>
         <div class="form-group">
-            <label>Cover Art</label>
-            <input type="file" id="coverFile" accept="image/*">
-            <div id="preview" class="preview"></div>
+            <label>Song Title</label>
+            <input type="text" id="title" placeholder="Auto-fills from filename">
         </div>
-        <button id="uploadBtn">Upload & Tag</button>
+        <button id="uploadBtn">Upload & Add Watermark</button>
+        <div class="brand-note">Your official watermark will be added automatically.</div>
         <div id="result" class="result"></div>
     </div>
 
@@ -48,7 +47,7 @@ const UPLOAD_FORM = `<!DOCTYPE html>
         
         mp3Input.addEventListener('change', (e) => {
             if (e.target.files[0] && !titleInput.value) {
-                titleInput.value = e.target.files[0].name.replace('.mp3', '');
+                titleInput.value = e.target.files[0].name.replace('.mp3', '').replace(/[-_]/g, ' ');
             }
         });
 
@@ -56,7 +55,7 @@ const UPLOAD_FORM = `<!DOCTYPE html>
             const btn = document.getElementById('uploadBtn');
             const result = document.getElementById('result');
             const file = mp3Input.files[0];
-            if (!file) return alert('Select a file');
+            if (!file) return alert('Please select a file');
 
             btn.disabled = true;
             result.style.display = 'none';
@@ -65,21 +64,19 @@ const UPLOAD_FORM = `<!DOCTYPE html>
             fd.append('file', file);
             fd.append('artist', document.getElementById('artist').value);
             fd.append('title', titleInput.value);
-            const cover = document.getElementById('coverFile').files[0];
-            if (cover) fd.append('cover', cover);
 
             try {
                 const res = await fetch('/upload', { method: 'POST', body: fd });
                 const data = await res.json();
                 if (data.success) {
                     result.className = 'result success';
-                    result.innerHTML = 'Done! <br><br> <a href="/download/' + data.filename + '" style="color:green; font-weight:bold;">Download Tagged MP3</a>';
+                    result.innerHTML = '✅ Processed Successfully!<br><br><a href="/download/' + data.filename + '" style="color:#1d753c; font-weight:bold; text-decoration:none;">📥 DOWNLOAD MP3</a>';
                 } else {
                     throw new Error(data.error);
                 }
             } catch (e) {
                 result.className = 'result error';
-                result.textContent = e.message;
+                result.textContent = 'Error: ' + e.message;
             }
             result.style.display = 'block';
             btn.disabled = false;
@@ -111,24 +108,28 @@ async function handleUpload(request, env) {
   try {
     const formData = await request.formData();
     const file = formData.get('file');
-    const cover = formData.get('cover');
     const artist = formData.get('artist') || 'Unknown';
     const title = formData.get('title') || 'Unknown';
 
-    const fileBuffer = await file.arrayBuffer();
-    let coverBuffer = null;
-    let coverMime = null;
+    if (!file) throw new Error("No file found");
 
-    if (cover && cover.size > 0) {
-      coverBuffer = await cover.arrayBuffer();
-      coverMime = cover.type;
+    const fileBuffer = await file.arrayBuffer();
+
+    // 1. Fetch watermark from R2
+    let coverBuffer = null;
+    let coverMime = "image/jpeg";
+    const watermark = await env.recycle.get('watermark.jpg');
+    if (watermark) {
+      coverBuffer = await watermark.arrayBuffer();
+      coverMime = watermark.httpMetadata?.contentType || "image/jpeg";
     }
 
-    // Process Tags
+    // 2. Add ID3 Tags (MP3 + Metadata + Watermark)
     const tags = { artist, title };
     const taggedMp3 = addID3Tags(fileBuffer, tags, coverBuffer, coverMime);
 
-    const filename = `${Date.now()}-${title.replace(/\s+/g, '_')}.mp3`;
+    // 3. Generate a UUID filename (Professional, no timestamps)
+    const filename = `${crypto.randomUUID()}.mp3`;
     
     await env.recycle.put(filename, taggedMp3, {
       httpMetadata: { contentType: 'audio/mpeg' }
@@ -144,42 +145,32 @@ async function handleUpload(request, env) {
 
 async function handleDownload(filename, env) {
   const object = await env.recycle.get(filename);
-  if (!object) return new Response('Not Found', { status: 404 });
+  if (!object) return new Response('File Expired or Not Found', { status: 404 });
 
   const headers = new Headers();
   object.writeHttpMetadata(headers);
   headers.set('Content-Disposition', `attachment; filename="${filename}"`);
   headers.set('Access-Control-Allow-Origin', '*');
 
-  // Streaming the body directly from R2 avoids memory overflow
   return new Response(object.body, { headers });
 }
 
-// --- ID3 BINARY UTILITIES ---
+// --- CORE ID3 LOGIC ---
 
 function encodeSynchsafe(size) {
-  return [
-    (size >> 21) & 0x7f,
-    (size >> 14) & 0x7f,
-    (size >> 7) & 0x7f,
-    size & 0x7f
-  ];
+  return [(size >> 21) & 0x7f, (size >> 14) & 0x7f, (size >> 7) & 0x7f, size & 0x7f];
 }
 
 function createTextFrame(id, text) {
   const encoded = new TextEncoder().encode(text);
-  const size = encoded.length + 1; // +1 for encoding flag
+  const size = encoded.length + 1;
   const frame = new Uint8Array(10 + size);
-  
-  // ID
   frame.set([...id].map(c => c.charCodeAt(0)), 0);
-  // Size (Standard Big-Endian for v2.3 frames)
   frame[4] = (size >> 24) & 0xFF;
   frame[5] = (size >> 16) & 0xFF;
   frame[6] = (size >> 8) & 0xFF;
   frame[7] = size & 0xFF;
-  
-  frame[10] = 0x03; // UTF-8
+  frame[10] = 0x03; // UTF-8 Encoding
   frame.set(encoded, 11);
   return frame;
 }
@@ -187,12 +178,10 @@ function createTextFrame(id, text) {
 function createCoverFrame(buffer, mime) {
   const mimeStr = (mime || 'image/jpeg') + '\0';
   const mimeBytes = new TextEncoder().encode(mimeStr);
-  const descBytes = new TextEncoder().encode('\0'); // No description
   const data = new Uint8Array(buffer);
+  const size = 1 + mimeBytes.length + 1 + 1 + data.length; // encoding + mime + type + desc + data
   
-  const size = 1 + mimeBytes.length + 1 + descBytes.length + data.length;
   const frame = new Uint8Array(10 + size);
-  
   frame.set([0x41, 0x50, 0x49, 0x43], 0); // APIC
   frame[4] = (size >> 24) & 0xFF;
   frame[5] = (size >> 16) & 0xFF;
@@ -204,18 +193,14 @@ function createCoverFrame(buffer, mime) {
   frame.set(mimeBytes, offset);
   offset += mimeBytes.length;
   frame[offset] = 0x03; // Cover front
-  offset += 1;
-  frame.set(descBytes, offset);
-  offset += descBytes.length;
+  offset += 2; // skip type and null desc
   frame.set(data, offset);
-  
   return frame;
 }
 
 function addID3Tags(audioBuffer, tags, coverBuffer, coverMime) {
   const audioBytes = new Uint8Array(audioBuffer);
   const frames = [];
-  
   frames.push(createTextFrame('TPE1', tags.artist));
   frames.push(createTextFrame('TIT2', tags.title));
   if (coverBuffer) frames.push(createCoverFrame(coverBuffer, coverMime));
@@ -233,6 +218,5 @@ function addID3Tags(audioBuffer, tags, coverBuffer, coverMime) {
     offset += f.length;
   }
   final.set(audioBytes, offset);
-  
   return final;
 }
