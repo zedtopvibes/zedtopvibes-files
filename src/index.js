@@ -7,6 +7,8 @@
  * - Watermark image embedding
  * - Audio duration detection
  * - Professional UI with all metadata fields
+ * - Clean filename format: "Clean Title (Example.Com).mp3"
+ * - Dashes are preserved in filenames
  * - XSS protection
  * - Proper error handling
  * - CORS support
@@ -133,6 +135,9 @@ export default {
         const rawTrack = sanitizeTrack(formData.get('track') || '1');
         const rawComment = sanitizeInput(formData.get('comment') || `Branded by ${SITENAME}`);
         const duration = sanitizeDuration(formData.get('duration') || '');
+        
+        // Get custom filename (NEW)
+        const customFilename = formData.get('customFilename') || '';
 
         // Branded metadata
         const taggedTitle = `${rawTitle} (${SITENAME})`;
@@ -178,11 +183,17 @@ export default {
           cover: coverBuffer
         });
 
-        // Create safe filename
-        const safeTitle = sanitizeFilename(rawTitle).substring(0, 50);
-        const safeArtist = sanitizeFilename(rawArtist).substring(0, 30);
-        const timestamp = Date.now();
-        const filename = `${safeTitle} - ${safeArtist} (${SITENAME}) ${timestamp}.mp3`;
+        // Create clean filename - JUST title + sitename (with dashes preserved)
+        let filename;
+        if (customFilename && customFilename.trim() !== '') {
+          // Use custom filename (clean it, keep dashes)
+          const cleanCustom = cleanWithSpaces(customFilename).substring(0, 100);
+          filename = `${cleanCustom} (${SITENAME}).mp3`;
+        } else {
+          // Auto-generate from title only (no artist)
+          const cleanTitle = cleanWithSpaces(rawTitle).substring(0, 100);
+          filename = `${cleanTitle} (${SITENAME}).mp3`;
+        }
 
         // Upload to R2 with metadata
         await env.recycle.put(filename, taggedMp3, {
@@ -289,15 +300,19 @@ function sanitizeDuration(duration) {
 }
 
 /**
- * Sanitize filename to remove illegal characters
+ * Clean filename - keep dashes, remove other specials
+ * This preserves: letters, numbers, spaces, dashes, underscores
+ * Output format: "Clean Title (Site).mp3"
  */
-function sanitizeFilename(str) {
+function cleanWithSpaces(str) {
+  if (!str) return '';
+  
+  // Keep letters, numbers, spaces, dashes, underscores
+  // Replace everything else with a space
   return str
-    .replace(/[<>:"/\\|?*]/g, '_')  // Remove Windows reserved chars
-    .replace(/\s+/g, '_')            // Replace spaces with underscore
-    .replace(/[^\w\-_.]/g, '')       // Remove any other weird chars
-    .replace(/_+/g, '_')             // Collapse multiple underscores
-    .replace(/^[_.\-]+|[_.\-]+$/g, ''); // Remove leading/trailing special chars
+    .replace(/[^a-zA-Z0-9\s\-_]/g, ' ')  // Only keep these
+    .replace(/\s+/g, ' ')                  // Normalize multiple spaces to single space
+    .trim();                                // Remove leading/trailing spaces
 }
 
 /**
@@ -569,7 +584,7 @@ function encodeSynchsafe(size) {
 }
 
 /**
- * Professional HTML UI with complete metadata form
+ * Professional HTML UI with complete metadata form and custom filename field
  */
 function getHTML(site) {
   const safeSite = site.replace(/[<>]/g, '');
@@ -756,6 +771,21 @@ function getHTML(site) {
     .file-info div {
       margin: 4px 0;
       color: #2d3748;
+    }
+
+    .filename-preview {
+      background: #ebf4ff;
+      border-radius: 8px;
+      padding: 12px 15px;
+      margin: 10px 0;
+      font-family: 'Monaco', 'Menlo', monospace;
+      font-size: 14px;
+      border: 1px dashed #667eea;
+      color: #2d3748;
+    }
+
+    .filename-preview strong {
+      color: #667eea;
     }
 
     .progress-bar {
@@ -1005,6 +1035,22 @@ function getHTML(site) {
           <textarea id="comment" rows="2" placeholder="Additional comments...">Branded by ${safeSite}</textarea>
         </div>
 
+        <!-- NEW: Custom Filename Field -->
+        <div class="form-group full-width">
+          <label>📛 Custom Filename</label>
+          <input type="text" id="filename" placeholder="Drake - Gods Plan (or your custom name)">
+          <small style="color: #718096; font-size: 12px; margin-top: 4px; display: block;">
+            Leave empty to auto-generate from Title only • Dashes are preserved
+          </small>
+        </div>
+
+        <!-- Filename Preview -->
+        <div class="form-group full-width">
+          <div id="filenamePreview" class="filename-preview">
+            <strong>Preview:</strong> <span id="previewText">(will appear here)</span>
+          </div>
+        </div>
+
         <div class="form-group full-width">
           <label class="required">📁 MP3 File</label>
           <input type="file" id="file" accept=".mp3,audio/mpeg,audio/mp3">
@@ -1028,7 +1074,7 @@ function getHTML(site) {
         <span class="feature-tag">✨ Complete ID3 Tags</span>
         <span class="feature-tag">📦 15MB Limit</span>
         <span class="feature-tag">🖼️ Watermark Support</span>
-        <span class="feature-tag">⚡ Instant Processing</span>
+        <span class="feature-tag">📛 Clean Filenames</span>
       </div>
     </div>
   </div>
@@ -1036,6 +1082,7 @@ function getHTML(site) {
   <script>
     // Configuration
     const MAX_SIZE = ${MAX_FILE_SIZE};
+    const SITENAME = "${safeSite}";
     let audioContext = null;
     let durationMs = 0;
     
@@ -1058,6 +1105,34 @@ function getHTML(site) {
     const fileInfo = document.getElementById('fileInfo');
     const progressBar = document.getElementById('progressBar');
     const progressFill = document.getElementById('progressFill');
+    const titleInput = document.getElementById('title');
+    const filenameInput = document.getElementById('filename');
+    const previewSpan = document.getElementById('previewText');
+
+    // Update filename preview
+    function updateFilenamePreview() {
+      const title = titleInput.value.trim() || 'Unknown Title';
+      const custom = filenameInput.value.trim();
+      
+      let preview;
+      if (custom) {
+        // Clean custom filename (simulate server-side cleaning)
+        preview = custom.replace(/[^a-zA-Z0-9\\s\\-_]/g, ' ').replace(/\\s+/g, ' ').trim();
+        preview = preview.substring(0, 100);
+        preview = \`\${preview} (\${SITENAME}).mp3\`;
+      } else {
+        // Clean title
+        preview = title.replace(/[^a-zA-Z0-9\\s\\-_]/g, ' ').replace(/\\s+/g, ' ').trim();
+        preview = preview.substring(0, 100);
+        preview = \`\${preview} (\${SITENAME}).mp3\`;
+      }
+      
+      previewSpan.textContent = preview;
+    }
+
+    titleInput.addEventListener('input', updateFilenamePreview);
+    filenameInput.addEventListener('input', updateFilenamePreview);
+    updateFilenamePreview();
 
     // File input handler
     fileInput.addEventListener('change', async (e) => {
@@ -1166,6 +1241,7 @@ function getHTML(site) {
       formData.append('track', document.getElementById('track').value.trim());
       formData.append('comment', document.getElementById('comment').value.trim());
       formData.append('duration', durationMs);
+      formData.append('customFilename', filenameInput.value.trim());
 
       // Disable button and show progress
       const btn = document.getElementById('uploadBtn');
@@ -1211,6 +1287,7 @@ function getHTML(site) {
               </div>
               <div class="metadata-summary">
                 \${metadataItems}
+                <div class="metadata-item"><strong>Filename:</strong> \${data.filename}</div>
                 <div class="metadata-item"><strong>Duration:</strong> \${data.duration ? formatDuration(data.duration/1000) : 'Unknown'}</div>
                 <div class="metadata-item"><strong>Size:</strong> \${(data.size/1024/1024).toFixed(2)}MB</div>
               </div>
@@ -1258,6 +1335,7 @@ function getHTML(site) {
       document.getElementById('year').value = '2018';
       document.getElementById('track').value = '4/25';
       document.getElementById('genre').value = 'Hip-Hop';
+      updateFilenamePreview();
     }
   </script>
 </body>
