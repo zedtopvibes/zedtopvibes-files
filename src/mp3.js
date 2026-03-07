@@ -13,7 +13,7 @@
  * 
  * @version 2.0.0
  * @author Your Brand
- */
+ */ 
 
 const SITENAME = "Example.Com";
 const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
