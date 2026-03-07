@@ -1,7 +1,0 @@
-name = "files-pro"           # Different name for professional version
-main = "src/index-pro.js"    # Points to professional version
-compatibility_date = "2025-02-01"
-
-[[r2_buckets]]
-binding = "recycle"
-bucket_name = "recycle"      # Same bucket or create a new one
