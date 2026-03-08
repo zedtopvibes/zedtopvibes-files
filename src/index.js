@@ -19,7 +19,7 @@
 
 const SITENAME = "Example.Com";
 const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
-const MAX_COVER_SIZE = 5*1024 * 1024; // 5MB for watermark
+const MAX_COVER_SIZE = 1024 * 1024; // 1MB for watermark
 const SUPPORTED_GENRES = [
   'Podcast', 'Music', 'Hip-Hop', 'Rock', 'Pop', 
   'Electronic', 'Jazz', 'Classical', 'Audiobook', 'Other'
