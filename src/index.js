@@ -127,8 +127,8 @@ export default {
         }
 
         // Get and sanitize form data
-        const rawTitle = sanitizeInput(formData.get('title') ||");
-        const rawArtist = sanitizeInput(formData.get('artist') ||");
+        const rawTitle = sanitizeInput(formData.get('title') || 'Unknown Title');
+        const rawArtist = sanitizeInput(formData.get('artist') || 'Unknown Artist');
         const rawAlbum = sanitizeInput(formData.get('album') || `${SITENAME} Release`);
         const rawYear = sanitizeYear(formData.get('year') || new Date().getFullYear().toString());
         const rawGenre = sanitizeGenre(formData.get('genre') || 'Podcast');
