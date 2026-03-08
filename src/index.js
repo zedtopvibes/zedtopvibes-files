@@ -7,17 +7,18 @@
  * - Watermark image embedding
  * - Audio duration detection
  * - Professional UI with all metadata fields
- * - Clean filename format: "Clean Title (Example.Com).mp3"
+ * - Clean filename format: "Clean Title (Zedtopvibes.Com).mp3"
  * - Dashes are preserved in filenames
+ * - Hidden comment field (embedded in every MP3)
  * - XSS protection
  * - Proper error handling
  * - CORS support
  * 
  * @version 2.0.0
- * @author Your Brand
+ * @author Zedtopvibes.Com
  */
 
-const SITENAME = "Example.Com";
+const SITENAME = "Zedtopvibes.Com";
 const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
 const MAX_COVER_SIZE = 1024 * 1024; // 1MB for watermark
 const SUPPORTED_GENRES = [
@@ -126,24 +127,44 @@ export default {
           throw new Error('File must be an MP3 audio file');
         }
 
-        // Get and sanitize form data
-        const rawTitle = sanitizeInput(formData.get('title') || 'Unknown Title');
-        const rawArtist = sanitizeInput(formData.get('artist') || 'Unknown Artist');
-        const rawAlbum = sanitizeInput(formData.get('album') || `${SITENAME} Release`);
+        // Get and sanitize form data - NO "Unknown" defaults!
+        const rawTitle = sanitizeInput(formData.get('title') || '');
+        const rawArtist = sanitizeInput(formData.get('artist') || '');
+        const rawAlbum = sanitizeInput(formData.get('album') || '');
         const rawYear = sanitizeYear(formData.get('year') || new Date().getFullYear().toString());
         const rawGenre = sanitizeGenre(formData.get('genre') || 'Podcast');
-        const rawTrack = sanitizeTrack(formData.get('track') || '1');
-        const rawComment = sanitizeInput(formData.get('comment') || `Branded by ${SITENAME}`);
+        const rawTrack = sanitizeTrack(formData.get('track') || '');
         const duration = sanitizeDuration(formData.get('duration') || '');
         
-        // Get custom filename (NEW)
+        // Get custom filename
         const customFilename = formData.get('customFilename') || '';
 
-        // Branded metadata
-        const taggedTitle = `${rawTitle} (${SITENAME})`;
-        const taggedArtist = `${rawArtist} | ${SITENAME}`;
-        const taggedAlbum = `${rawAlbum} [${SITENAME}]`;
-        const taggedComment = `${rawComment} - Uploaded via ${SITENAME} System`;
+        // Branded metadata - with smart fallbacks
+        let taggedTitle, taggedArtist, taggedAlbum;
+
+        // Title field - if empty, use site name only
+        if (rawTitle) {
+          taggedTitle = `${rawTitle} (${SITENAME})`;
+        } else {
+          taggedTitle = `${SITENAME} Track`;
+        }
+
+        // Artist field - if empty, use site name only
+        if (rawArtist) {
+          taggedArtist = `${rawArtist} | ${SITENAME}`;
+        } else {
+          taggedArtist = SITENAME;
+        }
+
+        // Album field - if empty, leave empty
+        if (rawAlbum) {
+          taggedAlbum = rawAlbum;  // User's album name only, no branding
+        } else {
+          taggedAlbum = '';  // Empty album field
+        }
+
+        // Hidden comment - ALWAYS embedded, NOT from form
+        const taggedComment = `🎵 Discover your next favorite track at ${SITENAME}`;
 
         // Read file buffer
         const fileBuffer = await file.arrayBuffer();
@@ -175,7 +196,7 @@ export default {
           year: rawYear,
           genre: rawGenre,
           track: rawTrack,
-          comment: taggedComment,
+          comment: taggedComment,  // ← Hidden comment embedded here
           duration: duration,
           encoder: `${SITENAME} Uploader v2.0`,
           publisher: SITENAME,
@@ -190,8 +211,8 @@ export default {
           const cleanCustom = cleanWithSpaces(customFilename).substring(0, 100);
           filename = `${cleanCustom} (${SITENAME}).mp3`;
         } else {
-          // Auto-generate from title only (no artist)
-          const cleanTitle = cleanWithSpaces(rawTitle).substring(0, 100);
+          // Auto-generate from title only
+          const cleanTitle = cleanWithSpaces(rawTitle || SITENAME).substring(0, 100);
           filename = `${cleanTitle} (${SITENAME}).mp3`;
         }
 
@@ -204,9 +225,9 @@ export default {
           customMetadata: {
             uploader: SITENAME,
             uploadDate: new Date().toISOString(),
-            originalTitle: rawTitle,
-            originalArtist: rawArtist,
-            originalAlbum: rawAlbum,
+            originalTitle: rawTitle || 'none',
+            originalArtist: rawArtist || 'none',
+            originalAlbum: rawAlbum || 'none',
             genre: rawGenre,
             year: rawYear,
             version: '2.0.0'
@@ -291,7 +312,7 @@ function sanitizeGenre(genre) {
 function sanitizeTrack(track) {
   // Allow formats like "1", "1/12", "1-12"
   const trackStr = track.replace(/[^0-9/\-]/g, '').trim();
-  return trackStr || '1';
+  return trackStr || '';
 }
 
 function sanitizeDuration(duration) {
@@ -302,17 +323,15 @@ function sanitizeDuration(duration) {
 /**
  * Clean filename - keep dashes, remove other specials
  * This preserves: letters, numbers, spaces, dashes, underscores
- * Output format: "Clean Title (Site).mp3"
  */
 function cleanWithSpaces(str) {
   if (!str) return '';
   
   // Keep letters, numbers, spaces, dashes, underscores
-  // Replace everything else with a space
   return str
-    .replace(/[^a-zA-Z0-9\s\-_]/g, ' ')  // Only keep these
-    .replace(/\s+/g, ' ')                  // Normalize multiple spaces to single space
-    .trim();                                // Remove leading/trailing spaces
+    .replace(/[^a-zA-Z0-9\s\-_]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 /**
@@ -323,7 +342,7 @@ function stripExistingID3(buffer) {
   
   // Check for ID3v2 header
   if (view.length > 10 && view[0] === 0x49 && view[1] === 0x44 && view[2] === 0x33) {
-    // Decode synchsafe integer safely using multiplication to avoid bit shift issues
+    // Decode synchsafe integer safely
     const size = (view[6] * 0x200000) + (view[7] * 0x4000) + (view[8] * 0x80) + view[9];
     const tagSize = 10 + size;
     
@@ -342,15 +361,15 @@ function createCompleteID3Tags(audioBuffer, metadata) {
   const audioBytes = new Uint8Array(audioBuffer);
   const frames = [];
 
-  // --- TEXT FRAMES (all standard fields) ---
+  // --- TEXT FRAMES ---
   
-  // Core identification (required)
-  if (metadata.artist) frames.push(createTextFrame('TPE1', metadata.artist)); // Lead artist
-  if (metadata.title) frames.push(createTextFrame('TIT2', metadata.title));   // Title
-  if (metadata.album) frames.push(createTextFrame('TALB', metadata.album));   // Album
-  if (metadata.year) frames.push(createTextFrame('TYER', metadata.year));      // Year
-  if (metadata.genre) frames.push(createTextFrame('TCON', metadata.genre));    // Genre
-  if (metadata.track) frames.push(createTextFrame('TRCK', metadata.track));    // Track number
+  // Core identification
+  if (metadata.artist) frames.push(createTextFrame('TPE1', metadata.artist));
+  if (metadata.title) frames.push(createTextFrame('TIT2', metadata.title));
+  if (metadata.album) frames.push(createTextFrame('TALB', metadata.album));
+  if (metadata.year) frames.push(createTextFrame('TYER', metadata.year));
+  if (metadata.genre) frames.push(createTextFrame('TCON', metadata.genre));
+  if (metadata.track) frames.push(createTextFrame('TRCK', metadata.track));
   
   // Duration (if available)
   if (metadata.duration) {
@@ -359,16 +378,16 @@ function createCompleteID3Tags(audioBuffer, metadata) {
   
   // Additional artist info
   if (metadata.artist) {
-    frames.push(createTextFrame('TPE2', metadata.artist)); // Album artist
-    frames.push(createTextFrame('TSOP', metadata.artist)); // Artist sort order
+    frames.push(createTextFrame('TPE2', metadata.artist));
+    frames.push(createTextFrame('TSOP', metadata.artist));
   }
   
   // Technical metadata
-  if (metadata.encoder) frames.push(createTextFrame('TENC', metadata.encoder)); // Encoded by
-  if (metadata.publisher) frames.push(createTextFrame('TPUB', metadata.publisher)); // Publisher
-  if (metadata.copyright) frames.push(createTextFrame('TCOP', metadata.copyright)); // Copyright
+  if (metadata.encoder) frames.push(createTextFrame('TENC', metadata.encoder));
+  if (metadata.publisher) frames.push(createTextFrame('TPUB', metadata.publisher));
+  if (metadata.copyright) frames.push(createTextFrame('TCOP', metadata.copyright));
   
-  // Comments (special frame type)
+  // Comments - ALWAYS embedded
   if (metadata.comment) {
     frames.push(createCommentFrame(metadata.comment));
   }
@@ -389,15 +408,15 @@ function createCompleteID3Tags(audioBuffer, metadata) {
   // Calculate total frames size
   const framesSize = frames.reduce((acc, f) => acc + f.length, 0);
   
-  // Add padding (2KB recommended for future edits)
+  // Add padding (2KB recommended)
   const PADDING_SIZE = 2048;
   
   // Create ID3v2.3 header
   const header = new Uint8Array(10);
-  header.set([0x49, 0x44, 0x33, 0x03, 0x00, 0x00], 0); // "ID3", version 3, flags 0
+  header.set([0x49, 0x44, 0x33, 0x03, 0x00, 0x00], 0);
   header.set(encodeSynchsafe(framesSize + PADDING_SIZE), 6);
 
-  // Build final file: header + frames + padding + audio
+  // Build final file
   const final = new Uint8Array(10 + framesSize + PADDING_SIZE + audioBytes.length);
   final.set(header, 0);
   
@@ -407,10 +426,7 @@ function createCompleteID3Tags(audioBuffer, metadata) {
     offset += f.length;
   }
   
-  // Padding (already zeros)
   offset += PADDING_SIZE;
-  
-  // Original audio
   final.set(audioBytes, offset);
   
   return final;
@@ -423,27 +439,21 @@ function createTextFrame(frameId, value) {
   const encoder = new TextEncoder();
   const textBytes = encoder.encode(value);
   
-  // Frame: header (10) + encoding (1) + text
   const frame = new Uint8Array(10 + 1 + textBytes.length);
   
-  // Frame ID (4 bytes)
   frame.set(encoder.encode(frameId), 0);
   
-  // Frame size (big-endian 32-bit)
   const size = 1 + textBytes.length;
   frame[4] = (size >> 24) & 0xFF;
   frame[5] = (size >> 16) & 0xFF;
   frame[6] = (size >> 8) & 0xFF;
   frame[7] = size & 0xFF;
   
-  // Flags (none)
   frame[8] = 0;
   frame[9] = 0;
   
-  // Encoding: UTF-8 (0x03) - works in most modern players
-  frame[10] = 0x03;
+  frame[10] = 0x03; // UTF-8 encoding
   
-  // Text content
   frame.set(textBytes, 11);
   
   return frame;
@@ -454,41 +464,33 @@ function createTextFrame(frameId, value) {
  */
 function createCommentFrame(comment) {
   const encoder = new TextEncoder();
-  const lang = encoder.encode('eng'); // 3-byte language code
-  const description = encoder.encode('\0'); // Empty description with null
+  const lang = encoder.encode('eng');
+  const description = encoder.encode('\0');
   const textBytes = encoder.encode(comment);
   
-  // Frame size: encoding(1) + language(3) + description + text
   const size = 1 + 3 + description.length + textBytes.length;
   const frame = new Uint8Array(10 + size);
   
-  // Frame ID
   frame.set(encoder.encode('COMM'), 0);
   
-  // Frame size
   frame[4] = (size >> 24) & 0xFF;
   frame[5] = (size >> 16) & 0xFF;
   frame[6] = (size >> 8) & 0xFF;
   frame[7] = size & 0xFF;
   
-  // Flags
   frame[8] = 0;
   frame[9] = 0;
   
   let pos = 10;
   
-  // Encoding: UTF-8
-  frame[pos++] = 0x03;
+  frame[pos++] = 0x03; // UTF-8
   
-  // Language (eng)
   frame.set(lang, pos);
   pos += 3;
   
-  // Description (empty)
   frame.set(description, pos);
   pos += description.length;
   
-  // Comment text
   frame.set(textBytes, pos);
   
   return frame;
@@ -499,7 +501,7 @@ function createCommentFrame(comment) {
  */
 function createPrivateFrame(ownerId, data) {
   const encoder = new TextEncoder();
-  const ownerBytes = encoder.encode(ownerId + '\0'); // Owner identifier with null
+  const ownerBytes = encoder.encode(ownerId + '\0');
   const dataBytes = encoder.encode(data);
   
   const size = ownerBytes.length + dataBytes.length;
@@ -529,43 +531,34 @@ function createAPICFrame(coverBuffer) {
   const coverBytes = new Uint8Array(coverBuffer);
   const mime = "image/jpeg";
   const mimeBytes = encoder.encode(mime);
-  const description = new Uint8Array([0]); // Empty description with null (ISO-8859-1)
+  const description = new Uint8Array([0]);
   
-  // Frame data size: encoding(1) + mime(+null) + picType(1) + description(+null) + image
   const frameDataSize = 1 + mimeBytes.length + 1 + 1 + description.length + coverBytes.length;
   const frame = new Uint8Array(10 + frameDataSize);
   
-  // Frame ID
   frame.set(encoder.encode('APIC'), 0);
   
-  // Frame size
   frame[4] = (frameDataSize >> 24) & 0xFF;
   frame[5] = (frameDataSize >> 16) & 0xFF;
   frame[6] = (frameDataSize >> 8) & 0xFF;
   frame[7] = frameDataSize & 0xFF;
   
-  // Flags
   frame[8] = 0;
   frame[9] = 0;
   
   let pos = 10;
   
-  // Encoding: ISO-8859-1 (0x00) for max compatibility with APIC
-  frame[pos++] = 0x00;
+  frame[pos++] = 0x00; // ISO-8859-1 for APIC
   
-  // MIME type
   frame.set(mimeBytes, pos);
   pos += mimeBytes.length;
-  frame[pos++] = 0; // MIME null terminator
+  frame[pos++] = 0;
   
-  // Picture type: 0x03 = Front Cover
-  frame[pos++] = 0x03;
+  frame[pos++] = 0x03; // Front cover
   
-  // Description (empty)
   frame.set(description, pos);
   pos += description.length;
   
-  // Image data
   frame.set(coverBytes, pos);
   
   return frame;
@@ -584,7 +577,7 @@ function encodeSynchsafe(size) {
 }
 
 /**
- * Professional HTML UI with complete metadata form and custom filename field
+ * Professional HTML UI - NO COMMENT FIELD visible
  */
 function getHTML(site) {
   const safeSite = site.replace(/[<>]/g, '');
@@ -697,13 +690,14 @@ function getHTML(site) {
       letter-spacing: 0.5px;
     }
 
-    .required::after {
-      content: "*";
-      color: #e53e3e;
-      margin-left: 4px;
+    .optional {
+      font-weight: normal;
+      color: #a0aec0;
+      font-size: 11px;
+      margin-left: 5px;
     }
 
-    input, select, textarea {
+    input, select {
       width: 100%;
       padding: 12px 16px;
       border: 2px solid #e2e8f0;
@@ -714,7 +708,7 @@ function getHTML(site) {
       font-family: inherit;
     }
 
-    input:focus, select:focus, textarea:focus {
+    input:focus, select:focus {
       outline: none;
       border-color: #667eea;
       box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
@@ -832,8 +826,6 @@ function getHTML(site) {
       align-items: center;
       justify-content: center;
       gap: 10px;
-      position: relative;
-      overflow: hidden;
     }
 
     button:hover:not(:disabled) {
@@ -999,18 +991,18 @@ function getHTML(site) {
 
       <div class="form-grid">
         <div class="form-group">
-          <label class="required">🎤 Artist</label>
-          <input type="text" id="artist" placeholder="Drake" value="Unknown Artist">
+          <label>🎤 Artist <span class="optional">(optional)</span></label>
+          <input type="text" id="artist" placeholder="e.g. Drake, Yo Maps">
         </div>
 
         <div class="form-group">
-          <label class="required">📝 Title</label>
-          <input type="text" id="title" placeholder="God's Plan" value="Unknown Title">
+          <label>📝 Title <span class="optional">(optional)</span></label>
+          <input type="text" id="title" placeholder="e.g. God's Plan, Komando">
         </div>
 
         <div class="form-group">
-          <label>💿 Album</label>
-          <input type="text" id="album" placeholder="Album Name" value="${safeSite} Release">
+          <label>💿 Album <span class="optional">(optional)</span></label>
+          <input type="text" id="album" placeholder="Album name">
         </div>
 
         <div class="form-group">
@@ -1026,21 +1018,17 @@ function getHTML(site) {
         </div>
 
         <div class="form-group">
-          <label>🔢 Track</label>
-          <input type="text" id="track" placeholder="1 or 1/12" value="1">
+          <label>🔢 Track <span class="optional">(optional)</span></label>
+          <input type="text" id="track" placeholder="e.g. 1, 1/12">
         </div>
 
-        <div class="form-group full-width">
-          <label>💬 Comment</label>
-          <textarea id="comment" rows="2" placeholder="Additional comments...">Branded by ${safeSite}</textarea>
-        </div>
+        <!-- COMMENT FIELD REMOVED - HIDDEN BUT EMBEDDED INTERNALLY -->
 
-        <!-- NEW: Custom Filename Field -->
         <div class="form-group full-width">
-          <label>📛 Custom Filename</label>
-          <input type="text" id="filename" placeholder="Drake - Gods Plan (or your custom name)">
+          <label>📛 Custom Filename <span class="optional">(optional)</span></label>
+          <input type="text" id="filename" placeholder="e.g. Drake - Gods Plan">
           <small style="color: #718096; font-size: 12px; margin-top: 4px; display: block;">
-            Leave empty to auto-generate from Title only • Dashes are preserved
+            Leave empty to auto-generate • Dashes are preserved
           </small>
         </div>
 
@@ -1063,7 +1051,7 @@ function getHTML(site) {
 
       <button id="uploadBtn" disabled>
         <span>⬆️</span>
-        Process & Upload MP3
+        Upload to ${safeSite}
       </button>
 
       <div id="result"></div>
@@ -1074,7 +1062,7 @@ function getHTML(site) {
         <span class="feature-tag">✨ Complete ID3 Tags</span>
         <span class="feature-tag">📦 15MB Limit</span>
         <span class="feature-tag">🖼️ Watermark Support</span>
-        <span class="feature-tag">📛 Clean Filenames</span>
+        <span class="feature-tag">📛 Custom Filenames</span>
       </div>
     </div>
   </div>
@@ -1089,7 +1077,6 @@ function getHTML(site) {
     // Initialize AudioContext
     try {
       audioContext = new (window.AudioContext || window.webkitAudioContext)();
-      // Resume on user interaction
       document.addEventListener('click', () => {
         if (audioContext && audioContext.state === 'suspended') {
           audioContext.resume();
@@ -1111,17 +1098,15 @@ function getHTML(site) {
 
     // Update filename preview
     function updateFilenamePreview() {
-      const title = titleInput.value.trim() || 'Unknown Title';
+      const title = titleInput.value.trim() || SITENAME;
       const custom = filenameInput.value.trim();
       
       let preview;
       if (custom) {
-        // Clean custom filename (simulate server-side cleaning)
         preview = custom.replace(/[^a-zA-Z0-9\\s\\-_]/g, ' ').replace(/\\s+/g, ' ').trim();
         preview = preview.substring(0, 100);
         preview = \`\${preview} (\${SITENAME}).mp3\`;
       } else {
-        // Clean title
         preview = title.replace(/[^a-zA-Z0-9\\s\\-_]/g, ' ').replace(/\\s+/g, ' ').trim();
         preview = preview.substring(0, 100);
         preview = \`\${preview} (\${SITENAME}).mp3\`;
@@ -1144,7 +1129,6 @@ function getHTML(site) {
         return;
       }
 
-      // Basic validation
       if (!file.name.toLowerCase().endsWith('.mp3')) {
         showFileInfo('❌ File must be an MP3 audio file', 'warning');
         uploadBtn.disabled = true;
@@ -1157,11 +1141,9 @@ function getHTML(site) {
         return;
       }
 
-      // Show file info
       const sizeMB = (file.size / 1024 / 1024).toFixed(2);
       showFileInfo(\`📊 File: \${file.name}\\n📦 Size: \${sizeMB}MB\\n⏱️ Analyzing duration...\`, 'info');
 
-      // Try to get duration
       if (audioContext) {
         try {
           const buffer = await file.arrayBuffer();
@@ -1170,7 +1152,6 @@ function getHTML(site) {
           const durationStr = formatDuration(decoded.duration);
           showFileInfo(\`📊 File: \${file.name}\\n📦 Size: \${sizeMB}MB\\n⏱️ Duration: \${durationStr}\`, 'success');
         } catch (err) {
-          console.warn('Could not decode duration:', err);
           showFileInfo(\`📊 File: \${file.name}\\n📦 Size: \${sizeMB}MB\\n⏱️ Duration: Unknown\`, 'info');
         }
       } else {
@@ -1211,39 +1192,24 @@ function getHTML(site) {
         return;
       }
 
-      // Double-check size
       if (file.size > MAX_SIZE) {
         alert('File too large (max 15MB)');
         return;
       }
 
-      // Validate required fields
-      const artist = document.getElementById('artist').value.trim();
-      const title = document.getElementById('title').value.trim();
-      
-      if (!artist) {
-        alert('Please enter an artist name');
-        return;
-      }
-      if (!title) {
-        alert('Please enter a title');
-        return;
-      }
-
-      // Get form values
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('artist', artist);
-      formData.append('title', title);
+      formData.append('artist', document.getElementById('artist').value.trim());
+      formData.append('title', document.getElementById('title').value.trim());
       formData.append('album', document.getElementById('album').value.trim());
       formData.append('year', document.getElementById('year').value.trim());
       formData.append('genre', document.getElementById('genre').value);
       formData.append('track', document.getElementById('track').value.trim());
-      formData.append('comment', document.getElementById('comment').value.trim());
       formData.append('duration', durationMs);
       formData.append('customFilename', filenameInput.value.trim());
 
-      // Disable button and show progress
+      // NO COMMENT FIELD in form data
+
       const btn = document.getElementById('uploadBtn');
       const originalText = btn.innerHTML;
       btn.innerHTML = '<span>⏳</span> Processing...';
@@ -1262,7 +1228,6 @@ function getHTML(site) {
         if (data.success) {
           const fullUrl = window.location.origin + data.url;
           
-          // Build metadata summary
           const metadataItems = [
             { label: 'Title', value: data.metadata.title },
             { label: 'Artist', value: data.metadata.artist },
@@ -1311,11 +1276,9 @@ function getHTML(site) {
       }
     });
 
-    // Copy to clipboard function
     window.copyToClipboard = (text) => {
       navigator.clipboard.writeText(text).then(
         () => {
-          // Show temporary success message
           const btn = document.querySelector('.copy-btn');
           const originalText = btn.innerHTML;
           btn.innerHTML = '<span>✅</span> Copied!';
@@ -1329,12 +1292,12 @@ function getHTML(site) {
 
     // Load demo data if ?demo=true
     if (window.location.search.includes('demo')) {
-      document.getElementById('artist').value = 'Drake';
-      document.getElementById('title').value = "God's Plan";
-      document.getElementById('album').value = 'Scorpion';
-      document.getElementById('year').value = '2018';
-      document.getElementById('track').value = '4/25';
-      document.getElementById('genre').value = 'Hip-Hop';
+      document.getElementById('artist').value = 'Yo Maps';
+      document.getElementById('title').value = "Komando";
+      document.getElementById('album').value = 'Komando Album';
+      document.getElementById('year').value = '2024';
+      document.getElementById('track').value = '1';
+      document.getElementById('genre').value = 'Afrobeats';
       updateFilenamePreview();
     }
   </script>
